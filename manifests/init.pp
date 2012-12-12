@@ -11,6 +11,10 @@
 # Requires:
 #
 # Sample Usage: adding "mode=maintenance" as a parameter will stop this module
+# Create Light Fwd   : class { 'splunk' type => 'lwf' }
+# Create Indexer     : class { 'splunk' type => 'indexer' }
+# Create Search Head : class { 'splunk' type => 'search' }
+# Create Heavy Fwd   : class { 'splunk' type => 'collector' }
 #
 # [Remember: No empty lines between comments and class definition]
 class splunk (
@@ -33,13 +37,6 @@ File {ignore => '.svn', require => Package['splunk'] }
 # TransGaming manifest
 # at https://github.com/TransGaming/puppet/blob/master/splunk
 #
-# Defined Variables for use in SVN Application Checkouts
-####
-$CONFIGVERSION = '229'
-$COLLECTORVERSION = '162'
-$MOMVERSION = '217'
-$MAPSVERSION = '114'
-####
 
   class { 'splunk::packages': } ->
   class { 'splunk::files': }    ->
