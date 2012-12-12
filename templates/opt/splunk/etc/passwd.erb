@@ -1,0 +1,6 @@
+<%= splunkadmin %>
+<% if scope.lookupvar('unsg_splunk::type') == 'search' and localusers != :undef then -%>
+<%     localusers.each do |user| -%>
+<%= user %>
+<%     end -%>
+<% end -%>

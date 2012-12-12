@@ -1,0 +1,163 @@
+# UNSG Harvard inputs.conf file
+# Managed through Puppet
+[default]
+host = <%= fqdn %>
+
+[script://./bin/vmstat.sh]
+index = ns-os
+disabled = 0
+
+[script://./bin/iostat.sh]
+index = ns-os
+disabled = 0
+
+[script://./bin/ps.sh]
+index = ns-os
+disabled = true
+
+[script://./bin/top.sh]
+index = ns-os
+disabled = 0
+
+[script://./bin/netstat.sh]
+index = ns-os
+disabled = 0
+
+[script://./bin/protocol.sh]
+index = ns-os
+disabled = 0
+
+[script://./bin/openPorts.sh]
+index = ns-os
+disabled = 0
+
+[script://./bin/time.sh]
+index = ns-os
+disabled = 0
+
+[script://./bin/lsof.sh]
+index = ns-os
+disabled = true
+
+[script://./bin/df.sh]
+index = ns-os
+disabled = 0
+
+# Shows current user sessions
+[script://./bin/who.sh]
+index = ns-os
+disabled = 0
+
+# Lists users who could login (i.e., they are assigned a login shell)
+[script://./bin/usersWithLoginPrivs.sh]
+index = ns-os
+disabled = 0
+
+# Shows last login time for users who have ever logged in
+[script://./bin/lastlog.sh]
+index = ns-os
+disabled = 0
+
+# Shows stats per link-level Etherner interface (simply, NIC)
+[script://./bin/interfaces.sh]
+index = ns-os
+disabled = 0
+
+# Shows stats per CPU (useful for SMP machines)
+[script://./bin/cpu.sh]
+index = ns-os
+disabled = 0
+
+# This script reads the auditd logs translated with ausearch
+[script://./bin/rlog.sh]
+index = ns-os
+disabled = 0
+
+# Run package management tool collect installed packages
+[script://./bin/package.sh]
+index = ns-os
+disabled = 0
+
+[script://./bin/hardware.sh]
+index = ns-os
+disabled = 0
+
+# Watch /etc for file changes
+[fschange:/etc]
+index = ns-os
+disabled = 0
+
+[monitor://~/Library/Logs]
+index = ns-os
+disabled = 0
+
+[monitor:///Library/Logs]
+index = ns-os
+disabled = 0
+
+[monitor:///var/log]
+index = ns-os
+whitelist=*
+blacklist=/var/log/syslog-ng/old/
+disabled = 0
+
+[monitor:///etc]
+blacklist = (puppet)
+index = ns-os
+disabled = 0
+
+[monitor:///var/ossec/logs/alerts/]
+index = ns-os
+sourcetype = ossec_alerts
+disabled = 0
+
+# Radius is effected by a ERB template see template file in puppet
+[monitor:///var/log/radius/*]
+<% if classes.include?('unsg_radtac') or classes.include?('tacacs_servers') -%>
+<%= 'index = tacacs' %>
+<% else -%>
+index = radius
+sourcetype = radiator
+<% end -%>
+disabled = 0
+
+<% if hostname =~ /cnrdhcp(.*)/ -%>
+# DHCP Inputs added by puppet ERB Template
+[monitor:///var/nwreg2/local/logs]
+disabled=false
+sourcetype=dhcp
+index=dhcp
+<% end -%>
+
+<% if classes.include?('unsg_autoreg') -%>
+# Autoreg Inputs added by puppet ERB Template
+[monitor:///var/log/autoreg/*]
+sourcetype = autoreg
+index = ns-os
+disabled = 0
+<% end -%>
+
+<% if classes.include?('nocportal') -%>
+[monitor:///var/log/netreg/netreg.log]
+sourcetype = netreg
+index = ns-os
+disabled = 0
+<% end -%>
+
+<% if classes.include?('unsg_nagios') -%>
+# Nagios Inputs added by puppet ERB Template
+[monitor:///var/log/nagios/nagios.log]
+sourcetype = nagios
+index = nagios
+disabled = 0
+
+[monitor:///var/log/nagios/host-perfdata]
+sourcetype = nagioshostperf
+index = nagios
+disabled = 0
+
+[monitor:///var/log/nagios/service-perfdata]
+sourcetype = nagiosserviceperf
+index = nagios
+disabled = 0
+<% end -%>

@@ -1,0 +1,340 @@
+#### THIS FILE MANAGED BY PUPPET ####
+[default]
+maxRunningProcessGroups = 20
+
+### Overide Defaults for main index /default
+[main]
+frozenTimePeriodInSecs = 7776000
+
+### Development index - 7 day retention
+[dev]
+homePath = $SPLUNK_DB/dev/db
+coldPath = $SPLUNK_DB/dev/colddb
+thawedPath = $SPLUNK_DB/dev/thaweddb
+frozenTimePeriodInSecs = 604800
+
+### All Cisco routers and switches
+[cisco]
+homePath = $SPLUNK_DB/cisco/db
+coldPath = $SPLUNK_DB/cisco/colddb
+thawedPath = $SPLUNK_DB/cisco/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### IB DHCP logs
+[dhcp]
+homePath = $SPLUNK_DB/dhcp/db
+coldPath = $SPLUNK_DB/dhcp/colddb
+thawedPath = $SPLUNK_DB/dhcp/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### IB DNS logs
+[dns]
+homePath = $SPLUNK_DB/dns/db
+coldPath = /mnt/splunk/dns/colddb
+thawedPath = $SPLUNK_DB/dns/thaweddb
+homePath.maxDataSizeMB = 102400
+frozenTimePeriodInSecs = 3888000
+#frozenTimePeriodInSecs = 7776000
+
+[fas-ham]
+homePath = $SPLUNK_DB/fas-ham/db
+coldPath = $SPLUNK_DB/fas-ham/colddb
+thawedPath = $SPLUNK_DB/fas-ham/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[fas-weblogs]
+homePath = $SPLUNK_DB/fas-weblogs/db
+coldPath = $SPLUNK_DB/fas-weblogs/colddb
+thawedPath = $SPLUNK_DB/fas-weblogs/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[fas-windows]
+homePath = $SPLUNK_DB/fas-windows/db
+coldPath = $SPLUNK_DB/fas-windows/colddb
+thawedPath = $SPLUNK_DB/fas-windows/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[fly]
+homePath = $SPLUNK_DB/fly/db
+maxTotalDataSizeMB = 50000
+coldPath = $SPLUNK_DB/fly/colddb
+thawedPath = $SPLUNK_DB/fly/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### Cisco FWSM logs
+[fwsm]
+homePath = $SPLUNK_DB/fwsm/db
+coldPath = $SPLUNK_DB/fwsm/colddb
+thawedPath = $SPLUNK_DB/fwsm/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### Cisco FWSM statistics from Expect scripts
+[fwsm_stats]
+homePath = $SPLUNK_DB/fwsm_stats/db
+coldPath = $SPLUNK_DB/fwsm_stats/colddb
+thawedPath = $SPLUNK_DB/fwsm_stats/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### Cisco FWSM performance logs from Expect scripts
+[fwsm_performance]
+homePath = $SPLUNK_DB/fwsm_performance/db
+coldPath = $SPLUNK_DB/fwsm_performance/colddb
+thawedPath = $SPLUNK_DB/fwsm_performance/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[hcl]
+homePath = $SPLUNK_DB/hcl/db
+coldPath = $SPLUNK_DB/hcl/colddb
+thawedPath = $SPLUNK_DB/hcl/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### HKS Server Logs
+[hks-os]
+homePath = $SPLUNK_DB/hks-os/db
+coldPath = $SPLUNK_DB/hks-os/colddb
+thawedPath = $SPLUNK_DB/hks-os/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[hks-wintel]
+homePath = $SPLUNK_DB/hks-wintel/db
+coldPath = $SPLUNK_DB/hks-wintel/colddb
+thawedPath = $SPLUNK_DB/hks-wintel/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### Harvard University Directory Server Logs
+[huds]
+homePath = $SPLUNK_DB/huds/db
+coldPath = $SPLUNK_DB/huds/colddb
+thawedPath = $SPLUNK_DB/huds/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[imperva]
+homePath = $SPLUNK_DB/imperva/db
+coldPath = $SPLUNK_DB/imperva/colddb
+thawedPath = $SPLUNK_DB/imperva/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### All non-DNS and non-DHCP logs from IB
+[infoblox]
+homePath = $SPLUNK_DB/infoblox/db
+disabled = 0
+coldPath = $SPLUNK_DB/infoblox/colddb
+thawedPath = $SPLUNK_DB/infoblox/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[krb5kdc-2]
+homePath = $SPLUNK_DB/krb5kdc-2/db
+coldPath = $SPLUNK_DB/krb5kdc-2/colddb
+thawedPath = $SPLUNK_DB/krb5kdc-2/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### Legacy MRTG logs, to be removed after migration is complete
+[mrtg-1]
+thawedPath = $SPLUNK_DB/mrtg-1/thaweddb
+disabled = 0
+homePath = $SPLUNK_DB/mrtg-1/db
+coldPath = $SPLUNK_DB/mrtg-1/colddb
+maxTotalDataSizeMB = 200000
+frozenTimePeriodInSecs = 86400
+
+### Legacy MRTG logs, to be removed after migration is complete
+[mrtg-2]
+thawedPath = $SPLUNK_DB/mrtg-2/thaweddb
+disabled = 0
+homePath = $SPLUNK_DB/mrtg-2/db
+coldPath = $SPLUNK_DB/mrtg-2/colddb
+maxTotalDataSizeMB = 200000
+frozenTimePeriodInSecs = 86400
+
+### Nagios app logs
+[nagios]
+coldPath = $SPLUNK_DB/nagios/colddb
+homePath = $SPLUNK_DB/nagios/db
+thawedPath = $SPLUNK_DB/nagios/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[ns-os]
+homePath = $SPLUNK_DB/ns-os/db
+coldPath = $SPLUNK_DB/ns-os/colddb
+thawedPath = $SPLUNK_DB/ns-os/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### All NTP logs
+[ntp]
+coldPath = $SPLUNK_DB/ntp/colddb
+homePath = $SPLUNK_DB/ntp/db
+thawedPath = $SPLUNK_DB/ntp/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[os]
+frozenTimePeriodInSecs = 7776000
+
+[radius]
+homePath = $SPLUNK_DB/radius/db
+maxTotalDataSizeMB = 200000
+coldPath = $SPLUNK_DB/radius/colddb
+thawedPath = $SPLUNK_DB/radius/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[rsa]
+homePath = $SPLUNK_DB/rsa/db
+maxTotalDataSizeMB = 200000
+coldPath = $SPLUNK_DB/rsa/colddb
+thawedPath = $SPLUNK_DB/rsa/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[rhds]
+homePath = $SPLUNK_DB/rhds/db
+maxTotalDataSizeMB = 200000
+coldPath = $SPLUNK_DB/rhds/colddb
+thawedPath = $SPLUNK_DB/rhds/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### SEAS 
+[seas-it-win]
+homePath = $SPLUNK_DB/seas-it-win/db
+coldPath = $SPLUNK_DB/seas-it-win/colddb
+thawedPath = $SPLUNK_DB/seas-it-win/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[seas-rc]
+homePath = $SPLUNK_DB/seas-rc/db
+coldPath = $SPLUNK_DB/seas-rc/colddb
+thawedPath = $SPLUNK_DB/seas-rc/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[seas-ds]
+homePath = $SPLUNK_DB/seas-ds/db
+coldPath = $SPLUNK_DB/seas-ds/colddb
+thawedPath = $SPLUNK_DB/seas-ds/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[sec-main]
+homePath = $SPLUNK_DB/sec-main/db
+coldPath = $SPLUNK_DB/sec-main/colddb
+thawedPath = $SPLUNK_DB/sec-main/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### SLB connection stats from Epect scripts
+[slb_connections]
+homePath = $SPLUNK_DB/slb_connections/db
+coldPath = $SPLUNK_DB/slb_connections/colddb
+thawedPath = $SPLUNK_DB/slb_connections/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[soc-dba]
+homePath = $SPLUNK_DB/soc-dba/db
+coldPath = $SPLUNK_DB/soc-dba/colddb
+thawedPath = $SPLUNK_DB/soc-dba/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[soc-isites]
+homePath = $SPLUNK_DB/soc-isites/db
+coldPath = $SPLUNK_DB/soc-isites/colddb
+thawedPath = $SPLUNK_DB/soc-isites/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[soc-unix]
+homePath = $SPLUNK_DB/soc-unix/db
+coldPath = $SPLUNK_DB/soc-unix/colddb
+thawedPath = $SPLUNK_DB/soc-unix/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[soc-wintel]
+homePath = $SPLUNK_DB/soc-wintel/db
+coldPath = $SPLUNK_DB/soc-wintel/colddb
+thawedPath = $SPLUNK_DB/soc-wintel/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### Sourcefire logs for events only
+[sourcefire]
+homePath = $SPLUNK_DB/sourcefire/db
+coldPath = $SPLUNK_DB/sourcefire/colddb
+thawedPath = $SPLUNK_DB/sourcefire/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### Stealthwatch alerts
+[stealthwatch]
+homePath = $SPLUNK_DB/stealthwatch/db
+coldPath = $SPLUNK_DB/stealthwatch/colddb
+thawedPath = $SPLUNK_DB/stealthwatch/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### Ideally, this should be empty.  Legacy index for systems syslogs.
+[syslog]
+homePath = $SPLUNK_DB/syslog/db
+coldPath = $SPLUNK_DB/syslog/colddb
+thawedPath = $SPLUNK_DB/syslog/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### TACACS and RADIUS logs
+[tacacs]
+homePath = $SPLUNK_DB/tacacs/db
+coldPath = $SPLUNK_DB/tacacs/colddb
+thawedPath = $SPLUNK_DB/tacacs/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### SNMP Traps from all host types
+[traps]
+coldPath = $SPLUNK_DB/traps/colddb
+homePath = $SPLUNK_DB/traps/db
+thawedPath = $SPLUNK_DB/traps/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### MAC Address change traps
+[traps_mac]
+coldPath = $SPLUNK_DB/traps_mac/colddb
+homePath = $SPLUNK_DB/traps_mac/db
+thawedPath = $SPLUNK_DB/traps_mac/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### vmware app
+[vmware]
+homePath = $SPLUNK_DB/vmware/db
+coldPath = $SPLUNK_DB/vmware/colddb
+thawedPath = $SPLUNK_DB/vmware/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### Cicso VPN / ASA logs
+[vpn]
+homePath = $SPLUNK_DB/vpn/db
+coldPath = $SPLUNK_DB/vpn/colddb
+thawedPath = $SPLUNK_DB/vpn/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### VPN access logs from Expect scripts
+[vpn_access]
+homePath = $SPLUNK_DB/vpn_access/db
+coldPath = $SPLUNK_DB/vpn_access/colddb
+thawedPath = $SPLUNK_DB/vpn_access/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[weblog]
+homePath = $SPLUNK_DB/weblog/db
+coldPath = $SPLUNK_DB/weblog/colddb
+thawedPath = $SPLUNK_DB/weblog/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### Syslogs from the WiSMs (WLC)
+[wism]
+homePath = $SPLUNK_DB/wism/db
+disabled = 0
+coldPath = $SPLUNK_DB/wism/colddb
+thawedPath = $SPLUNK_DB/wism/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+### WiSM MAC Address tables from Expect scripts
+[wism_macs]
+homePath = $SPLUNK_DB/wism_macs/db
+disabled = 0
+coldPath = $SPLUNK_DB/wism_macs/colddb
+thawedPath = $SPLUNK_DB/wism_macs/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+[wmi]
+homePath = $SPLUNK_DB/wmi/db
+coldPath = $SPLUNK_DB/wmi/colddb
+thawedPath = $SPLUNK_DB/wmi/thaweddb
+frozenTimePeriodInSecs = 7776000
+
+#### THIS FILE MANAGED BY PUPPET ####

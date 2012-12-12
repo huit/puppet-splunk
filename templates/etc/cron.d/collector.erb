@@ -1,0 +1,11 @@
+#### THIS FILE MANAGED BY PUPPET ####
+### These cron entries run every five minutes, spaced a minute apart
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * splunk /opt/splunk/etc/apps/collector/bin/vpn_sessiondb.pl     > /dev/null 2>&1
+#1,6,11,16,21,26,31,36,41,46,51,56 * * * * splunk /opt/splunk/etc/apps/collector/bin/slb_connections.pl   > /dev/null 2>&1
+#2,7,12,17,22,27,32,37,42,47,52,57 * * * * splunk /opt/splunk/etc/apps/collector/bin/fwsm_stats.pl        > /dev/null 2>&1
+3,8,13,18,23,28,33,38,43,48,53,58 * * * * splunk /opt/splunk/etc/apps/collector/bin/fwsm_traffic_flow.pl > /dev/null 2>&1
+4,9,14,19,24,29,34,39,44,49,54,59 * * * * splunk /opt/splunk/etc/apps/collector/bin/wism_mac_table.pl    > /dev/null 2>&1
+### Remove the com.* and err.* logs once a month
+* * * 1 * rm -f /opt/splunk/etc/apps/collector/logs/com.*
+* * * 1 * rm -f /opt/splunk/etc/apps/collector/logs/err.*
+#### THIS FILE MANAGED BY PUPPET ####

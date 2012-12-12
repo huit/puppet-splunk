@@ -1,0 +1,107 @@
+import socket
+import csv,sys
+import urllib
+import json
+##### CHANGE PATH TO your distribution FIRST ############
+#sys.path.append("/usr/lib/python2.6/site-packages/redis-2.0.0-py2.6.egg")
+sys.path.append("/usr/lib/python/site-packages/")
+import redis
+#
+# Version 1.0 of huis.py Splunk Lookup Script
+# Tim Hartmann 11.2.2010
+#
+# Changelog
+#
+
+SERVER="netopf.noc.harvard.edu"
+REDISSERVER="<%= collector -%>"
+PORT=43
+ARGS='-j -a'
+
+# Define function to connect to nc / huis server and return data
+# Given a huis lookup, return the response. First check redis and then huis
+def netcat(redp, hostname, port, args,content):
+    try:
+        # if key exists, then try to get the content with a hgetall <key>
+        ret = redp.hgetall(content)
+        if redp.exists(content):
+            if ret!=None and ret!='':
+                return ret
+        else:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            s.connect((hostname, port))
+            s.sendall(args+content)
+            s.shutdown(socket.SHUT_WR)
+            while 1:
+                data = s.recv(1024)
+                if data == "":
+                    break
+                # dret var is a hack to get a dict in the output 
+                data = json.loads(data)
+                # NEED AN ERROR CLAUSE HERE, unresolvavle hosts crash the script
+                if data!='':
+                # loop through the JSON hash and shove it into a redis hash
+                    for key,value in data.iteritems():
+                        if value == None:
+                            value = 'NA'
+                        redp.hset(content, key, value)
+                        redp.expire(content, 3300)
+                dret = redp.hgetall(content)
+            return dret
+            s.close()
+    except:
+            return 
+
+# Connect and get some data
+def main():
+    if len(sys.argv) != 2:
+        print "Usage: python huis.py [host field]"
+        sys.exit(0)
+
+# Connect to redis CHANGE for your DISTRIBTUION
+    red = None
+    red = redis.Redis(host=REDISSERVER, port=6379, db=0,)
+
+    fields = netcat(red, SERVER, PORT,ARGS, SERVER).keys()
+    hostf = sys.argv[1]
+
+    r = csv.reader(sys.stdin)
+    w = None
+    header = []
+    first = True
+
+    for line in r:
+        if first:
+            header = line+fields
+            if hostf not in header:
+                print "Host field must exist in CSV data"
+                sys.exit(0)
+            csv.writer(sys.stdout).writerow(header)
+            w = csv.DictWriter(sys.stdout, header)
+            first = False
+            continue
+
+        # Read the result
+        result = {}
+        i = 0
+        while i < len(header):
+            if i < len(line):
+                result[header[i]] = line[i]
+            else:
+                result[header[i]] = ''
+            i += 1
+
+        #Perform the lookup if necessary
+        if len(result[hostf]) and len(result['ip']):
+            w.writerow(result)
+
+        elif len(result[hostf]):
+            huis = netcat(red, SERVER, PORT, ARGS ,result[hostf])
+            if huis:
+                for key in huis.iterkeys():
+                    result[key] = huis[key]
+            w.writerow(result)
+
+
+main()
+

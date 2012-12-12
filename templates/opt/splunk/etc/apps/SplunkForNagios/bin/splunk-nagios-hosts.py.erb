@@ -1,0 +1,5 @@
+#### THIS FILE MANAGED BY PUPPET ####
+# Display all devices in nagios
+import os
+os.system("/usr/bin/nc <%= nagiosserver -%> 6557 < nagios-hosts")
+#### THIS FILE MANAGED BY PUPPET ####

@@ -1,0 +1,18 @@
+#### THIS FILE MANAGED BY PUPPET ####
+[tcpout]
+<% if hostname =~ /splunkcollector(.*)-10wa/ -%>
+<%= 'defaultGroup = splunk-10wa' %>
+<% elsif hostname =~ /splunkcollector(.*)-60ox/ -%>
+<%= 'defaultGroup = splunk-60ox' %>
+<% else -%>
+defaultGroup = splunk-10wa,splunk-60ox
+<% end -%>
+disabled = false
+
+[tcpout:splunk-10wa]
+server = splunkindex-10wa.noc.harvard.edu:50514
+
+[tcpout:splunk-60ox]
+server = splunkindex-60ox.noc.harvard.edu:50514
+
+#### THIS FILE MANAGED BY PUPPET ####

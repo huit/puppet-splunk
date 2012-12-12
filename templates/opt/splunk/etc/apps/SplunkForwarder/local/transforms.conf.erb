@@ -1,0 +1,11 @@
+#### THIS FILE MANAGED BY PUPPET ####
+[dhcp_index]
+REGEX = (named)
+DEST_KEY = _MetaData:Index
+FORMAT = dns
+
+[dns_index]
+REGEX = (dhcpd)
+DEST_KEY = _MetaData:Index
+FORMAT = dhcp
+#### THIS FILE MANAGED BY PUPPET ####

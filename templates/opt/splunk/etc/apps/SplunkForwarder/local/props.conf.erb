@@ -1,0 +1,13 @@
+#### THIS FILE MANAGED BY PUPPET ####
+
+[source::/var/log/syslog-ng/*]
+SHOULD_LINEMERGE = false
+TRANSFORMS=syslog-host
+
+[source::/var/log/syslog-ng/tacacs]
+TZ=UTC
+
+[source::/var/log/syslog-ng/infoblox]
+TRANSFORMS-index=dhcp_index,dns_index
+
+#### THIS FILE MANAGED BY PUPPET ####
