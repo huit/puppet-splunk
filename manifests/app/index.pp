@@ -1,8 +1,7 @@
 class splunk::app::index (
-  $mb  = $::splunk::mb,
-  $sms = $::splunk::sms
+  $nagios_contacts = $::splunk::params::nagios_contacts
 ) {
-File { ignore => '.svn' }
+  File { ignore => '.svn' }
   file {
     # Create file to tell Networker to ignore the DB Directory
     '/opt/splunk/var/lib/': ensure => directory;
@@ -16,14 +15,16 @@ File { ignore => '.svn' }
       mode    => '0400',
   }
 
-  # Nagios Service Check
-  @@nagios_service { "check_tcp50514_$::hostname":
-    use                 => 'default-service',
-    check_command       => 'check_tcp!50514',
-    host_name           => "$::fqdn",
-    contacts            => "$mb-email,$sms",
-    service_description => 'Splunk Input Port',
-    notify              => Service['nagios'],
-    tag                 => "$::environment",
+  if $::splunk::app::index::nagios_contacts {
+    # Nagios Service Check
+    @@nagios_service { "check_tcp50514_${::hostname}":
+      use                 => 'default-service',
+      check_command       => 'check_tcp!50514',
+      host_name           => $::fqdn,
+      contacts            => $nagios_contacts,
+      service_description => 'Splunk Input Port',
+      notify              => Service['nagios'],
+      tag                 => $::environment,
+    }
   }
 }

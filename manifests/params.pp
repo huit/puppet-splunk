@@ -3,6 +3,7 @@ class splunk::params {
   $COLLECTORVERSION = '162'
   $MOMVERSION       = '217'
   $MAPSVERSION      = '114'
+  $nagios_contacts  = false
   $splunkadmin      = $::unsg_common::splunkadmin
   $localusers       = $::unsg_common::splunklocal
   $proxyserver      = $::unsg_common::proxyserver
@@ -13,7 +14,7 @@ class splunk::params {
   $vcsurl           = 'https://svn.noc.harvard.edu/unsg'
   $type             = undef
 
-  if ( $::environment == development ) {
+  if ( $::environment == 'development' ) {
     $nagiosserver = $::unsg_common::nagios_dev
   } else {
     $nagiosserver = $::unsg_common::nagiosserver

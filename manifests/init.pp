@@ -1,16 +1,16 @@
 # Class: splunk
 #
-# This module manages splunk forwarders, Light Forwarders,
+# This module manages Splunk forwarders, Light Forwarders,
 # Indexers and Search heads
 #
 # Parameters:
-# This Module has "Maintence Mode"
+# This Module has "Maintenance Mode"
 #
 # Actions:
 #
 # Requires:
 #
-# Sample Usage: adding "mode=maintence" as a paramater will stop this module
+# Sample Usage: adding "mode=maintenance" as a parameter will stop this module
 #
 # [Remember: No empty lines between comments and class definition]
 class splunk (
