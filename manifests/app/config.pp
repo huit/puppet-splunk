@@ -1,4 +1,4 @@
-class unsg_splunk::app::config {
+class splunk::app::config {
   $apppath = '/opt/splunk/etc/apps/config'
 
   package { 'splunk-config':
@@ -15,6 +15,6 @@ class unsg_splunk::app::config {
     mode    => '0644',
     require => Package['splunk', 'splunk-config'],
     notify  => Service['splunk'],
-    content => template("$::unsg_splunk::mod$apppath/default/indexes.conf.erb");
+    content => template("$::splunk::mod$apppath/default/indexes.conf.erb");
   }
 }

@@ -1,4 +1,4 @@
-class unsg_splunk::app::nagios {
+class splunk::app::nagios {
   File { notify => Service['splunk'], require => Package['splunk-nagios'] }
 
   $apppath = '/opt/splunk/etc/apps/SplunkForNagios'
@@ -16,7 +16,7 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/livehostsdownstatus.py.erb");
+      content => template("$::splunk::mod$apppath/bin/livehostsdownstatus.py.erb");
 
     'livehostsupstatus.py':
       ensure  => 'present',
@@ -24,7 +24,7 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/livehostsupstatus.py.erb");
+      content => template("$::splunk::mod$apppath/bin/livehostsupstatus.py.erb");
 
     'liveservicestate.py':
       ensure  => 'present',
@@ -32,7 +32,7 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/liveservicestate.py.erb");
+      content => template("$::splunk::mod$apppath/bin/liveservicestate.py.erb");
 
     'liveserviceokstatus.py':
       ensure  => 'present',
@@ -40,7 +40,7 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/liveserviceokstatus.py.erb");
+      content => template("$::splunk::mod$apppath/bin/liveserviceokstatus.py.erb");
 
     'liveservicecriticalstatus.py':
       ensure  => 'present',
@@ -48,7 +48,7 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/liveservicecriticalstatus.py.erb");
+      content => template("$::splunk::mod$apppath/bin/liveservicecriticalstatus.py.erb");
 
     'liveserviceunknownstatus.py':
       ensure  => 'present',
@@ -56,7 +56,7 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/liveserviceunknownstatus.py.erb");
+      content => template("$::splunk::mod$apppath/bin/liveserviceunknownstatus.py.erb");
 
     'livehostsunreachablestatus.py':
       ensure  => 'present',
@@ -64,7 +64,7 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/livehostsunreachablestatus.py.erb");
+      content => template("$::splunk::mod$apppath/bin/livehostsunreachablestatus.py.erb");
 
     'liveservicewarningstatus.py':
       ensure  => 'present',
@@ -72,7 +72,7 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/liveservicewarningstatus.py.erb");
+      content => template("$::splunk::mod$apppath/bin/liveservicewarningstatus.py.erb");
 
     'splunk-nagios-hosts.py':
       ensure  => 'present',
@@ -80,7 +80,7 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/splunk-nagios-hosts.py.erb");
+      content => template("$::splunk::mod$apppath/bin/splunk-nagios-hosts.py.erb");
 
     'splunk-nagios-hostgroupmembers.sh':
       ensure  => 'present',
@@ -88,7 +88,7 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/splunk-nagios-hostgroupmembers.sh.erb");
+      content => template("$::splunk::mod$apppath/bin/splunk-nagios-hostgroupmembers.sh.erb");
 
     'splunk-nagios-servicegroupmembers.sh':
       ensure  => 'present',
@@ -96,6 +96,6 @@ class unsg_splunk::app::nagios {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0755',
-      content => template("$::unsg_splunk::mod$apppath/bin/splunk-nagios-servicegroupmembers.sh.erb"),
+      content => template("$::splunk::mod$apppath/bin/splunk-nagios-servicegroupmembers.sh.erb"),
   }
 }

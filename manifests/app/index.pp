@@ -1,6 +1,6 @@
-class unsg_splunk::app::index (
-  $mb  = $::unsg_splunk::mb,
-  $sms = $::unsg_splunk::sms
+class splunk::app::index (
+  $mb  = $::splunk::mb,
+  $sms = $::splunk::sms
 ) {
 File { ignore => '.svn' }
   file {

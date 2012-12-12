@@ -1,4 +1,4 @@
-class unsg_splunk::app::unix {
+class splunk::app::unix {
 
   $apppath = '/opt/splunk/etc/apps/unix/local'
 
@@ -19,7 +19,7 @@ class unsg_splunk::app::unix {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0644',
-      content => template("unsg_splunk$apppath/app.conf.erb");
+      content => template("splunk$apppath/app.conf.erb");
 
     'unix-inputs.conf':
       ensure  => 'present',
@@ -27,7 +27,7 @@ class unsg_splunk::app::unix {
       owner   => 'splunk',
       group   => 'splunk',
       mode    => '0644',
-      notify  => Class['unsg_splunk::service'],
-      content => template("unsg_splunk$apppath/inputs.conf.erb"),
+      notify  => Class['splunk::service'],
+      content => template("splunk$apppath/inputs.conf.erb"),
   }
 }

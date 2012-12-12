@@ -1,1 +1,1 @@
-include unsg_splunk
+include splunk

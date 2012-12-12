@@ -1,4 +1,4 @@
-MODULE = unsg_splunk
+MODULE = splunk
 PUPPETCONF = /etc/puppet/manifests/modules
 PUPPETBIN = /usr/bin/puppet
 MKDIR  = mkdir -p 

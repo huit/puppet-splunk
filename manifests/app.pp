@@ -1,8 +1,8 @@
-class unsg_splunk::app (
-  $vcsusr = $unsg_splunk::vcsusr,
-  $vcspw  = $unsg_splunk::vcspw,
-  $vcscmd = $unsg_splunk::params::vcscmd,
-  $vcsurl = $unsg_splunk::params::vcsurl
+class splunk::app (
+  $vcsusr = $splunk::vcsusr,
+  $vcspw  = $splunk::vcspw,
+  $vcscmd = $splunk::params::vcscmd,
+  $vcsurl = $splunk::params::vcsurl
 ){
   # Ensure service is running
   #TODO
@@ -26,7 +26,7 @@ class unsg_splunk::app (
       require => Package['splunk'];
 
     '/opt/splunk/etc/splunk-launch.conf':
-      content => template('unsg_splunk/opt/splunk/etc/splunk-launch.conf.erb'),
+      content => template('splunk/opt/splunk/etc/splunk-launch.conf.erb'),
   }
 
   # Get initial credential cache for the RO svn account so that

@@ -1,7 +1,7 @@
-class unsg_splunk::files (
-  $mod         = $::unsg_splunk::mod,
-  $splunkadmin = $::unsg_splunk::splunkadmin,
-  $type        = $::unsg_splunk::type
+class splunk::files (
+  $mod         = $::splunk::mod,
+  $splunkadmin = $::splunk::splunkadmin,
+  $type        = $::splunk::type
   ) {
 
   if ( $type == 'lwf' ) {

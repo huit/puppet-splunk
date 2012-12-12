@@ -1,8 +1,8 @@
-class unsg_splunk::app::collector {
+class splunk::app::collector {
   $appname = collector
   file { '/etc/cron.d/collector':
     ensure  => 'present',
-    content => template('unsg_splunk/etc/cron.d/collector.erb'),
+    content => template('splunk/etc/cron.d/collector.erb'),
   }
 
   package { 'splunk-collector':

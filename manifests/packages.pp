@@ -1,4 +1,4 @@
-class unsg_splunk::packages {
+class splunk::packages {
   package { 'splunk':
     ensure   => installed,
     provider => yum,                                                                                                       

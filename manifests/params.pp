@@ -1,4 +1,4 @@
-class unsg_splunk::params {
+class splunk::params {
   $CONFIGVERSION    = '229'
   $COLLECTORVERSION = '162'
   $MOMVERSION       = '217'

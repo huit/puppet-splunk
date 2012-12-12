@@ -1,4 +1,4 @@
-class unsg_splunk::app::mom inherits unsg_splunk::app {
+class splunk::app::mom inherits splunk::app {
 #  MOM Application
   $appname = mom
   file {
@@ -9,7 +9,7 @@ class unsg_splunk::app::mom inherits unsg_splunk::app {
 
   vcsrepo { "/opt/splunk/etc/apps/$appname":
     ensure   => present,
-    revision => "$::unsg_splunk::MOMVERSION",
+    revision => "$::splunk::MOMVERSION",
     provider => svn,
     source   => "https://svn.noc.harvard.edu/unsg/trunk/splunk/apps/$appname",
     #notify   => Service["splunk"],

@@ -1,4 +1,4 @@
-# definition: unsg_splunk::ulimit
+# definition: splunk::ulimit
 # Based on code from http://puppet-modules.git.puzzle.ch/
 #
 #
@@ -8,8 +8,8 @@
 #
 # Requires:
 #
-# Sample Usage: unsg_splunk::ulimit { "nofile": value => 16384 }
-define unsg_splunk::ulimit ( $value = '40960' ) {
+# Sample Usage: splunk::ulimit { "nofile": value => 16384 }
+define splunk::ulimit ( $value = '40960' ) {
   augeas { "set splunk $name ulimit":
     context => "/files/etc/security/limits.conf/",
     changes => [

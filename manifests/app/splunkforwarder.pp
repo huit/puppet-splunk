@@ -1,4 +1,4 @@
-class unsg_splunk::app::splunkforwarder inherits unsg_splunk::app {
+class splunk::app::splunkforwarder inherits splunk::app {
 
   $apppath = '/opt/splunk/etc/apps/SplunkForwarder/local'
   $SLFapppath = '/opt/splunk/etc/apps/SplunkLightForwarder/local'
@@ -19,7 +19,7 @@ class unsg_splunk::app::splunkforwarder inherits unsg_splunk::app {
       group   => 'splunk',
       mode    => '0644',
       notify  => Service['splunk'],
-      content => template("$::unsg_splunk::mod$SLFapppath/outputs.conf.erb");
+      content => template("$::splunk::mod$SLFapppath/outputs.conf.erb");
 
     '/opt/splunk/etc/apps/SplunkForwarder/local/app.conf':
       content => "[install]\nstate = enabled\n",
@@ -36,7 +36,7 @@ class unsg_splunk::app::splunkforwarder inherits unsg_splunk::app {
       group   => 'splunk',
       mode    => '0644',
       notify  => Service['splunk'],
-      content => template("$::unsg_splunk::mod$apppath/transforms.conf.erb");
+      content => template("$::splunk::mod$apppath/transforms.conf.erb");
 
     'props.conf':
       ensure  => 'present',
@@ -45,6 +45,6 @@ class unsg_splunk::app::splunkforwarder inherits unsg_splunk::app {
       group   => 'splunk',
       mode    => '0644',
       notify  => Service['splunk'],
-      content => template("$::unsg_splunk::mod$apppath/props.conf.erb");
+      content => template("$::splunk::mod$apppath/props.conf.erb");
   }
 }

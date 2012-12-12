@@ -1,7 +1,7 @@
-class unsg_splunk::service {
+class splunk::service {
   service { 'splunk':
-    ensure     => $::unsg_splunk::ensurestat,
-    enable     => $::unsg_splunk::enablestat,
+    ensure     => $::splunk::ensurestat,
+    enable     => $::splunk::enablestat,
     hasrestart => true,
     hasstatus  => false,
     pattern    => 'splunkd',

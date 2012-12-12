@@ -1,4 +1,4 @@
-class unsg_splunk::app::execview {
+class splunk::app::execview {
 
   $apppath     = '/opt/splunk/etc/apps/exec_view'
   $redisServer = 'splunkcollector1'
@@ -45,6 +45,6 @@ class unsg_splunk::app::execview {
       group   => 'splunk',
       mode    => '0755',
       notify  => Service['splunk'],
-      content => template("$::unsg_splunk::mod$apppath/bin/huis.py.erb"),
+      content => template("$::splunk::mod$apppath/bin/huis.py.erb"),
   }
 }

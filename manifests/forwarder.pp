@@ -1,10 +1,10 @@
-class unsg_splunk::forwarder ( $mod = $::unsg_splunk::mod ){
+class splunk::forwarder ( $mod = $::splunk::mod ){
 #
 # In the forwarder class you can manage both the SplunkLightForwarder
 # app and the unix app by manipulating the files on the puppet server
 #
 File { ignore => '.svn' }
-#include unsg_splunk::app::unix
+#include splunk::app::unix
   #Package['splunk'] { ensure => latest }
 
   $apppath = '/opt/splunk/etc/apps/SplunkLightForwarder/local'

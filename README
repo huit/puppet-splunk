@@ -1,5 +1,5 @@
-unsg_splunk
+splunk
 
-This is the unsg_splunk module.
+This is the splunk module.
 
 Disabled inputs for  sourcetype "lsof" "ps" as they are chatty and create a lot of events

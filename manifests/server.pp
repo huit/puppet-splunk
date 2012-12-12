@@ -1,6 +1,6 @@
-class unsg_splunk::server (
-  $mb  = $::unsg_splunk::mb,
-  $sms = $::unsg_splunk::sms
+class splunk::server (
+  $mb  = $::splunk::mb,
+  $sms = $::splunk::sms
 ) {
   $pyversion = $::lsbmajdistrelease ? {
     5 => '/usr/lib/python2.4',
