@@ -32,7 +32,6 @@ class splunk (
   $vcsusr          = $::splunk::params::vcsusr,
   $vcspw           = $::splunk::params::vcspw
 ) inherits splunk::params {
-File {ignore => '.svn', require => Package['splunk'] }
 
 # Added the preseed hack after getting the idea from very cool
 # TransGaming manifest
