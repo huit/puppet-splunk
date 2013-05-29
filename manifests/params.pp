@@ -1,8 +1,4 @@
 class splunk::params {
-  $CONFIGVERSION    = '229'
-  $COLLECTORVERSION = '162'
-  $MOMVERSION       = '217'
-  $MAPSVERSION      = '114'
   $nagios_contacts  = false
   $splunkadmin      = $::unsg_common::splunkadmin
   $localusers       = $::unsg_common::splunklocal
