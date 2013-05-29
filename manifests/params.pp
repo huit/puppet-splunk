@@ -1,5 +1,5 @@
 class splunk::params {
-  $nagios_contacts  = false
+  $nagios_contacts  = undef
   $splunkadmin      = $::unsg_common::splunkadmin
   $localusers       = $::unsg_common::splunklocal
   $proxyserver      = $::unsg_common::proxyserver

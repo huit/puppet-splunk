@@ -18,18 +18,19 @@
 #
 # [Remember: No empty lines between comments and class definition]
 class splunk (
-  $mod          = splunk,
-  $type         = $::splunk::params::type,
-  $splunkadmin  = $::splunk::params::splunkadmin,
-  $localusers   = $::splunk::params::localusers,
-  $proxyserver  = $::splunk::params::proxyserver,
-  $mb           = $::unsg_common::mb,
-  $sms          = $::unsg_common::sms,
-  $nagiosserver = $::splunk::nagiosserver,
-  $ensurestat   = $::splunk::ensurestat,
-  $enablestat   = $::splunk::enablestat,
-  $vcsusr       = $::splunk::params::vcsusr,
-  $vcspw        = $::splunk::params::vcspw
+  $mod             = splunk,
+  $type            = $::splunk::params::type,
+  $splunkadmin     = $::splunk::params::splunkadmin,
+  $localusers      = $::splunk::params::localusers,
+  $proxyserver     = $::splunk::params::proxyserver,
+  $nagios_contacts = $::splunk::params::nagios_contacts,
+  $mb              = $::unsg_common::mb,
+  $sms             = $::unsg_common::sms,
+  $nagiosserver    = $::splunk::nagiosserver,
+  $ensurestat      = $::splunk::ensurestat,
+  $enablestat      = $::splunk::enablestat,
+  $vcsusr          = $::splunk::params::vcsusr,
+  $vcspw           = $::splunk::params::vcspw
 ) inherits splunk::params {
 File {ignore => '.svn', require => Package['splunk'] }
 
