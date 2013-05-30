@@ -24,13 +24,9 @@ class splunk (
   $localusers      = $::splunk::params::localusers,
   $proxyserver     = $::splunk::params::proxyserver,
   $nagios_contacts = $::splunk::params::nagios_contacts,
-  $mb              = $::unsg_common::mb,
-  $sms             = $::unsg_common::sms,
   $nagiosserver    = $::splunk::nagiosserver,
   $ensurestat      = $::splunk::ensurestat,
-  $enablestat      = $::splunk::enablestat,
-  $vcsusr          = $::splunk::params::vcsusr,
-  $vcspw           = $::splunk::params::vcspw
+  $enablestat      = $::splunk::enablestat
 ) inherits splunk::params {
 
 # Added the preseed hack after getting the idea from very cool
