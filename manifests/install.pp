@@ -46,9 +46,9 @@ class splunk::install (
   ini_setting { 'SSL v3 only':
     ensure  => present,
     path    => "/opt/$pkgname/etc/system/local/server.conf",
-    section => 'general',
-    setting => 'sslConfig',
-    value   => 'supportSSLV3Only True',
+    section => 'sslConfig',
+    setting => 'supportSSLV3Only',
+    value   => 'True',
   }
 
   file { "/opt/$pkgname/etc/splunk.license":
