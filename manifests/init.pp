@@ -35,11 +35,15 @@ class splunk (
 #
 
   if ( $purge ) {
+    class { 'splunk::purge': }
+
   } else {
     class { 'splunk::install': }
   }
 
   case $type {
+    'uf': {
+  }
     'lwf': {
       class { 'splunk::app::unix': }
       class { 'splunk::forwarder': }
