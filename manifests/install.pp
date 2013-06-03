@@ -1,6 +1,7 @@
 class splunk::install (
   $splunkadmin = $::splunk::splunkadmin,
-  $type        = $::splunk::type
+  $type        = $::splunk::type,
+  $version     = 'installed'
   ) {
   if ( $type == 'lwf' ) {
     $license = 'puppet:///modules/splunk/noarch/opt/splunk/etc/splunk-forwarder.license'
@@ -15,7 +16,7 @@ class splunk::install (
   }
 
   package { "$pkgname":
-    ensure   => installed,
+    ensure   => $version,
     notify   => Exec['preseed-server.conf'],
   } ->
 
