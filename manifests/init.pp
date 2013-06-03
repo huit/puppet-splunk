@@ -18,15 +18,15 @@
 #
 # [Remember: No empty lines between comments and class definition]
 class splunk (
-  $mod             = splunk,
-  $type            = $::splunk::params::type,
-  $splunkadmin     = $::splunk::params::splunkadmin,
+  $ensurestat      = $::splunk::ensurestat,
+  $enablestat      = $::splunk::enablestat,
   $localusers      = $::splunk::params::localusers,
-  $proxyserver     = $::splunk::params::proxyserver,
   $nagios_contacts = $::splunk::params::nagios_contacts,
   $nagiosserver    = $::splunk::nagiosserver,
-  $ensurestat      = $::splunk::ensurestat,
-  $enablestat      = $::splunk::enablestat
+  $purge           = undef,
+  $splunkadmin     = $::splunk::params::splunkadmin,
+  $type            = $::splunk::params::type,
+  $proxyserver     = $::splunk::params::proxyserver,
 ) inherits splunk::params {
 
 # Added the preseed hack after getting the idea from very cool
@@ -34,9 +34,10 @@ class splunk (
 # at https://github.com/TransGaming/puppet/blob/master/splunk
 #
 
-  class { 'splunk::packages': } ->
-  class { 'splunk::files': }    ->
-  class { 'splunk::service': }
+  if ( $purge ) {
+  } else {
+    class { 'splunk::install': }
+  }
 
   case $type {
     'lwf': {
