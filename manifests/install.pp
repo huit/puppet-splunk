@@ -58,8 +58,7 @@ class splunk::install (
     backup  => true,
     source  => $license,
   }
-      
-      
+    
   file { "/opt/$pkgname/etc/passwd":
     ensure   => present,
     mode     => '0600',
@@ -68,10 +67,9 @@ class splunk::install (
     backup   => true,
     content  => template('splunk/opt/splunk/etc/passwd.erb'),
   }
-      
-  file {
-    # recursively copy the contents of the auth dir
-    "/opt/$pkgname/etc/auth":
+
+  # recursively copy the contents of the auth dir
+  file { "/opt/$pkgname/etc/auth":
       mode    => '0600',
       owner   => 'splunk',
       group   => 'splunk',
