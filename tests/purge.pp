@@ -1,1 +1,1 @@
-include splunk::purge
+class { 'splunk': purge => true }

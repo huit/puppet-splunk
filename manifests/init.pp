@@ -1,22 +1,63 @@
-# Class: splunk
+# == Class: splunk
 #
-# This module manages Splunk forwarders, Light Forwarders,
-# Indexers and Search heads
+# The splunk module will install Splunk agents in the form of a Light Weight 
+# Fowarder, Heavy Forwarder, Universal Forwarder. It will also install servers
+# for index, job and search configurations
 #
-# Parameters:
-# This Module has "Maintenance Mode"
+# === Parameters
 #
-# Actions:
+# Document parameters here.
 #
-# Requires:
+# [purge]
+#   purge => true
+#   purge defaults to false, and only accepts a boolean as an argument.
+#   purge purges all traces of splunk *without* a backup. 
 #
-# Sample Usage: adding "mode=maintenance" as a parameter will stop this module
-# Create Light Fwd   : class { 'splunk' type => 'lwf' }
-# Create Indexer     : class { 'splunk' type => 'indexer' }
-# Create Search Head : class { 'splunk' type => 'search' }
-# Create Heavy Fwd   : class { 'splunk' type => 'collector' }
+# [type]
+#   Install type. Valid inputs are:
+#   uf     : Splunk Universal Forwarder
+#   lwf    : Splunk Light Weight Forwarder
+#   hwf    : Splunk Heavy Weight Forwarder
+#   job    : Splunk Jobs Server - Search + Forwarding
+#   search : Splunk Search Head
+#   index  : Splunk Distribuited Index Server
 #
-# [Remember: No empty lines between comments and class definition]
+# [target_group]
+#   Hash used to define splunk default groups and servers, valid configs are
+#   { 'target group name' => 'server/ip' }
+#
+# [nagios_contacts]
+#   Accepts a comma seperated list of contacts. Then enables and exports 
+#   Nagios Service checks for monitoring. 
+#
+# [proxyserver]
+#   Define a proxy server for Splunk to use. Defaults to false.
+#
+# === Variables
+#
+# Here you should define a list of variables that this module would require.
+#
+# [*sample_variable*]
+#   Explanation of how this variable affects the funtion of this class and if it
+#   has a default. e.g. "The parameter enc_ntp_servers must be set by the
+#   External Node Classifier as a comma separated list of hostnames." (Note,
+#   global variables should not be used in preference to class parameters  as of
+#   Puppet 2.6.)
+#
+# === Examples
+#
+#  class { splunk:
+#    type => 'lwf',
+#  }
+#
+# === Authors
+#
+# Tim Hartmann <tim_hartmann@harvard.edu>
+#
+# === Copyright
+#
+# Copyright 2013 Network Systems Team - Harvard University
+#
 class splunk (
   $ensurestat      = $::splunk::ensurestat,
   $enablestat      = $::splunk::enablestat,
@@ -26,9 +67,10 @@ class splunk (
   $pkgname         = $::splunk::params::pkgname,
   $nagiosserver    = $::splunk::nagiosserver,
   $proxyserver     = $::splunk::params::proxyserver,
-  $purge           = undef,
+  $purge           = $::splunk::params::purge,
   $splunkadmin     = $::splunk::params::splunkadmin,
   $SPLUNKHOME      = $::splunk::params::SPLUNKHOME,
+  $target_group    = undef,
   $type            = $::splunk::params::type,
 ) inherits splunk::params {
 
@@ -38,6 +80,7 @@ class splunk (
 #
 
   if ( $purge ) {
+    validate_bool($purge)
     class { 'splunk::purge': }
 
   } else {
@@ -50,6 +93,14 @@ class splunk (
     'lwf': {
       class { 'splunk::app::unix': }
       class { 'splunk::forwarder': }
+    }
+    'hwf': {
+      class { 'splunk::app'                 : }
+      class { 'splunk::app::unix'           : }
+      class { 'splunk::app::ta-sos'         : }
+      class { 'splunk::app::collector'      : }
+      class { 'splunk::app::splunkforwarder': }
+      package { 'expect': }
     }
     'search': {
       class { 'splunk::server': }
@@ -69,14 +120,6 @@ class splunk (
       class { 'splunk::app::index' : }
       class { 'splunk::app::config': }
       class { 'splunk::app::ta-sos': }
-    }
-    'collector': {
-      class { 'splunk::app'                 : }
-      class { 'splunk::app::unix'           : }
-      class { 'splunk::app::ta-sos'         : }
-      class { 'splunk::app::collector'      : }
-      class { 'splunk::app::splunkforwarder': }
-      package { 'expect': }
     }
   }
 }

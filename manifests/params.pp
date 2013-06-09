@@ -4,6 +4,7 @@ class splunk::params {
   $splunkadmin      = ':admin:$1$QfZoXMjP$jafmv2ASM45lllqaXHeXv/::Administrator:admin:changeme@example.com:'
   $localusers       = undef
   $proxyserver      = hiera('proxyserver', undef )
+  $purge            = undef
   $version          = 'installed'
 
   case $type {
