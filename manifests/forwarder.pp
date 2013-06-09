@@ -3,12 +3,12 @@ class splunk::forwarder ( $mod = $::splunk::mod ){
 # In the forwarder class you can manage both the SplunkLightForwarder
 # app and the unix app by manipulating the files on the puppet server
 #
-File { ignore => '.svn' }
 #include splunk::app::unix
   #Package['splunk'] { ensure => latest }
 
   $apppath = '/opt/splunk/etc/apps/SplunkLightForwarder/local'
 
+  #This can probably go in the install section
   augeas { 'forwarder_local/server.conf':
     context =>  '/files/opt/splunk/etc/system/local/server.conf',
     changes => [
@@ -22,6 +22,7 @@ File { ignore => '.svn' }
       owner   => 'splunk',
       group   => 'splunk';
 
+  # maybe put outputs in a reusable destination manifest?
     'outputs.conf':
       ensure  => 'present',
       path    => '/opt/splunk/etc/apps/SplunkLightForwarder/local/outputs.conf',

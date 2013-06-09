@@ -1,19 +1,11 @@
 class splunk::install (
+  $license     = $::splunk::license,
+  $pkgname     = $::splunk::pkgname,
   $splunkadmin = $::splunk::splunkadmin,
+  $SPLUNKHOME  = $::splunk::SPLUNKHOME,
   $type        = $::splunk::type,
-  $version     = 'installed'
+  $version     = $::splunk::version
   ) {
-  if ( $type == 'lwf' ) {
-    $license = 'puppet:///modules/splunk/noarch/opt/splunk/etc/splunk-forwarder.license'
-    $pkgname = 'splunk'
-  }
-  elsif ( $type == 'uf' ) {
-    $license = undef
-    $pkgname = 'splunkforwarder'
-  } else {
-    $license = undef
-    $pkgname = 'splunk'
-  }
 
   package { "$pkgname":
     ensure   => $version,
@@ -26,11 +18,11 @@ class splunk::install (
     owner   => 'root',
     group   => 'root',
     source  => "puppet:///modules/splunk/etc/init.d/$pkgname",
-  }
+  } ->
 
   # Can this be replaced with ini_setting type?
   exec { 'preseed-server.conf':
-    command     => "/bin/echo -e \"[general]\nserverName = $::fqdn\" >/opt/$pkgname/etc/system/local/server.conf",
+    command     => "/bin/echo -e \"[general]\nserverName = $::fqdn\" >${SPLUNKHOME}/etc/system/local/server.conf",
     refreshonly => 'true',
     notify      => Service['splunk'],
   } ->
@@ -38,46 +30,46 @@ class splunk::install (
   # inifile
   ini_setting { 'Server Name':
     ensure  => present,
-    path    => "/opt/$pkgname/etc/system/local/server.conf",
+    path    => "${SPLUNKHOME}/etc/system/local/server.conf",
     section => 'general',
     setting => 'serverName',
     value   => $::fqdn,
   }
   ini_setting { 'SSL v3 only':
     ensure  => present,
-    path    => "/opt/$pkgname/etc/system/local/server.conf",
+    path    => "$SPLUNKHOME/etc/system/local/server.conf",
     section => 'sslConfig',
     setting => 'supportSSLV3Only',
     value   => 'True',
-  }
+  } ->
 
-  file { "/opt/$pkgname/etc/splunk.license":
+  file { "${SPLUNKHOME}/etc/splunk.license":
     ensure  => present,
     mode    => '0644',
     owner   => 'splunk',
     group   => 'splunk',
     backup  => true,
     source  => $license,
-  }
+  } -> 
     
-  file { "/opt/$pkgname/etc/passwd":
+  file { "${SPLUNKHOME}/etc/passwd":
     ensure   => present,
     mode     => '0600',
     owner    => 'root',
     group    => 'root',
     backup   => true,
     content  => template('splunk/opt/splunk/etc/passwd.erb'),
-  }
+  } ->
 
   # recursively copy the contents of the auth dir
-  file { "/opt/$pkgname/etc/auth":
+  file { "${SPLUNKHOME}/etc/auth":
       mode    => '0600',
       owner   => 'splunk',
       group   => 'splunk',
       recurse => true,
       purge   => false,
       source  => 'puppet:///modules/splunk/noarch/opt/splunk/etc/auth',
-  }
+  } -> 
   service {
     'splunk':
       ensure     => $::splunk::ensurestat,

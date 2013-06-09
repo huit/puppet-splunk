@@ -20,13 +20,16 @@
 class splunk (
   $ensurestat      = $::splunk::ensurestat,
   $enablestat      = $::splunk::enablestat,
+  $license         = $::splunk::params::license,
   $localusers      = $::splunk::params::localusers,
   $nagios_contacts = $::splunk::params::nagios_contacts,
+  $pkgname         = $::splunk::params::pkgname,
   $nagiosserver    = $::splunk::nagiosserver,
+  $proxyserver     = $::splunk::params::proxyserver,
   $purge           = undef,
   $splunkadmin     = $::splunk::params::splunkadmin,
+  $SPLUNKHOME      = $::splunk::params::SPLUNKHOME,
   $type            = $::splunk::params::type,
-  $proxyserver     = $::splunk::params::proxyserver,
 ) inherits splunk::params {
 
 # Added the preseed hack after getting the idea from very cool
