@@ -2,6 +2,7 @@ class splunk::install (
   $license     = $::splunk::license,
   $pkgname     = $::splunk::pkgname,
   $splunkadmin = $::splunk::splunkadmin,
+  $localusers  = $::splunk::splunkadmin,
   $SPLUNKHOME  = $::splunk::SPLUNKHOME,
   $type        = $::splunk::type,
   $version     = $::splunk::version
@@ -34,7 +35,7 @@ class splunk::install (
     section => 'general',
     setting => 'serverName',
     value   => $::fqdn,
-  }
+  } ->
   ini_setting { 'SSL v3 only':
     ensure  => present,
     path    => "$SPLUNKHOME/etc/system/local/server.conf",

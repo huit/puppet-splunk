@@ -1,5 +1,5 @@
 class splunk::params {
-  $type             = 'lwf'
+  $type             = 'uf'
   $nagios_contacts  = undef
   $splunkadmin      = ':admin:$1$QfZoXMjP$jafmv2ASM45lllqaXHeXv/::Administrator:admin:changeme@example.com:'
   $localusers       = undef

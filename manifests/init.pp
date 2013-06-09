@@ -14,17 +14,21 @@
 #   purge purges all traces of splunk *without* a backup. 
 #
 # [type]
-#   Install type. Valid inputs are:
-#   uf     : Splunk Universal Forwarder
-#   lwf    : Splunk Light Weight Forwarder
-#   hwf    : Splunk Heavy Weight Forwarder
-#   job    : Splunk Jobs Server - Search + Forwarding
-#   search : Splunk Search Head
-#   index  : Splunk Distribuited Index Server
+#   Install type. Defaults to Universal Forwarder valid inputs are:
+#   uf      : Splunk Universal Forwarder
+#   lwf     : Splunk Light Weight Forwarder
+#   hwf     : Splunk Heavy Weight Forwarder
+#   jobs    : Splunk Jobs Server - Search + Forwarding
+#   search  : Splunk Search Head
+#   indexer : Splunk Distribuited Index Server
 #
 # [target_group]
 #   Hash used to define splunk default groups and servers, valid configs are
 #   { 'target group name' => 'server/ip' }
+#
+# [splunkadmin]
+#
+# [localusers]
 #
 # [nagios_contacts]
 #   Accepts a comma seperated list of contacts. Then enables and exports 
@@ -85,41 +89,42 @@ class splunk (
 
   } else {
     class { 'splunk::install': }
-  }
 
-  case $type {
-    'uf': {
-  }
-    'lwf': {
-      class { 'splunk::app::unix': }
-      class { 'splunk::forwarder': }
+    case $type {
+      'uf': {
     }
-    'hwf': {
-      class { 'splunk::app'                 : }
-      class { 'splunk::app::unix'           : }
-      class { 'splunk::app::ta-sos'         : }
-      class { 'splunk::app::collector'      : }
-      class { 'splunk::app::splunkforwarder': }
-      package { 'expect': }
-    }
-    'search': {
-      class { 'splunk::server': }
-      class { 'splunk::app'          : }
-      class { 'splunk::app::unix'    : }
-      class { 'splunk::app::config'  : }
-      class { 'splunk::app::search'  : }
-      class { 'splunk::app::mom'     : }
-      class { 'splunk::app::maps'    : }
-      class { 'splunk::app::execview': }
-      class { 'splunk::app::nagios'  : }
-    }
-    'indexer': {
-      class { 'splunk::server'     : }
-      class { 'splunk::app'        : }
-      class { 'splunk::app::unix'  : }
-      class { 'splunk::app::index' : }
-      class { 'splunk::app::config': }
-      class { 'splunk::app::ta-sos': }
+      'lwf': {
+        class { 'splunk::app::unix': }
+        class { 'splunk::forwarder': }
+      }
+      'hwf': {
+        class { 'splunk::app'                 : }
+        class { 'splunk::app::unix'           : }
+        class { 'splunk::app::ta-sos'         : }
+        class { 'splunk::app::collector'      : }
+        class { 'splunk::app::splunkforwarder': }
+        package { 'expect': }
+      }
+      'search': {
+        class { 'splunk::server': }
+        class { 'splunk::app'          : }
+        class { 'splunk::app::unix'    : }
+        class { 'splunk::app::config'  : }
+        class { 'splunk::app::search'  : }
+        class { 'splunk::app::mom'     : }
+        class { 'splunk::app::maps'    : }
+        class { 'splunk::app::execview': }
+        class { 'splunk::app::nagios'  : }
+      }
+      'indexer': {
+        class { 'splunk::server'     : }
+        class { 'splunk::app'        : }
+        class { 'splunk::app::unix'  : }
+        class { 'splunk::app::index' : }
+        class { 'splunk::app::config': }
+        class { 'splunk::app::ta-sos': }
+      }
+      default: { fail("Server type: $type is not a supported Splunk type.") }
     }
   }
 }
