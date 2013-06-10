@@ -62,12 +62,5 @@ class splunk::install (
       recurse => true,
       purge   => false,
       source  => 'puppet:///modules/splunk/noarch/opt/splunk/etc/auth',
-  } -> 
-  service {
-    'splunk':
-      ensure     => $::splunk::ensurestat,
-      enable     => $::splunk::enablestat,
-      hasrestart => true,
-      pattern    => 'splunkd',
   }
 }
