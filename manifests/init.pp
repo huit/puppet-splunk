@@ -74,7 +74,7 @@ class splunk (
   $purge           = $::splunk::params::purge,
   $splunkadmin     = $::splunk::params::splunkadmin,
   $SPLUNKHOME      = $::splunk::params::SPLUNKHOME,
-  $target_group    = undef,
+  $target_group    = $::splunk::params::target_group,
   $type            = $::splunk::params::type,
 ) inherits splunk::params {
 
@@ -92,6 +92,7 @@ class splunk (
 
     case $type {
       'uf': {
+        class { 'splunk::outputs': } 
     }
       'lwf': {
         class { 'splunk::app::unix': }

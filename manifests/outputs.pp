@@ -14,9 +14,8 @@
 # http://docs.splunk.com/Documentation/Splunk/latest/admin/Outputsconf
 class splunk::outputs (
   $port         = '9997',
-  $path         = '/tmp',
-  $target_group = { example1 => 'server1.example.com',
-                    example2 => 'server2.example.com' }
+  $path         = "${::splunk::params::SPLUNKHOME}/etc/system/local",
+  $target_group = $::splunk::target_group
   ) {
 
   # Validate hash

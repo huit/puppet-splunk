@@ -10,7 +10,6 @@ class splunk::install (
 
   package { "$pkgname":
     ensure   => $version,
-    notify   => Exec['preseed-server.conf'],
   } ->
 
   file { '/etc/init.d/splunk':
@@ -19,13 +18,6 @@ class splunk::install (
     owner   => 'root',
     group   => 'root',
     source  => "puppet:///modules/splunk/etc/init.d/$pkgname",
-  } ->
-
-  # Can this be replaced with ini_setting type?
-  exec { 'preseed-server.conf':
-    command     => "/bin/echo -e \"[general]\nserverName = $::fqdn\" >${SPLUNKHOME}/etc/system/local/server.conf",
-    refreshonly => 'true',
-    notify      => Service['splunk'],
   } ->
 
   # inifile
