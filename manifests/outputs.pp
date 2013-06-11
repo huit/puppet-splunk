@@ -26,39 +26,11 @@ class splunk::outputs (
   $defaultgroup = join($groupkeys, ",")
 
   file { "${path}/outputs.conf":
-    ensure => file,
-    owner  => 'splunk',
-    group  => 'splunk',
-    mode   => '0644',
-  }
-  ini_setting { "outputs.conf - defaultGroup":
-    path    => "$path/outputs.conf",
-    section => 'tcpout',
-    setting => 'defaultGroup',
-    value   => $defaultgroup,
-    ensure  => present,
-  }
-  ini_setting { "outputs.conf - group status":
-    path    => "$path/outputs.conf",
-    section => 'tcpout',
-    setting => 'disabled',
-    value   => 'false',
-    ensure  => present,
-  }
-
-  splunk::outputs::tcpout { $groupkeys: }
-}
-define splunk::outputs::tcpout (
-  $path         = $::splunk::outputs::path,
-  $port         = $::splunk::outputs::port,
-  $target_group = $::splunk::outputs::target_group
-) {
-  $server = $target_group[$title]
-  ini_setting { "$title":
-    path    => "${path}/outputs.conf",
-    section => "tcpout:${title}",
-    setting => 'server',
-    value   => "${server}:${port}",
-    ensure  => present,
+    ensure  => file,
+    owner   => 'splunk',
+    group   => 'splunk',
+    mode    => '0644',
+    content => template('splunk/opt/splunk/etc/system/local/outputs.conf.erb'),
+    notify  => Class['splunk::service']
   }
 }
