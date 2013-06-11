@@ -88,7 +88,10 @@ class splunk (
     class { 'splunk::purge': }
 
   } else {
-    class { 'splunk::install': }
+    class { 'splunk::install':
+      notify => Class['splunk::service'],
+    }
+    class { 'splunk::service': }
 
     case $type {
       'uf': {
