@@ -12,10 +12,12 @@ ln -s pre-commit.puppet-lint .git/hooks/pre-commit
 
 ### Splunk Universal Forwarder
 
->class { 'splunk':
->  port         => '50514',
->  target_group => { 'name' => '1.2.3.4' },
->}
+```Puppet
+class { 'splunk':
+  port         => '50514',
+  target_group => { 'name' => '1.2.3.4' },
+}
+```
 
 
 ### splunk::ulimit
@@ -28,7 +30,8 @@ ln -s pre-commit.puppet-lint .git/hooks/pre-commit
  [value]
    The value to set for this limit.
 
->  splunk::ulimit { 'nofile':
->    value => 16384,
->  }
-
+```Puppet
+  splunk::ulimit { 'nofile':
+    value => 16384,
+  }
+```
