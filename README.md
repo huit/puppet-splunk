@@ -11,9 +11,16 @@ ln -s pre-commit.puppet-lint .git/hooks/pre-commit
 ## Example Usage
 
 ### splunk::ulimit
-=== Examples
+  splunk::ulimit takes two parameters, the name of the limit to change
+  and the number of files to allow.
+
+ [name]
+   Name of the limit to change (instance name).
+
+ [value]
+   The value to set for this limit.
 
 >  splunk::ulimit { 'nofile':
->    value => '16384',
+>    value => 16384,
 >  }
 
