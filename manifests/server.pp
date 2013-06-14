@@ -1,6 +1,4 @@
 class splunk::server (
-  $mb  = $::splunk::mb,
-  $sms = $::splunk::sms
 ) {
   $pyversion = $::lsbmajdistrelease ? {
     5 => '/usr/lib/python2.4',
@@ -8,14 +6,4 @@ class splunk::server (
   } 
   file { '/usr/lib/python': ensure => "$pyversion" }
   
-  # Nagios Service Check
-  @@nagios_service { "check_tcp8089_$::hostname":
-    use                 => 'default-service',
-    check_command       => 'check_tcp!8089',
-    host_name           => $::fqdn,
-    contacts            => "$mb-email,$sms",
-    service_description => 'Splunk Management Port',
-    notify              => Service['nagios'],
-    tag                 => $::environment,
-  } 
 }   

@@ -29,6 +29,10 @@
 #   Hash used to define splunk default groups and servers, valid configs are
 #   { 'target group name' => 'server/ip' }
 #
+# [port]
+#   Splunk Default Input Port for indexers. Defaults to 9997. This sets both
+#   The ports Monitored and the ports set in outputs.conf
+# 
 # [splunkadmin]
 #
 # [localusers]
@@ -71,6 +75,7 @@ class splunk (
   $localusers      = $::splunk::params::localusers,
   $nagios_contacts = $::splunk::params::nagios_contacts,
   $nagiosserver    = $::splunk::nagiosserver,
+  $port            = $::splunk::params::port,
   $proxyserver     = $::splunk::params::proxyserver,
   $purge           = $::splunk::params::purge,
   $splunkadmin     = $::splunk::params::splunkadmin,
@@ -113,7 +118,6 @@ class splunk (
     }
     class { 'splunk::service': }
 
-# maybe add ancors so these get run after the install
     case $type {
       'uf': {
         class { 'splunk::outputs': } 
@@ -140,6 +144,7 @@ class splunk (
       }
       'search': {
         class { 'splunk::config::lwf': status => 'disabled' }
+        class { 'splunk::monitor::mgmt_port': }
 
         class { 'splunk::server': }
         class { 'splunk::app'          : }
@@ -155,6 +160,8 @@ class splunk (
       }
       'indexer': {
         class { 'splunk::config::lwf': status => 'disabled' }
+        class { 'splunk::monitor::mgmt_port': }
+        class { 'splunk::monitor::input_port': }
 
         class { 'splunk::server'     : }
         class { 'splunk::app'        : }

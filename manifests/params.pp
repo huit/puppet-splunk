@@ -5,6 +5,7 @@ class splunk::params {
                         example2 => 'server2.example.com' }
   $type             = 'uf'
   $localusers       = undef
+  $port             = '9997',
   $proxyserver      = hiera('proxyserver', undef )
   $purge            = undef
   $version          = 'installed'
