@@ -14,6 +14,7 @@
 #      
 define splunk::ta::files (
   $configfile = "puppet:///modules/splunk/ta/${title}",
+  $inputfile  = "splunk/${title}/inputs.conf.erb",
   $status     = 'enabled',
   $SPLUNKHOME = $::splunk::SPLUNKHOME
 ) {
@@ -36,6 +37,14 @@ define splunk::ta::files (
     group  => 'splunk',
     mode   => '0644',
   } ->
+  file { "${SPLUNKHOME}/etc/apps/${title}/local/inputs.conf":
+    ensure  => present,
+    owner   => 'splunk',
+    group   => 'splunk',
+    content => template($inputfile),
+    require => Class['splunk::install'],
+    notify  => Class['splunk::service'],
+  }
   ini_setting { 'Enable Splunk LWF':
     path    => "${SPLUNKHOME}/etc/apps/${title}/local/app.conf",
     section => 'install',
