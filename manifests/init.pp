@@ -68,15 +68,12 @@
 class splunk (
   $ensurestat      = $::splunk::ensurestat,
   $enablestat      = $::splunk::enablestat,
-  $license         = $::splunk::params::license,
   $localusers      = $::splunk::params::localusers,
   $nagios_contacts = $::splunk::params::nagios_contacts,
-  $pkgname         = $::splunk::params::pkgname,
   $nagiosserver    = $::splunk::nagiosserver,
   $proxyserver     = $::splunk::params::proxyserver,
   $purge           = $::splunk::params::purge,
   $splunkadmin     = $::splunk::params::splunkadmin,
-  $SPLUNKHOME      = $::splunk::params::SPLUNKHOME,
   $target_group    = $::splunk::params::target_group,
   $type            = $::splunk::params::type
 ) inherits splunk::params {
@@ -85,6 +82,24 @@ class splunk (
 # TransGaming manifest
 # at https://github.com/TransGaming/puppet/blob/master/splunk
 #
+  case $type {
+    'uf': {
+      $pkgname    = 'splunkforwarder'
+      $SPLUNKHOME = '/opt/splunkforwarder'
+      $license    = undef
+    }
+    'hfw','lwf': {
+      $SPLUNKHOME = '/opt/splunk'
+      $pkgname    = 'splunk'
+      $license    = 'puppet:///modules/splunk/noarch/opt/splunk/etc/splunk-forwarder.license'
+    }
+    #default: { 
+    #  $SPLUNKHOME = '/opt/splunk'
+    #  $pkgname    = 'splunk'
+    #  $license    = undef
+    #}
+  }
+
 
   if ( $purge ) {
     validate_bool($purge)
