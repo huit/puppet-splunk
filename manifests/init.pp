@@ -121,6 +121,7 @@ class splunk (
     case $type {
       'uf': {
         class { 'splunk::outputs': } 
+        class { 'splunk::config::uf': }
     }
       'lwf': {
         class { 'splunk::outputs': } 
