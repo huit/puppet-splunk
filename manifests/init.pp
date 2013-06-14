@@ -2,7 +2,10 @@
 #
 # The splunk module will install Splunk agents in the form of a Light Weight 
 # Fowarder, Heavy Forwarder, Universal Forwarder. It will also install servers
-# for index, job and search configurations
+# for index, job and search configurations. 
+#
+# Please Note: This Module assumes you have the Splunk Packages in some sort of
+# package repo.
 #
 # === Parameters
 #
@@ -89,12 +92,11 @@ class splunk (
 
   } else {
     class { 'splunk::install':
-      type   => $type,
       notify => Class['splunk::service'],
     }
     class { 'splunk::service': }
 
-    case $type {
+    case $::splunk::type {
       'uf': {
         class { 'splunk::outputs': } 
     }
