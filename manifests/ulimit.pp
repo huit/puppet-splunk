@@ -1,14 +1,24 @@
-# definition: splunk::ulimit
-# Based on code from http://puppet-modules.git.puzzle.ch/
+# == Definition: splunk::ulimit
 #
+#   Optional definition to set a ulimit for your Splunk servers
+#   Based on code from http://puppet-modules.git.puzzle.ch/
 #
-# Parameters:
-#- *name*: the name of the limit to change (instance name).
-#- *value*: the value to set for this limit.
+# === Parameters
 #
-# Requires:
+# Document parameters here.
+#    
+# [name]
+#   Name of the limit to change (instance name).
 #
-# Sample Usage: splunk::ulimit { "nofile": value => 16384 }
+# [value]
+#   The value to set for this limit.
+#
+# === Examples
+#
+#  splunk::ulimit { 'nofile':
+#    value => '16384',
+#  }
+#
 define splunk::ulimit ( $value = '40960' ) {
   augeas { "set splunk $name ulimit":
     context => "/files/etc/security/limits.conf/",

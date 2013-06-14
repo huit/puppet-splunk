@@ -1,5 +1,4 @@
 class splunk::params {
-  $type             = 'uf'
   $nagios_contacts  = undef
   $splunkadmin      = ':admin:$1$QfZoXMjP$jafmv2ASM45lllqaXHeXv/::Administrator:admin:changeme@example.com:'
   $target_group     = { example1 => 'server1.example.com',
@@ -34,4 +33,5 @@ class splunk::params {
     $ensurestat = 'running'
     $enablestat = 'true'
   }
+  $type             = 'lwf'
 }

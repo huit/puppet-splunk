@@ -7,7 +7,6 @@ class splunk::server (
     6 => '/usr/lib/python2.6',
   } 
   file { '/usr/lib/python': ensure => "$pyversion" }
-  package { 'python-redis': }
   
   # Nagios Service Check
   @@nagios_service { "check_tcp8089_$::hostname":

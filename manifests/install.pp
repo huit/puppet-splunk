@@ -55,6 +55,7 @@ class splunk::install (
   } ->
 
   # recursively copy the contents of the auth dir
+  # This is causing a restart on the second run. - TODO 
   file { "${SPLUNKHOME}/etc/auth":
       mode    => '0600',
       owner   => 'splunk',

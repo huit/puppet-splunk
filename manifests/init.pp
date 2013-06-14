@@ -75,7 +75,7 @@ class splunk (
   $splunkadmin     = $::splunk::params::splunkadmin,
   $SPLUNKHOME      = $::splunk::params::SPLUNKHOME,
   $target_group    = $::splunk::params::target_group,
-  $type            = $::splunk::params::type,
+  $type            = $::splunk::params::type
 ) inherits splunk::params {
 
 # Added the preseed hack after getting the idea from very cool
@@ -89,6 +89,7 @@ class splunk (
 
   } else {
     class { 'splunk::install':
+      type   => $type,
       notify => Class['splunk::service'],
     }
     class { 'splunk::service': }
@@ -98,18 +99,26 @@ class splunk (
         class { 'splunk::outputs': } 
     }
       'lwf': {
-        class { 'splunk::app::unix': }
-        class { 'splunk::forwarder': }
+        class { 'splunk::outputs': } 
+        class { 'splunk::config::lwf': }
       }
       'hwf': {
+        class { 'splunk::outputs': } 
+        class { 'splunk::config::lwf': status => 'disabled' }
+        class { 'splunk::config::hwf': }
+
+
         class { 'splunk::app'                 : }
         class { 'splunk::app::unix'           : }
         class { 'splunk::app::ta-sos'         : }
         class { 'splunk::app::collector'      : }
         class { 'splunk::app::splunkforwarder': }
-        package { 'expect': }
+        # expect should be in the site/module
+        #package { 'expect': }
       }
       'search': {
+        class { 'splunk::config::lwf': status => 'disabled' }
+
         class { 'splunk::server': }
         class { 'splunk::app'          : }
         class { 'splunk::app::unix'    : }
@@ -119,14 +128,20 @@ class splunk (
         class { 'splunk::app::maps'    : }
         class { 'splunk::app::execview': }
         class { 'splunk::app::nagios'  : }
+
+        package { 'python-redis': }
       }
       'indexer': {
+        class { 'splunk::config::lwf': status => 'disabled' }
+
         class { 'splunk::server'     : }
         class { 'splunk::app'        : }
         class { 'splunk::app::unix'  : }
         class { 'splunk::app::index' : }
         class { 'splunk::app::config': }
         class { 'splunk::app::ta-sos': }
+
+        package { 'python-redis': }
       }
       default: { fail("Server type: $type is not a supported Splunk type.") }
     }
