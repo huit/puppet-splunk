@@ -3,6 +3,7 @@ class splunk::params {
   $splunkadmin      = ':admin:$1$QfZoXMjP$jafmv2ASM45lllqaXHeXv/::Administrator:admin:changeme@example.com:'
   $target_group     = { example1 => 'server1.example.com',
                         example2 => 'server2.example.com' }
+  $type             = 'uf'
   $localusers       = undef
   $proxyserver      = hiera('proxyserver', undef )
   $purge            = undef

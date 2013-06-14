@@ -66,8 +66,8 @@
 # Copyright 2013 Network Systems Team - Harvard University
 #
 class splunk (
-  $ensurestat      = $::splunk::ensurestat,
-  $enablestat      = $::splunk::enablestat,
+  $ensurestat      = $::splunk::params::ensurestat,
+  $enablestat      = $::splunk::params::enablestat,
   $localusers      = $::splunk::params::localusers,
   $nagios_contacts = $::splunk::params::nagios_contacts,
   $nagiosserver    = $::splunk::nagiosserver,
@@ -82,6 +82,7 @@ class splunk (
 # TransGaming manifest
 # at https://github.com/TransGaming/puppet/blob/master/splunk
 #
+  validate_string($type)
   case $type {
     'uf': {
       $pkgname    = 'splunkforwarder'
@@ -93,11 +94,11 @@ class splunk (
       $pkgname    = 'splunk'
       $license    = 'puppet:///modules/splunk/noarch/opt/splunk/etc/splunk-forwarder.license'
     }
-    #default: { 
-    #  $SPLUNKHOME = '/opt/splunk'
-    #  $pkgname    = 'splunk'
-    #  $license    = undef
-    #}
+    default: { 
+      $SPLUNKHOME = '/opt/splunk'
+      $pkgname    = 'splunk'
+      $license    = undef
+    }
   }
 
 
@@ -107,10 +108,12 @@ class splunk (
 
   } else {
     class { 'splunk::install':
+      before => Class['splunk::outputs'],
       notify => Class['splunk::service'],
     }
     class { 'splunk::service': }
 
+# maybe add ancors so these get run after the install
     case $type {
       'uf': {
         class { 'splunk::outputs': } 
@@ -118,6 +121,7 @@ class splunk (
       'lwf': {
         class { 'splunk::outputs': } 
         class { 'splunk::config::lwf': }
+        class { 'splunk::config::remove_uf': } 
       }
       'hwf': {
         class { 'splunk::outputs': } 
@@ -130,6 +134,7 @@ class splunk (
         class { 'splunk::app::ta-sos'         : }
         class { 'splunk::app::collector'      : }
         class { 'splunk::app::splunkforwarder': }
+
         # expect should be in the site/module
         #package { 'expect': }
       }
