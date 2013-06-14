@@ -96,7 +96,7 @@ class splunk (
     }
     class { 'splunk::service': }
 
-    case $::splunk::type {
+    case $type {
       'uf': {
         class { 'splunk::outputs': } 
     }

@@ -3,6 +3,7 @@ class splunk::params {
   $splunkadmin      = ':admin:$1$QfZoXMjP$jafmv2ASM45lllqaXHeXv/::Administrator:admin:changeme@example.com:'
   $target_group     = { example1 => 'server1.example.com',
                         example2 => 'server2.example.com' }
+  $type             = undef
   $localusers       = undef
   $proxyserver      = hiera('proxyserver', undef )
   $purge            = undef
@@ -19,11 +20,11 @@ class splunk::params {
       $pkgname    = 'splunk'
       $license    = 'puppet:///modules/splunk/noarch/opt/splunk/etc/splunk-forwarder.license'
     }
-    default: { 
-      $SPLUNKHOME = '/opt/splunk'
-      $pkgname    = 'splunk'
-      $license    = undef
-    }
+    #default: { 
+    #  $SPLUNKHOME = '/opt/splunk'
+    #  $pkgname    = 'splunk'
+    #  $license    = undef
+    #}
   }
 
   if $::mode == maintenance {
@@ -33,5 +34,4 @@ class splunk::params {
     $ensurestat = 'running'
     $enablestat = 'true'
   }
-  $type             = 'lwf'
 }
