@@ -14,7 +14,7 @@
 # http://docs.splunk.com/Documentation/Splunk/latest/admin/Outputsconf
 class splunk::outputs (
   $port         = '9997',
-  $path         = "${::splunk::params::SPLUNKHOME}/etc/system/local",
+  $path         = "${::splunk::SPLUNKHOME}/etc/system/local",
   $target_group = $::splunk::target_group
   ) {
 
