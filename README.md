@@ -10,6 +10,14 @@ ln -s pre-commit.puppet-lint .git/hooks/pre-commit
 
 ## Example Usage
 
+### Splunk Universal Forwarder
+
+>class { 'splunk':
+>  port         => '50514',
+>  target_group => { 'name' => '1.2.3.4' },
+>}
+
+
 ### splunk::ulimit
   splunk::ulimit takes two parameters, the name of the limit to change
   and the number of files to allow.
