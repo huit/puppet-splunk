@@ -30,12 +30,14 @@ define splunk::ta::files (
   } ->
   file { "${SPLUNKHOME}/etc/apps/${title}/local":
     ensure => directory,
-  }
+  } -> 
   file { "${SPLUNKHOME}/etc/apps/${title}/local/app.conf":
     ensure => file,
     owner  => 'splunk',
     group  => 'splunk',
     mode   => '0644',
+    require => Class['splunk::install'],
+    notify  => Class['splunk::service'],
   } ->
   file { "${SPLUNKHOME}/etc/apps/${title}/local/inputs.conf":
     ensure  => present,
@@ -44,12 +46,14 @@ define splunk::ta::files (
     content => template($inputfile),
     require => Class['splunk::install'],
     notify  => Class['splunk::service'],
-  }
-  ini_setting { 'Enable Splunk LWF':
+  } ->
+  ini_setting { "Enable Splunk ${title} TA":
     path    => "${SPLUNKHOME}/etc/apps/${title}/local/app.conf",
     section => 'install',
     setting => 'state',
     value   => $status,
     ensure  => present,
+    require => Class['splunk::install'],
+    notify  => Class['splunk::service'],
   }
 }
