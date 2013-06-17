@@ -2,48 +2,42 @@
 # by default outputs.conf will be placed in $splunkhome/etc/system/local/
 # === Parameters
 #
-# [script]
-#   { 'target group name' => 'server/ip' }
+# [inputs]
+#   Nested Hash used to define monitored inputs. Sorry, I couldn't think of
+#   a better way to do this :/
+#   The format is:
+#   { 'input title' => { 'setting' => 'value' } }
 #
-# [monitor]
-#   Hash used to define monitored inputs
-#
-define splunk::inputs (
-  $type,
-  $disabled   = 'false',
-  $input      = undef,
-  $index      = $::splunk::index,
-  $source     = undef,
-  $sourcetype = undef,
-
+class splunk::inputs (
+  $path         = "${::splunk::SPLUNKHOME}/etc/system/local",
+  $inputs = { 'script://./bin/sshdChecker.sh' => { 
+                disabled   => 'true',
+                index      => 'os',
+                interval   => '3600',
+                source     => 'Unix:SSHDConfig',
+                sourcetype => 'Unix:SSHDConfig'},
+              'script://./bin/sshdChecker.sh2' => { 
+                disabled   => 'true2',
+                index      => 'os2',
+                interval   => '36002',
+                source     => 'Unix:SSHDConfig2',
+                sourcetype => 'Unix:SSHDConfig2'}
+            }
   ) {
-
-#nameof-input = key => value, key => value 
-
-#[script://./bin/sshdChecker.sh]
-#disabled = true
-#index = os
-#interval = 3600
-#source = Unix:SSHDConfig
-#sourcetype = Unix:SSHDConfig
-
-
   # Validate hash
-  if ( $script ) {
-    unless is_hash($script){
+  if ( $inputs ) {
+    unless is_hash($inputs){
       fail("$script is not a valid hash")
     }
-  if ( $monitor ) {
-    unless is_hash($script){
-      fail("$monitor is not a valid hash")
   }
+  $input_title = keys($inputs)
 
-  #file { "${path}/outputs.conf":
-  #  ensure  => file,
-  #  owner   => 'splunk',
-  #  group   => 'splunk',
-  #  mode    => '0644',
-  #  content => template('splunk/opt/splunk/etc/system/local/outputs.conf.erb'),
-  #  notify  => Class['splunk::service']
-  #}
+  file { "${path}/inputs.conf":
+    ensure  => file,
+    owner   => 'splunk',
+    group   => 'splunk',
+    mode    => '0644',
+    content => template('splunk/opt/splunk/etc/system/local/inputs.conf.erb'),
+    notify  => Class['splunk::service']
+  }
 }
