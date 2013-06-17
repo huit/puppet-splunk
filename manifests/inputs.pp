@@ -1,18 +1,32 @@
-# splunk::inputs should be called  to manage your splunk outputs.conf
+# splunk::inputs should be called  to manage your splunk inputs.conf
 # by default outputs.conf will be placed in $splunkhome/etc/system/local/
 # === Parameters
 #
 # [script]
-#   Hash used to define scripted inputs
 #   { 'target group name' => 'server/ip' }
 #
 # [monitor]
 #   Hash used to define monitored inputs
 #
-class splunk::inputs (
-  $script  = undef,
-  $monitor = undef
+define splunk::inputs (
+  $type,
+  $disabled   = 'false',
+  $input      = undef,
+  $index      = $::splunk::index,
+  $source     = undef,
+  $sourcetype = undef,
+
   ) {
+
+#nameof-input = key => value, key => value 
+
+#[script://./bin/sshdChecker.sh]
+#disabled = true
+#index = os
+#interval = 3600
+#source = Unix:SSHDConfig
+#sourcetype = Unix:SSHDConfig
+
 
   # Validate hash
   if ( $script ) {
