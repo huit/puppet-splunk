@@ -14,6 +14,7 @@
 #      
 define splunk::ta::files (
   $configfile = "puppet:///modules/splunk/ta/${title}",
+  $index      = $::splunk::index,
   $inputfile  = "splunk/${title}/inputs.conf.erb",
   $status     = 'enabled',
   $SPLUNKHOME = $::splunk::SPLUNKHOME

@@ -11,10 +11,32 @@
 #
 # Document parameters here.
 #
+# [index]
+#   Default index to sent inputs to. Defaults to 'os'
+#
+# [localusers]
+#
+# [nagios_contacts]
+#   Accepts a comma seperated list of contacts. Then enables and exports 
+#   Nagios Service checks for monitoring. 
+#
+# [port]
+#   Splunk Default Input Port for indexers. Defaults to 9997. This sets both
+#   The ports Monitored and the ports set in outputs.conf
+#
+# [proxyserver]
+#   Define a proxy server for Splunk to use. Defaults to false.
+#
 # [purge]
 #   purge => true
 #   purge defaults to false, and only accepts a boolean as an argument.
 #   purge purges all traces of splunk *without* a backup. 
+#
+# [splunkadmin]
+#
+# [target_group]
+#   Hash used to define splunk default groups and servers, valid configs are
+#   { 'target group name' => 'server/ip' }
 #
 # [type]
 #   Install type. Defaults to Universal Forwarder valid inputs are:
@@ -24,25 +46,6 @@
 #   jobs    : Splunk Jobs Server - Search + Forwarding
 #   search  : Splunk Search Head
 #   indexer : Splunk Distribuited Index Server
-#
-# [target_group]
-#   Hash used to define splunk default groups and servers, valid configs are
-#   { 'target group name' => 'server/ip' }
-#
-# [port]
-#   Splunk Default Input Port for indexers. Defaults to 9997. This sets both
-#   The ports Monitored and the ports set in outputs.conf
-# 
-# [splunkadmin]
-#
-# [localusers]
-#
-# [nagios_contacts]
-#   Accepts a comma seperated list of contacts. Then enables and exports 
-#   Nagios Service checks for monitoring. 
-#
-# [proxyserver]
-#   Define a proxy server for Splunk to use. Defaults to false.
 #
 # === Variables
 #
@@ -72,6 +75,7 @@
 class splunk (
   $ensurestat      = $::splunk::params::ensurestat,
   $enablestat      = $::splunk::params::enablestat,
+  $index           = $::splunk::params::index,
   $localusers      = $::splunk::params::localusers,
   $nagios_contacts = $::splunk::params::nagios_contacts,
   $nagiosserver    = $::splunk::nagiosserver,

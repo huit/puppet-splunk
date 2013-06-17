@@ -5,82 +5,82 @@
 host = <%= @fqdn %>
 
 [script://./bin/vmstat.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [script://./bin/iostat.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [script://./bin/ps.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [script://./bin/top.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [script://./bin/netstat.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [script://./bin/protocol.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [script://./bin/openPorts.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [script://./bin/time.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [script://./bin/lsof.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [script://./bin/df.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 # Shows current user sessions
 [script://./bin/who.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 # Lists users who could login (i.e., they are assigned a login shell)
 [script://./bin/usersWithLoginPrivs.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 # Shows last login time for users who have ever logged in
 [script://./bin/lastlog.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 # Shows stats per link-level Etherner interface (simply, NIC)
 [script://./bin/interfaces.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 # Shows stats per CPU (useful for SMP machines)
 [script://./bin/cpu.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 # This script reads the auditd logs translated with ausearch
 [script://./bin/rlog.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 # Run package management tool collect installed packages
 [script://./bin/package.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [script://./bin/hardware.sh]
-index = os
+index = <%= @index %>
 disabled = 0
 
 [monitor:///Library/Logs]
@@ -103,11 +103,11 @@ disabled = 0
 ### bash history
 [monitor:///root/.bash_history]
 disabled = true
-index = os
+index = <%= @index %>
 
 [monitor:///home/.../.bash_history]
 disabled = true
-index = os
+index = <%= @index %>
 
 
 
@@ -122,50 +122,50 @@ index = os
 # May require Splunk forwarder to run as root on some platforms.
 [script://./bin/openPortsEnhanced.sh]
 disabled = true
-index = os
+index = <%= @index %>
 
 [script://./bin/passwd.sh]
 disabled = true
-index = os
+index = <%= @index %>
 
 # Only applicable to Linux
 [script://./bin/selinuxChecker.sh]
 disabled = true
-index = os
+index = <%= @index %>
 
 # Currently only supports SunOS, Linux, OSX.
 # May require Splunk forwarder to run as root on some platforms.
 [script://./bin/service.sh]
 disabled = true
-index = os
+index = <%= @index %>
 
 # Currently only supports SunOS, Linux, OSX.
 # May require Splunk forwarder to run as root on some platforms.
 [script://./bin/sshdChecker.sh]
 disabled = true
-index = os
+index = <%= @index %>
 
 # Currently only supports Linux, OSX.
 # May require Splunk forwarder to run as root on some platforms.
 [script://./bin/update.sh]
 disabled = true
-index = os
+index = <%= @index %>
 
 [script://./bin/uptime.sh]
 disabled = true
-index = os
+index = <%= @index %>
 
 [script://./bin/version.sh]
 disabled = true
-index = os
+index = <%= @index %>
 
 # This script may need to be modified to point to the VSFTPD configuration file.
 [script://./bin/vsftpdChecker.sh]
 disabled = true
-index = os
+index = <%= @index %>
 
 [monitor:///var/ossec/logs/alerts/]
-index = os
+index = <%= @index %>
 sourcetype = ossec_alerts
 disabled = 0
 
@@ -173,7 +173,7 @@ disabled = 0
 # Autoreg Inputs added by puppet ERB Template
 [monitor:///var/log/autoreg/]
 sourcetype = autoreg
-index = os
+index = <%= @index %>
 disabled = 0
 <% end -%>
 
@@ -190,7 +190,7 @@ disabled = 0
 <% if classes.include?('nocportal') -%>
 [monitor:///var/log/netreg/netreg.log]
 sourcetype = netreg
-index = os
+index = <%= @index %>
 disabled = 0
 <% end -%>
 
