@@ -12,6 +12,9 @@ ln -s pre-commit.puppet-lint .git/hooks/pre-commit
 
 ### Splunk Universal Forwarder
 
+> The Below example configures a Universal Forwarder to send data to
+an index server at IP 1.2.3.4 and port 50514, but does not specify any inputs.
+
 ```Puppet
 class { 'splunk':
   port         => '50514',
@@ -19,7 +22,22 @@ class { 'splunk':
 }
 ```
 
+### Splunk Light Weight Forwarder
 
+> This example configures a Light Weight Forwarder to forward data to index
+server splunkindex.example.edu at port 50514, and sets the default index to
+"ns-os". In addition, we define the Splunk Unix TA as an app with its default
+inputs
+
+```Puppet
+class { 'splunk':
+  index        => 'ns-os',
+  type         => 'lwf',
+  port         => '50514',
+  target_group => { 'name' => 'splunkindex.example.edu' },
+}
+splunk::ta::files { 'Splunk_TA_nix': }
+```
 ### splunk::ulimit
   splunk::ulimit takes two parameters, the name of the limit to change
   and the number of files to allow.
