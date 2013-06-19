@@ -4,6 +4,7 @@ class { 'splunk':
   port         => '50514',
   target_group => { 'name' => 'splunkindex-60ox.noc.harvard.edu' },
 }
+splunk::ta::files { 'Splunk_TA_nix': }
 class { 'splunk::inputs': }
 #class { 'splunk::inputs': 
 #  input_hash   => { 'script://./bin/sshdChecker.sh' => {
@@ -20,4 +21,3 @@ class { 'splunk::inputs': }
 #                       sourcetype => 'Unix:SSHDConfig2'}
 #                   }
 #}
-splunk::ta::files { 'Splunk_TA_nix': }
