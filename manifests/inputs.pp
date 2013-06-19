@@ -2,35 +2,39 @@
 # by default outputs.conf will be placed in $splunkhome/etc/system/local/
 # === Parameters
 #
-# [inputs]
+# [input_hash]
 #   Nested Hash used to define monitored inputs. Sorry, I couldn't think of
 #   a better way to do this :/
 #   The format is:
 #   { 'input title' => { 'setting' => 'value' } }
 #
+# class { 'splunk::inputs': 
+#   input_hash   => { 'script://./bin/sshdChecker.sh' => {
+#                       disabled   => 'true',
+#                       index      => 'os',
+#                       interval   => '3600',
+#                       source     => 'Unix:SSHDConfig',
+#                       sourcetype => 'Unix:SSHDConfig'},
+#                     'script://./bin/sshdChecker.sh2' => {
+#                       disabled   => 'true2',
+#                       index      => 'os2',
+#                       interval   => '36002',
+#                       source     => 'Unix:SSHDConfig2',
+#                       sourcetype => 'Unix:SSHDConfig2'}
+#                   }
+#  }
+#
 class splunk::inputs (
   $path         = "${::splunk::SPLUNKHOME}/etc/system/local",
-  $inputs = { 'script://./bin/sshdChecker.sh' => { 
-                disabled   => 'true',
-                index      => 'os',
-                interval   => '3600',
-                source     => 'Unix:SSHDConfig',
-                sourcetype => 'Unix:SSHDConfig'},
-              'script://./bin/sshdChecker.sh2' => { 
-                disabled   => 'true2',
-                index      => 'os2',
-                interval   => '36002',
-                source     => 'Unix:SSHDConfig2',
-                sourcetype => 'Unix:SSHDConfig2'}
-            }
+  $input_hash   = { }
   ) {
   # Validate hash
-  if ( $inputs ) {
-    unless is_hash($inputs){
-      fail("$script is not a valid hash")
+  if ( $input_hash ) {
+    unless is_hash($input_hash){
+      fail("$input_hash is not a valid hash")
     }
   }
-  $input_title = keys($inputs)
+  $input_title = keys($input_hash)
 
   file { "${path}/inputs.conf":
     ensure  => file,
