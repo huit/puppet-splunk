@@ -41,7 +41,8 @@ class splunk::inputs (
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0644',
+    require => Class['splunk::install'],
+    notify  => Class['splunk::service'],
     content => template('splunk/opt/splunk/etc/system/local/inputs.conf.erb'),
-    notify  => Class['splunk::service']
   }
 }
