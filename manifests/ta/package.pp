@@ -1,6 +1,16 @@
-# == Defined Type: splunk::ta::files
-# splunk::ta::files will install a TA from the file bucket from the
-# Splunk Module, or more correctly from the site/ Splunk Module
+# == Defined Type: splunk::ta::package
+# splunk::ta::package will install a TA from a Package (RPM) built from the
+# Splunk Module
+#
+# This Definition assumes the package name will be splunk-<APP NAME>. For
+# example, And that <APP NAME> will match the the name on Splunk Base. So 
+# the Splunk for UNIX App, which downloads as "unix.spl" would be an RPM 
+# called "splunk-unix.x.x.rpm"
+#
+# NOTE: In some cases, like the Splunk for Unix APP and UNIX TA
+# You may want to use the same input.conf file for both, in wich case you
+# should pass the inputfile parameter.
+# http://docs.splunk.com/Documentation/UnixApp/4.7/User/InstalltheSplunkTechnicalAddonforUnixandLinux
 #
 # === Parameters
 #
@@ -15,24 +25,23 @@
 # [inputfile]
 #   Location of the inputfile template to use for the install TA/APP
 #   the format of the input should be <modulename>/<path/to/template.erb
-#      
-# === Examples
 # 
-# splunk::ta::files { 'Splunk_TA_nix': }
-define splunk::ta::files (
-  $configfile = "puppet:///modules/splunk/ta/${title}",
+# === Examples
+# In this example the the splunk-unix package will get installed
+# and the input file used will be the default input file for the 
+# Splunk for Unix TA. 
+#
+# splunk::ta::package { 'unix':
+#   inputfile => 'splunk/Splunk_TA_nix/inputs.conf.erb',
+# }
+#
+define splunk::ta::package (
   $index      = $::splunk::index,
   $inputfile  = "splunk/${title}/inputs.conf.erb",
   $status     = 'enabled',
   $SPLUNKHOME = $::splunk::SPLUNKHOME
 ) {
-  file { "${SPLUNKHOME}/etc/apps/${title}":
-    ensure  => present,
-    owner   => 'splunk',
-    group   => 'splunk',
-    recurse => true,
-    purge   => false,
-    source  => $configfile,
+  package { "splunk-${title}":
     require => Class['splunk::install'],
     notify  => Class['splunk::service'],
   } ->

@@ -1,6 +1,15 @@
 splunk
 
-This is the splunk module.  It requires Puppet 2.6.2 or later.
+This is the HUIT Splunk module.  It requires these Puppet Modules:
+
+'cprice404/inifile'
+'puppetlabs/stdlib'
+
+This Module also makes a number of assumptions. 
+
+- The Splunk Package is hosted in the package managment repository of your choice and is availible for puppet to install using the package type. 
+
+
 
 Disabled inputs for  sourcetype "lsof" "ps" as they are chatty and create a lot of events
 
