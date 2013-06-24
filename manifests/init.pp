@@ -133,47 +133,50 @@ class splunk (
         class { 'splunk::config::remove_uf': } 
       }
       'hwf': {
-        class { 'splunk::outputs': } 
-        class { 'splunk::config::lwf': status => 'disabled' }
-        class { 'splunk::config::hwf': }
+        fail("Server type: $type is a feature that has not yet been implemented")
+        #class { 'splunk::outputs': } 
+        #class { 'splunk::config::lwf': status => 'disabled' }
+        #class { 'splunk::config::hwf': }
 
 
-        class { 'splunk::app'                 : }
-        class { 'splunk::app::unix'           : }
-        class { 'splunk::app::ta-sos'         : }
-        class { 'splunk::app::collector'      : }
-        class { 'splunk::app::splunkforwarder': }
+        #class { 'splunk::app'                 : }
+        #class { 'splunk::app::unix'           : }
+        #class { 'splunk::app::ta-sos'         : }
+        #class { 'splunk::app::collector'      : }
+        #class { 'splunk::app::splunkforwarder': }
 
         # expect should be in the site/module
         #package { 'expect': }
       }
       'search': {
-        class { 'splunk::config::lwf': status => 'disabled' }
-        class { 'splunk::monitor::mgmt_port': }
+        fail("Server type: $type is a feature that has not yet been implemented")
+        #class { 'splunk::config::lwf': status => 'disabled' }
+        #class { 'splunk::monitor::mgmt_port': }
 
-        class { 'splunk::server': }
-        class { 'splunk::app'          : }
-        class { 'splunk::app::unix'    : }
-        class { 'splunk::app::config'  : }
-        class { 'splunk::app::search'  : }
-        class { 'splunk::app::mom'     : }
-        class { 'splunk::app::maps'    : }
-        class { 'splunk::app::execview': }
-        class { 'splunk::app::nagios'  : }
+        #class { 'splunk::server': }
+        #class { 'splunk::app'          : }
+        #class { 'splunk::app::unix'    : }
+        #class { 'splunk::app::config'  : }
+        #class { 'splunk::app::search'  : }
+        #class { 'splunk::app::mom'     : }
+        #class { 'splunk::app::maps'    : }
+        #class { 'splunk::app::execview': }
+        #class { 'splunk::app::nagios'  : }
 
-        package { 'python-redis': }
+        #package { 'python-redis': }
       }
       'indexer': {
-        class { 'splunk::config::lwf': status => 'disabled' }
-        class { 'splunk::monitor::mgmt_port': }
-        class { 'splunk::monitor::input_port': }
+        fail("Server type: $type is a feature that has not yet been implemented")
+        #class { 'splunk::config::lwf': status => 'disabled' }
+        #class { 'splunk::monitor::mgmt_port': }
+        #class { 'splunk::monitor::input_port': }
 
-        class { 'splunk::server'     : }
-        class { 'splunk::app'        : }
-        class { 'splunk::app::unix'  : }
-        class { 'splunk::app::index' : }
-        class { 'splunk::app::config': }
-        class { 'splunk::app::ta-sos': }
+        #class { 'splunk::server'     : }
+        #class { 'splunk::app'        : }
+        #class { 'splunk::app::unix'  : }
+        #class { 'splunk::app::index' : }
+        #class { 'splunk::app::config': }
+        #class { 'splunk::app::ta-sos': }
 
         package { 'python-redis': }
       }
