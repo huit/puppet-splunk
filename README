@@ -1,5 +1,0 @@
-splunk
-
-This is the splunk module.  It requires Puppet 2.6.2 or later.
-
-Disabled inputs for  sourcetype "lsof" "ps" as they are chatty and create a lot of events

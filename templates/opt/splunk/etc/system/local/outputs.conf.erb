@@ -1,0 +1,11 @@
+#### THIS FILE MANAGED BY PUPPET ####
+[tcpout]
+defaultGroup = <%= @defaultgroup %>
+disabled = false
+
+<% @groupkeys.each do |group| -%>
+[tcpout:<%= group -%>]
+server = <%= @target_group[group] -%>:<%= @port %>
+
+<% end -%>
+#### THIS FILE MANAGED BY PUPPET ####

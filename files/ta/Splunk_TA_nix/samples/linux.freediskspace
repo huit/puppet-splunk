@@ -1,0 +1,2 @@
+Mar 05 2010 16:49:53 filesystem="/dev/disk0s2" TotalMegabytes=30000 UsedMegabytes=0 FreeMegabytes=30000 PercentFreeSpace=1000 mount="/"
+Mar 05 2010 16:49:53 filesystem="/dev/disk1s2" TotalMegabytes=20000 UsedMegabytes=20000 FreeMegabytes=0 PercentFreeSpace=0 mount="/home"
