@@ -1,4 +1,2 @@
-class { 'splunk':
-  target_group => { 'name' => 'splunkindex-60ox.noc.harvard.edu' },
-}
+class { 'splunk': }
 splunk::ta::files { 'Splunk_TA_nix': }
