@@ -9,5 +9,6 @@ class splunk::config::uf (
     setting => 'disableDefaultPort',
     value   => 'True',
     ensure  => present,
+    require => Class['splunk::install'],
   }
 }
