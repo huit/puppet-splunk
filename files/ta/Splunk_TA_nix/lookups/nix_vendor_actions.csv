@@ -1,0 +1,19 @@
+vendor_action,action
+accepted,success
+added,add
+authenticated,success
+"authentication failed",failure
+"authentication refused",failure
+"authentication tried",failure
+"authorized to",success
+"could not identify password",failure
+delete,delete
+failed,failure
+"ftp login",success
+"handling telnet call",success
+"invalid user",failure
+"login restricted",failure
+remove,delete
+"session opened",success
+succeeded,success
+successful,success

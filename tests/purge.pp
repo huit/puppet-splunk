@@ -1,0 +1,1 @@
+class { 'splunk': purge => true }

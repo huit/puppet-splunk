@@ -1,5 +1,5 @@
 name    'huit-splunk'
-version '4.0.0'
+version '1.0.0'
 source 'UNKNOWN'
 author 'Tim Hartmann'
 license 'GPL'
@@ -9,3 +9,5 @@ project_page 'https://github.com/huit/puppet-splunk'
 
 ## Add dependencies, if any:
 # dependency 'username/name', '>= 1.2.0'
+dependency 'cprice404/inifile', '>=0.10.0'
+dependency 'puppetlabs/stdlib', '>=3.2.0'

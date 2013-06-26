@@ -1,5 +1,5 @@
-<%= splunkadmin %>
-<% if scope.lookupvar('splunk::type') == 'search' and localusers != :undef then -%>
+<%= @splunkadmin %>
+<% if @type  == 'search' and @localusers != :undef then -%>
 <%     localusers.each do |user| -%>
 <%= user %>
 <%     end -%>
