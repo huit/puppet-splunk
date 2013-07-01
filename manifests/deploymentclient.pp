@@ -7,6 +7,7 @@
 #
 # [targeturi]
 #   String used to define a Target Deployment Server.
+#   targeturi is a *Required* Paramater if your going to use this class.
 #   targeturi => 'deploymentserver.splunk.mycompany.com:8089'
 #
 class splunk::deploymentclient (
