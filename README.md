@@ -64,6 +64,7 @@ class { 'splunk':
 class { 'splunk::deploymentclient':
   targeturi => 'foo.com:8089',
 }
+```
 
 ### splunk::ulimit
   splunk::ulimit takes two parameters, the name of the limit to change
