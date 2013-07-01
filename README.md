@@ -56,6 +56,7 @@ the client are still under Puppet Control.
 - Version
 - Admin PW
 - Type
+
 ```Puppet
 class { 'splunk':
   type => 'lwf',
