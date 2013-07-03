@@ -84,20 +84,20 @@ index = <%= @index %>
 disabled = 0
 
 [monitor:///Library/Logs]
-index=os
+index = <%= @index %>
 disabled = 0
 
 [monitor:///var/log]
-index=os
+index = <%= @index %>
 disabled = 0
 
 [monitor:///var/adm]
-index=os
+index = <%= @index %>
 disabled = 0
 
 [monitor:///etc]
 blacklist = (puppet|puppet/environments/...|puppet/hieradata|puppet/manifests|puppet/modules|puppet/files)
-index=os
+index = <%= @index %>
 disabled = 0
 
 ### bash history
