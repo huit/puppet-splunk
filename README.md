@@ -47,6 +47,25 @@ class { 'splunk':
 }
 splunk::ta::files { 'Splunk_TA_nix': }
 ```
+####  Configure Deployment Client
+If you have a Splunk Deployment Server set up, you can bind the Splunk instance
+running on your node to a deployment server with the deploymentclient sub class.
+Add this to your node.pp or site/<node type module>. In the below example we are managing
+A Light Weight Forwarder with foo.com on port 8089.  Please NOTE - Some basic aspects of
+the client are still under Puppet Control. 
+- Version
+- Admin PW
+- Type
+
+```Puppet
+class { 'splunk':
+  type => 'lwf',
+}
+class { 'splunk::deploymentclient':
+  targeturi => 'foo.com:8089',
+}
+```
+
 ### splunk::ulimit
   splunk::ulimit takes two parameters, the name of the limit to change
   and the number of files to allow.
