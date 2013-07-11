@@ -17,6 +17,7 @@ class splunk::outputs (
   $path         = "${::splunk::SPLUNKHOME}/etc/system/local",
   $target_group = $::splunk::target_group
   ) {
+  Class { require => Class['splunk::install'] }
 
   # Validate hash
   unless is_hash($target_group){
