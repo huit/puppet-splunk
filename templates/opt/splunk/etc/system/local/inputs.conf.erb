@@ -6,7 +6,7 @@ host = <%= @fqdn %>
 
 <% @input_title.each do |inputname| -%>
 [<%= inputname -%>]
-  <% @input_hash[inputname].each do |key,value| -%>
+  <% @input_hash[inputname].sort.each do |key,value| -%>
   <%= key -%> = <%= value %>
   <% end %>
 <% end %>
