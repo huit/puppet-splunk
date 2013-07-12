@@ -4,7 +4,7 @@
 [default]
 maxRunningProcessGroups = 20
 
-<% @input_title.each do |inputname| -%>
+<% @input_title.sort.each do |inputname| -%>
 ### Index for <%= inputname %>
 [<%= inputname -%>]
 <% @input_hash[inputname].sort.each do |key,value| -%>

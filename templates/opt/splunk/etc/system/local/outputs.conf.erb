@@ -3,13 +3,13 @@
 defaultGroup = <%= @defaultgroup %>
 disabled = <%= @tcpout_disabled %>
 
-<% @groupkeys.each do |group| -%>
+<% @groupkeys.sort.each do |group| -%>
 [tcpout:<%= group -%>]
 server = <%= @target_group[group] -%>:<%= @port %>
 
 <% end -%>
 
-<% @output_title.each do |outputname| -%>
+<% @output_title.sort.each do |outputname| -%>
 [<%= outputname -%>]
   <% @output_hash[outputname].sort.each do |key,value| -%>
 <%= key -%> = <%= value %>
