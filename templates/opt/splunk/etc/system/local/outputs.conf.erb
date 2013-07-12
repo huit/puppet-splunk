@@ -8,4 +8,12 @@ disabled = false
 server = <%= @target_group[group] -%>:<%= @port %>
 
 <% end -%>
+
+<% @output_title.each do |outputname| -%>
+[<%= outputname -%>]
+  <% @output_hash[outputname].sort.each do |key,value| -%>
+<%= key -%> = <%= value %>
+  <% end %>
+<% end %>
+
 #### THIS FILE MANAGED BY PUPPET ####
