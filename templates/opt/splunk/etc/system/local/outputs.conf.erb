@@ -1,7 +1,7 @@
 #### THIS FILE MANAGED BY PUPPET ####
 [tcpout]
 defaultGroup = <%= @defaultgroup %>
-disabled = false
+disabled = <%= @tcpout_disabled %>
 
 <% @groupkeys.each do |group| -%>
 [tcpout:<%= group -%>]
