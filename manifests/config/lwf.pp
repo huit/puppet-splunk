@@ -3,7 +3,7 @@ class splunk::config::lwf (
   $SPLUNKHOME = $::splunk::SPLUNKHOME,
   $status  = 'enabled'
   ) {
-  ini_setting { 'Disable Web Server':
+  ini_setting { 'Disable Management Port':
     ensure  => present,
     path    => "${SPLUNKHOME}/etc/system/local/server.conf",
     section => 'httpServer',
