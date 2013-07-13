@@ -3,14 +3,6 @@ class splunk::config::lwf (
   $SPLUNKHOME = $::splunk::SPLUNKHOME,
   $status  = 'enabled'
   ) {
-  ini_setting { 'Disable Management Port':
-    ensure  => present,
-    path    => "${SPLUNKHOME}/etc/system/local/server.conf",
-    section => 'httpServer',
-    setting => 'disableDefaultPort',
-    value   => 'True',
-    require => Class['splunk::install'],
-  }
   file { "${SPLUNKHOME}/etc/apps/SplunkLightForwarder/local":
     ensure => 'directory',
     owner  => 'splunk',

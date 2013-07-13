@@ -136,17 +136,19 @@ class splunk (
     case $type {
       'uf': {
         class { 'splunk::outputs': } 
-        class { 'splunk::config::uf': }
+        class { 'splunk::config::mgmt_port': }
     }
       'lwf': {
         class { 'splunk::outputs': } 
         class { 'splunk::config::lwf': }
+        class { 'splunk::config::mgmt_port': }
         class { 'splunk::config::remove_uf': } 
       }
       'hwf': {
         fail("Server type: $type is a feature that has not yet been implemented")
         #class { 'splunk::outputs': } 
         #class { 'splunk::config::lwf': status => 'disabled' }
+        #class { 'splunk::config::mgmt_port': }
         #class { 'splunk::config::hwf': }
 
 
@@ -162,6 +164,7 @@ class splunk (
       'search': {
         fail("Server type: $type is a feature that has not yet been implemented")
         #class { 'splunk::config::lwf': status => 'disabled' }
+        #class { 'splunk::config::mgmt_port': }
         #class { 'splunk::monitor::mgmt_port': }
 
         #class { 'splunk::server': }
@@ -181,6 +184,7 @@ class splunk (
 
         class { 'splunk::outputs': tcpout_disabled => 'True' } 
         class { 'splunk::config::lwf': status => 'disabled' }
+        class { 'splunk::config::mgmt_port': disableDefaultPort => 'False' }
         class { 'splunk::monitor::mgmt_port': }
         class { 'splunk::monitor::input_port': }
 
@@ -190,8 +194,6 @@ class splunk (
         #class { 'splunk::app::index' : }
         #class { 'splunk::app::config': }
         #class { 'splunk::app::ta-sos': }
-
-        package { 'python-redis': }
       }
       default: { fail("Server type: $type is not a supported Splunk type.") }
     }
