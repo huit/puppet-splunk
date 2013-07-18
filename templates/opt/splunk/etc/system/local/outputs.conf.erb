@@ -1,6 +1,6 @@
 #### THIS FILE MANAGED BY PUPPET ####
 [tcpout]
-defaultGroup = <%= @defaultgroup %>
+defaultGroup = <%= @defaultgroup.sort %>
 disabled = <%= @tcpout_disabled %>
 
 <% @groupkeys.sort.each do |group| -%>
