@@ -1,0 +1,10 @@
+# Local transforms.conf file
+# Managed through Puppet
+# Copyright (C) 2009-2012 Splunk Inc. All Rights Reserved.
+
+<% @input_title.sort.each do |inputname| -%>
+[<%= inputname -%>]
+<% @input_hash[inputname].sort.each do |key,value| -%>
+<%= key -%> = <%= value %>
+<% end %>
+<% end -%>
