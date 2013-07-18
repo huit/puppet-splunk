@@ -183,8 +183,12 @@ class splunk (
         #fail("Server type: $type is a feature that has not yet been implemented")
 
         class { 'splunk::outputs': tcpout_disabled => 'True' } 
+        class { 'splunk::indexes': }
+
         class { 'splunk::config::lwf': status => 'disabled' }
         class { 'splunk::config::mgmt_port': disableDefaultPort => 'False' }
+        class { 'splunk::config::remove_uf': } 
+
         class { 'splunk::monitor::mgmt_port': }
         class { 'splunk::monitor::input_port': }
 
