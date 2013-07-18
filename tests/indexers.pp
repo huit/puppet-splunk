@@ -1,4 +1,9 @@
-class { 'splunk': type => 'indexer', }
+class { 'splunk':
+  type => 'indexer',
+  output_hash => { 'syslog:qradar_group' => {
+                     'server' => 'q6.itsec.harvard.edu:514' }
+                 }
+}
 class { 'splunk::inputs':
   input_hash =>  { 'splunktcp://50514' => {} }
   }

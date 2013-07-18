@@ -11,7 +11,7 @@ server = <%= @target_group[group] -%>:<%= @port %>
 
 <% @output_title.sort.each do |outputname| -%>
 [<%= outputname -%>]
-  <% @output_hash[outputname].sort.each do |key,value| -%>
+<% @output_hash[outputname].sort.each do |key,value| -%>
 <%= key -%> = <%= value %>
   <% end %>
 <% end %>
