@@ -38,8 +38,9 @@ class splunk::outputs (
   unless is_hash($target_group){
     fail("target_group is not a valid hash")
   }
-  $groupkeys = keys($target_group)
-  $defaultgroup = join($groupkeys, ",")
+  $groupkeys    = keys($target_group)
+  $sorted       = sort($groupkeys)
+  $defaultgroup = join($sorted, ",")
 
   # Validate outputs hash
   if ( $output_hash ) {
@@ -56,6 +57,7 @@ class splunk::outputs (
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0644',
+    backup  => true,
     content => template('splunk/opt/splunk/etc/system/local/outputs.conf.erb'),
     notify  => Class['splunk::service']
   }
