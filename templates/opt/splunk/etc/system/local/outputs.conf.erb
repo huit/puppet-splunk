@@ -1,11 +1,19 @@
 #### THIS FILE MANAGED BY PUPPET ####
 [tcpout]
-defaultGroup = <%= @defaultgroup %>
-disabled = false
+defaultGroup = <%= @defaultgroup.sort %>
+disabled = <%= @tcpout_disabled %>
 
-<% @groupkeys.each do |group| -%>
+<% @groupkeys.sort.each do |group| -%>
 [tcpout:<%= group -%>]
 server = <%= @target_group[group] -%>:<%= @port %>
 
 <% end -%>
+
+<% @output_title.sort.each do |outputname| -%>
+[<%= outputname -%>]
+<% @output_hash[outputname].sort.each do |key,value| -%>
+<%= key -%> = <%= value %>
+  <% end %>
+<% end %>
+
 #### THIS FILE MANAGED BY PUPPET ####

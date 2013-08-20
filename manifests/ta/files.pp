@@ -26,6 +26,8 @@ define splunk::ta::files (
   $status     = 'enabled',
   $SPLUNKHOME = $::splunk::SPLUNKHOME
 ) {
+  File { ignore => '*.py[oc]' }
+
   file { "${SPLUNKHOME}/etc/apps/${title}":
     ensure  => present,
     owner   => 'splunk',

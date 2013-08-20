@@ -20,6 +20,15 @@
 #   Accepts a comma seperated list of contacts. Then enables and exports 
 #   Nagios Service checks for monitoring. 
 #
+# [output_hash]
+#   Optional hash of outputs that can be used instead of, or in addition to the
+#   default group (tcpout) Useful for forwarding data to third party tools from
+#   indexers.
+#   
+#   output_hash   => { 'syslog:example_group' => {
+#                        'server' => 'server.example.com:514' }
+#                    }
+#
 # [port]
 #   Splunk Default Input Port for indexers. Defaults to 9997. This sets both
 #   The ports Monitored and the ports set in outputs.conf
@@ -73,12 +82,14 @@
 # Copyright 2013 Network Systems Team - Harvard University
 #
 class splunk (
-  $ensurestat      = $::splunk::params::ensurestat,
-  $enablestat      = $::splunk::params::enablestat,
+  $service_ensure  = $::splunk::params::service_ensure,
+  $service_enable  = $::splunk::params::service_enable,
   $index           = $::splunk::params::index,
+  $index_hash      = $::splunk::params::index_hash,
   $localusers      = $::splunk::params::localusers,
   $nagios_contacts = $::splunk::params::nagios_contacts,
   $nagiosserver    = $::splunk::nagiosserver,
+  $output_hash     = $::splunk::params::output_hash,
   $port            = $::splunk::params::port,
   $proxyserver     = $::splunk::params::proxyserver,
   $purge           = $::splunk::params::purge,
@@ -117,25 +128,27 @@ class splunk (
 
   } else {
     class { 'splunk::install':
-      before => Class['splunk::outputs'],
       notify => Class['splunk::service'],
+      before => Class['splunk::outputs'],
     }
     class { 'splunk::service': }
 
     case $type {
       'uf': {
         class { 'splunk::outputs': } 
-        class { 'splunk::config::uf': }
+        class { 'splunk::config::mgmt_port': }
     }
       'lwf': {
         class { 'splunk::outputs': } 
         class { 'splunk::config::lwf': }
+        class { 'splunk::config::mgmt_port': }
         class { 'splunk::config::remove_uf': } 
       }
       'hwf': {
         fail("Server type: $type is a feature that has not yet been implemented")
         #class { 'splunk::outputs': } 
         #class { 'splunk::config::lwf': status => 'disabled' }
+        #class { 'splunk::config::mgmt_port': }
         #class { 'splunk::config::hwf': }
 
 
@@ -151,6 +164,7 @@ class splunk (
       'search': {
         fail("Server type: $type is a feature that has not yet been implemented")
         #class { 'splunk::config::lwf': status => 'disabled' }
+        #class { 'splunk::config::mgmt_port': }
         #class { 'splunk::monitor::mgmt_port': }
 
         #class { 'splunk::server': }
@@ -166,10 +180,17 @@ class splunk (
         #package { 'python-redis': }
       }
       'indexer': {
-        fail("Server type: $type is a feature that has not yet been implemented")
-        #class { 'splunk::config::lwf': status => 'disabled' }
-        #class { 'splunk::monitor::mgmt_port': }
-        #class { 'splunk::monitor::input_port': }
+        #fail("Server type: $type is a feature that has not yet been implemented")
+
+        class { 'splunk::outputs': tcpout_disabled => 'True' } 
+        class { 'splunk::indexes': }
+
+        class { 'splunk::config::lwf': status => 'disabled' }
+        class { 'splunk::config::mgmt_port': disableDefaultPort => 'False' }
+        class { 'splunk::config::remove_uf': } 
+
+        class { 'splunk::monitor::mgmt_port': }
+        class { 'splunk::monitor::input_port': }
 
         #class { 'splunk::server'     : }
         #class { 'splunk::app'        : }
@@ -177,8 +198,6 @@ class splunk (
         #class { 'splunk::app::index' : }
         #class { 'splunk::app::config': }
         #class { 'splunk::app::ta-sos': }
-
-        package { 'python-redis': }
       }
       default: { fail("Server type: $type is not a supported Splunk type.") }
     }
