@@ -66,6 +66,42 @@ class { 'splunk::deploymentclient':
 }
 ```
 
+### splunk::inputs
+  This is an optional sub-class which you can pass a nested hash into to create
+  custom inputs for Heavy Fowarders, agents or indexers
+
+  By Default the file is created in $SPLUNKHOME/etc/system/local
+
+```Puppet
+class { 'splunk::inputs': 
+  input_hash   => { 'script://./bin/sshdChecker.sh' => {
+                       disabled   => 'true',
+                       index      => 'os',
+                       interval   => '3600',
+                       source     => 'Unix:SSHDConfig',
+                       sourcetype => 'Unix:SSHDConfig'},
+                     'script://./bin/sshdChecker.sh2' => {
+                       disabled   => 'true2',
+                       index      => 'os2',
+                       interval   => '36002',
+                       source     => 'Unix:SSHDConfig2',
+                       sourcetype => 'Unix:SSHDConfig2'}
+                   }
+
+```
+
+### splunk::props
+  This is an optional sub-class which you can pass a nested hash into to create
+  custom props.conf
+
+  By Default the file is created in $SPLUNKHOME/etc/system/local
+
+### splunk::transforms
+  This is an optional sub-class which you can pass a nested hash into to create
+  custom transforms
+
+  By Default the file is created in $SPLUNKHOME/etc/system/local
+
 ### splunk::ulimit
   splunk::ulimit takes two parameters, the name of the limit to change
   and the number of files to allow.

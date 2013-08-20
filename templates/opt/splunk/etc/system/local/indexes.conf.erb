@@ -1,0 +1,13 @@
+# Local indexes.conf file
+# Managed through Puppet
+# Copyright (C) 2009-2012 Splunk Inc. All Rights Reserved.
+[default]
+maxRunningProcessGroups = 20
+
+<% @input_title.sort.each do |inputname| -%>
+### Index for <%= inputname %>
+[<%= inputname -%>]
+<% @input_hash[inputname].sort.each do |key,value| -%>
+<%= key -%> = <%= value %>
+<% end %>
+<% end -%>

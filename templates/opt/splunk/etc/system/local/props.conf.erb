@@ -1,13 +1,10 @@
-# Default inputs.conf file
+# Local props.conf file
 # Managed through Puppet
 # Copyright (C) 2009-2012 Splunk Inc. All Rights Reserved.
-[default]
-host = <%= @fqdn %>
 
 <% @input_title.sort.each do |inputname| -%>
 [<%= inputname -%>]
-  <% @input_hash[inputname].sort.each do |key,value| -%>
-  <%= key -%> = <%= value %>
-  <% end %>
+<% @input_hash[inputname].sort.each do |key,value| -%>
+<%= key -%> = <%= value %>
 <% end %>
-
+<% end -%>
