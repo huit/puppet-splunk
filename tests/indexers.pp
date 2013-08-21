@@ -1,7 +1,10 @@
 class { 'splunk':
   type => 'indexer',
   output_hash => { 'syslog:qradar_group' => 
-                     { 'server' => 'q6.itsec.harvard.edu:514' }
+                     { 'server' => 'q6.itsec.harvard.edu:514' },
+                   'tcpout:qradar_tcp' =>
+                     { 'server'         => 'q6.itsec.harvard.edu:12468',
+                       'sendCookedData' => 'false' }
                  }
 }
 class { 'splunk::inputs':
@@ -14,7 +17,9 @@ class { 'splunk::props':
                   'ps' => 
                     { 'TRANSFORMS-null' => 'setnull' },
                   'linux_secure' =>
-                    { 'TRANSFORMS-nyc'  => 'send_to_qradar' }
+                    { 'TRANSFORMS-nyc'  => 'send_to_qradar' },
+                  'WinEventLog:Security' =>
+                    { 'TRANSFORMS-nyc'  => 'send_to_qradar_tcp' }
                 }
 }
 class { 'splunk::transforms':
@@ -26,7 +31,11 @@ class { 'splunk::transforms':
                   'send_to_qradar' =>
                     { 'REGEX'    => '.',
                       'DEST_KEY' => '_SYSLOG_ROUTING',
-                      'FORMAT'   => 'qradar_group' }
+                      'FORMAT'   => 'qradar_group' },
+                  'send_to_qradar_tcp' =>
+                    { 'REGEX'    => '.',
+                      'DEST_KEY' => '_TCP_ROUTING',
+                      'FORMAT'   => 'qradar_tcp' }
                 }
 }
 splunk::ta::files { 'Splunk_TA_nix': }
