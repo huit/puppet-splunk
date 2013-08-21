@@ -4,7 +4,7 @@ class { 'splunk':
                      { 'server' => 'q6.itsec.harvard.edu:514' },
                    'tcpout:qradar_tcp' =>
                      { 'server'         => 'q6.itsec.harvard.edu:12468',
-                       'sendCookedData' => 'false' }
+                       'sendCookedData' => 'False' }
                  }
 }
 class { 'splunk::inputs':
