@@ -1,4 +1,5 @@
 #### THIS FILE MANAGED BY PUPPET ####
+<% if @tcpout_disabled == 'false' || @tcpout_disabled == 'False' -%>
 [tcpout]
 defaultGroup = <%= @defaultgroup.sort %>
 disabled = <%= @tcpout_disabled %>
@@ -7,6 +8,7 @@ disabled = <%= @tcpout_disabled %>
 [tcpout:<%= group -%>]
 server = <%= @target_group[group] -%>:<%= @port %>
 
+<% end -%>
 <% end -%>
 
 <% @output_title.sort.each do |outputname| -%>
