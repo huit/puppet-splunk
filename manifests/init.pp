@@ -86,6 +86,7 @@ class splunk (
   $service_enable  = $::splunk::params::service_enable,
   $index           = $::splunk::params::index,
   $index_hash      = $::splunk::params::index_hash,
+  $indexandforward = 'False',
   $localusers      = $::splunk::params::localusers,
   $nagios_contacts = $::splunk::params::nagios_contacts,
   $nagiosserver    = $::splunk::nagiosserver,

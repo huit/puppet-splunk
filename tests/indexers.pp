@@ -1,5 +1,6 @@
 class { 'splunk':
   type => 'indexer',
+  indexandforward => 'True',
   output_hash => { 'syslog:qradar_group' => 
                      { 'server' => 'q6.itsec.harvard.edu:514' },
                    'tcpout:qradar_tcp' =>
