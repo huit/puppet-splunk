@@ -18,8 +18,8 @@ To use the pre-commit hook supplied (taken from another github repo, url to be s
 ln -s pre-commit.puppet-lint .git/hooks/pre-commit
 
 ## Example Usage
-* [Splunk Universal Forwarder](#Splunk Universal Forwarder)
-* [Splunk Light Weight Forwarder](###Splunk Light Weight Forwarder)
+* [Splunk Universal Forwarder](#splunk-universal-forwarder)
+* [Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)
 
 ### Splunk Universal Forwarder
 
