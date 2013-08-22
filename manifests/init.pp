@@ -180,8 +180,6 @@ class splunk (
         #package { 'python-redis': }
       }
       'indexer': {
-        #fail("Server type: $type is a feature that has not yet been implemented")
-
         class { 'splunk::outputs': tcpout_disabled => 'True' } 
         class { 'splunk::indexes': }
 
