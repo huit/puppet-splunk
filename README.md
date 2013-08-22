@@ -61,7 +61,8 @@ This example creates a Splunk Index Server that forwards data to a third party s
 
 ```Puppet
   class { 'splunk':
-    type        => 'indexer',
+    type            => 'indexer',
+    indexandforward => 'True',
     output_hash => {'syslog:qradar_group' =>
                     { 'server' => 'q.example.edu:514' },
                       'tcpout:qradar_tcp' =>

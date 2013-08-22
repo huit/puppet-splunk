@@ -27,6 +27,7 @@
 # For more info on outputs.conf
 # http://docs.splunk.com/Documentation/Splunk/latest/admin/Outputsconf
 class splunk::outputs (
+  $indexandforward = $::splunk::indexandforward,
   $output_hash     = $::splunk::output_hash,
   $port            = $::splunk::port,
   $path            = "${::splunk::SPLUNKHOME}/etc/system/local",
