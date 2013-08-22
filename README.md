@@ -3,12 +3,12 @@ splunk
 This is the HUIT Splunk module.  It requires these Puppet Modules:
 
 'cprice404/inifile'
+
 'puppetlabs/stdlib'
 
 This Module also makes a number of assumptions. 
 
 - The Splunk Package is hosted in the package managment repository of your choice and is availible for puppet to install using the package type. 
-
 
 
 Disabled inputs for  sourcetype "lsof" "ps" as they are chatty and create a lot of events
@@ -18,10 +18,11 @@ To use the pre-commit hook supplied (taken from another github repo, url to be s
 ln -s pre-commit.puppet-lint .git/hooks/pre-commit
 
 ## Example Usage
+[Splunk Universal Forwarder](#Splunk Universal Forwarder)
 
 ### Splunk Universal Forwarder
 
-> The Below example configures a Universal Forwarder to send data to
+The Below example configures a Universal Forwarder to send data to
 an index server at IP 1.2.3.4 and port 50514, but does not specify any inputs.
 
 ```Puppet
@@ -33,7 +34,7 @@ class { 'splunk':
 
 ### Splunk Light Weight Forwarder
 
-> This example configures a Light Weight Forwarder to forward data to index
+This example configures a Light Weight Forwarder to forward data to index
 server splunkindex.example.edu at port 50514, and sets the default index to
 "ns-os". In addition, we define the Splunk Unix TA as an app with its default
 inputs
