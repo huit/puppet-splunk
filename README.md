@@ -20,6 +20,7 @@ ln -s pre-commit.puppet-lint .git/hooks/pre-commit
 ## Example Usage
 * [Splunk Universal Forwarder](#splunk-universal-forwarder)
 * [Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)
+* [Deployment Client](#configure-deployment-client)
 
 ### Splunk Universal Forwarder
 
@@ -49,7 +50,7 @@ class { 'splunk':
 }
 splunk::ta::files { 'Splunk_TA_nix': }
 ```
-####  Configure Deployment Client
+#### Configure Deployment Client
 If you have a Splunk Deployment Server set up, you can bind the Splunk instance
 running on your node to a deployment server with the deploymentclient sub class.
 Add this to your node.pp or site/<node type module>. In the below example we are managing
