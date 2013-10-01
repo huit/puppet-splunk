@@ -36,12 +36,12 @@ if [ "x$KERNEL" = "xLinux" ] ; then
     FILTER='/Average|Linux|^$|%/ {next} (NR==1) {next}'
 elif [ "x$KERNEL" = "xSunOS" ] ; then
     if [ $SOLARIS_8 -o $SOLARIS_9 ] ; then
-        CMD='mpstat -p 1 2'
+        CMD='eval mpstat -p 1 1; mpstat -a -p 1 1 | tail -1 | sed "s/^[ ]*0/all/"'
     else
-        CMD='mpstat -q -p 1 2'
+        CMD='eval mpstat -q -p 1 1; mpstat -aq -p 1 1 | tail -1 | sed "s/^[ ]*0/all/"'
     fi
     assertHaveCommand $CMD
-    FILTER='(NR<=2) {next} ($1 >= "0") {inBlock=1} (!inBlock) {next}'
+    FILTER='(NR<2) {next}'
     FORMAT='{cpu=$1; pctUser=$(NF-4); pctNice="0"; pctSystem=$(NF-3); pctIowait=$(NF-2); pctIdle=$(NF-1)}'
 elif [ "x$KERNEL" = "xAIX" ] ; then
     queryHaveCommand sar

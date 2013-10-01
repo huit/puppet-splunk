@@ -1,5 +1,5 @@
 <view autoCancelInterval="100" template="search.html">
-  <label>Splunk for Unix Technology Add-on: Setup</label>
+  <label>Splunk for Unix Add-on: Setup</label>
   
   <module name="AccountBar" layoutPanel="appHeader"/>
   <module name="AppBar" layoutPanel="navigationHeader"/>

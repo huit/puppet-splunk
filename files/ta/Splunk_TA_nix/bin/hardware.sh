@@ -117,7 +117,7 @@ elif [ "x$KERNEL" = "xHP-UX" ] ; then
     CPU_CACHE=`echo "$OUTPUT" | awk '/L[123]/ {cache+=$5} END {print cache " KB"}'`
     CPU_COUNT=`echo "$OUTPUT" | awk '/CPUs/ {print $5; exit}'`
     HARD_DRIVES=`iostat 2 1 | wc -l`
-    HARD_DRIVES=$((HARD_DRIVES-4))
+    HARD_DRIVES=`expr $HARD_DRIVES-4`
     NIC_COUNT=`lanscan -i | wc -l`
     NIC_TYPE=`ioscan -u | grep lan | awk 'NF>2 {for(i=3; i<=NF; i++) printf("%s", $i); exit}'`
     OUTPUT=`swapinfo -tm`
