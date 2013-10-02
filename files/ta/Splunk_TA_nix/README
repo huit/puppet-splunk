@@ -1,9 +1,8 @@
-Unix Technology Add-on
+Unix Add-on
 ----------------------------------------
 	Author: Splunk
-	Version/Date: 11/29/2010 10:55 pm
-	Source type(s): dhcpd, aix_secure, osx_secure, linux_secure, syslog
-	Input requirements: Data needs to be source typed according to the platform that generated the data, as described below
+	Author: Splunk
+	Version/Date: 5.0.0/09-30-2013
 	Has index-time operations: true, this TA must be deployed on indexers
 	Supported product(s): 
 		 * DHCPD (DHCP server)
@@ -11,23 +10,16 @@ Unix Technology Add-on
 		 * Linux system logs
 		 * AIX system logs
 
-Using this Technology Add-on:
+Using this Add-on:
 ----------------------------------------
 	Configuration: Manual
 	Ports for automatic configuration: None
 	Scripted input setup: Not applicable
 	
-	The source type must be assigned according to the platform that generated the data. See the table below:
-	
-	______________________________________________________________________
-	| Source type  | Associated Platform                                 |
-	|--------------|-----------------------------------------------------|
-	| dhcpd        | Use for logs from the dhcpd daemon                  |
-	| aix_secure   | Use for systems logs from AIX                       |
-	| osx_secure   | Use for systems logs from Macintosh OS-X            |
-	| linux_secure | Use for systems logs from Red-hat based Linux hosts |
-	| syslog       | Use for systems logs from Debian based Linux hosts  |
-	|______________|_____________________________________________________|
+	For the latest instructions on how to deploy, configure, and use the Splunk Add-on for Unix and Linux, 
+	visit the on-line documentation on a computer with access to the Internet:
+
+	http://docs.splunk.com/Documentation/UnixApp/latest/User/AbouttheSplunkTechnicalAdd-on(TA)forUnixandLinux
 	
 	
-Copyright (C) 2005-2012 Splunk Inc. All Rights Reserved.
+Copyright (C) 2005-2013 Splunk Inc. All Rights Reserved.

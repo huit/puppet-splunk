@@ -154,7 +154,7 @@ function disable_scripted_input()
     if [ $remote_server_uri != "false" ]; then
         disable_response=`$SPLUNK_HOME/bin/splunk _internal call /servicesNS/nobody/$remote_server_app_name/data/inputs/script/$1/disable -uri $remote_server_uri -method POST`
     else
-        disable_response=`$SPLUNK_HOME/bin/splunk _internal call /servicesNS/nobody/unix/$server_app_name/inputs/script/$1/disable -method POST`
+        disable_response=`$SPLUNK_HOME/bin/splunk _internal call /servicesNS/nobody/$server_app_name/data/inputs/script/$1/disable -method POST`
     fi
     handle_rest_response "$disable_response" "disable"
 }
@@ -826,8 +826,7 @@ function handle_remote_connection
     fi 
 }
 
-function check_for_unix_app
-# can't manage the unix app if there is nothing to manage
+function set_unix_app_info
 {
     if [ $remote_server_uri != "false" ]; then
         app_output=`$SPLUNK_HOME/bin/splunk display app -uri $remote_server_uri`
@@ -846,6 +845,12 @@ function check_for_unix_app
         esac
     done
     IFS=$oldIFS
+}
+
+function check_for_unix_app
+# can't manage the unix app if there is nothing to manage
+{
+    set_unix_app_info
     if [ $remote_server_uri = "true" ]; then
         if [ $remote_server_has_unix_app_enabled = "true" ]; then
             main_menu
@@ -1102,6 +1107,7 @@ function execute_queue
             fi
         fi
         server_name=$(get_server_name)
+        set_unix_app_info
         echo ""
         echo " authenticated to $server_name"
         echo "" 
