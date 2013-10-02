@@ -16,6 +16,9 @@
 # # # we don't want to point OS's utilities -- e.g. ntpdate(1) -- to libraries which Splunk bundles in SPLUNK_HOME/lib/
 unset LD_PRELOAD LD_LIBRARY_PATH DYLD_LIBRARY_PATH SHLIB_PATH LIBPATH
 
+# # # NIX-203 - set LANG env variable set to en_US to avoid parsing problems in other locales
+LANG="en_US.UTF-8"
+
 # # # are we in debug mode?
 if [ $# -ge 1 -a "x$1" = "x--debug" ] ; then
     DEBUG=1

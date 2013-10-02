@@ -1,2 +1,13 @@
-Mar 05 2010 15:49:28 PercentUserTime=@@user_time PercentSystemTime=@@system_time PercentIdleTime=
-Mar 05 2010 15:49:28 PercentUserTime=1 PercentSystemTime=99 PercentIdleTime=0
+***SPLUNK*** source=cpu sourcetype=cpu host=@host index=os
+
+   CPU     pctUser    pctNice   pctSystem    pctIowait    pctIdle
+   all     @pctUser   @pctNice  @pctSystem   @pctIowait   @pctIdle
+   @CPU    @pctUser   @pctNice  @pctSystem   @pctIowait   @pctIdle
+   @CPU    @pctUser   @pctNice  @pctSystem   @pctIowait   @pctIdle
+   @CPU    @pctUser   @pctNice  @pctSystem   @pctIowait   @pctIdle
+   @CPU    @pctUser   @pctNice  @pctSystem   @pctIowait   @pctIdle
+   @CPU    @pctUser   @pctNice  @pctSystem   @pctIowait   @pctIdle
+   @CPU    @pctUser   @pctNice  @pctSystem   @pctIowait   @pctIdle
+   @CPU    @pctUser   @pctNice  @pctSystem   @pctIowait   @pctIdle
+   @CPU    @pctUser   @pctNice  @pctSystem   @pctIowait   @pctIdle
+

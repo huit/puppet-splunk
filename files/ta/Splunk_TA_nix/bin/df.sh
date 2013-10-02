@@ -27,19 +27,20 @@ elif [ "x$KERNEL" = "xSunOS" ] ; then
 	assertHaveCommandGivenPath /usr/bin/df
 	if $SOLARIS_8; then
 		CMD='eval /usr/bin/df -n ; /usr/bin/df -k'
-		NORMALIZE='function fromKB(KB) {MB = KB/1024; if (MB<1024) return MB "M"; GB = MB/1024; return GB "G"} {$3=fromKB($3); $4=fromKB($4); $5=fromKB($5)}'
+		NORMALIZE='function fromKB(KB) {MB = KB/1024; if (MB<1024) return MB "M"; GB = MB/1024; if (GB<1024) return GB "G"; TB = GB/1024; return TB "T"} {$3=fromKB($3); $4=fromKB($4); $5=fromKB($5)}'
 	else
 		CMD='eval /usr/bin/df -n ; /usr/bin/df -h'
 	fi
 	FILTER_PRE='/libc_psr/ {next}'
-	MAP_FS_TO_TYPE='/: / {fsTypes[$1] = $3; next}'
+	MAP_FS_TO_TYPE='/: / {fsTypes[$1] = $2; next}'
 	HEADERIZE='/^Filesystem/ {print header; next}'
+    BEGIN='BEGIN { FS = "[ \t]*:?[ \t]+" }'
 	FORMAT='{size=$2; used=$3; avail=$4; usePct=$5; mountedOn=$6; $2=fsTypes[mountedOn]; $3=size; $4=used; $5=avail; $6=usePct; $7=mountedOn}'
 	FILTER_POST='($2 ~ /^(devfs|ctfs|proc|mntfs|objfs|lofs|fd|tmpfs)$/) {next} ($1 == "/proc") {next}'
 elif [ "x$KERNEL" = "xAIX" ] ; then
 	assertHaveCommandGivenPath /usr/bin/df
 	CMD='eval /usr/sysv/bin/df -n ; /usr/bin/df -kP'
-	NORMALIZE='function fromKB(KB) {MB = KB/1024; if (MB<1024) return MB "M"; GB = MB/1024; return GB "G"} {$3=fromKB($3); $4=fromKB($4); $5=fromKB($5)}'
+	NORMALIZE='function fromKB(KB) {MB = KB/1024; if (MB<1024) return MB "M"; GB = MB/1024; if (GB<1024) return GB "G"; TB = GB/1024; return TB "T"} {$3=fromKB($3); $4=fromKB($4); $5=fromKB($5)}'
 	MAP_FS_TO_TYPE='/: / {fsTypes[$1] = $3; next}'
 	HEADERIZE='/^Filesystem/ {print header; next}'
     FORMAT='{size=$2; used=$3; avail=$4; usePct=$5; mountedOn=$6; $2=fsTypes[mountedOn]; $3=size; $4=used; $5=avail; $6=usePct; $7=mountedOn; if ($2=="") {$2="?"}}'
@@ -69,5 +70,5 @@ elif [ "x$KERNEL" = "xFreeBSD" ] ; then
 	FORMAT='{size=$2; used=$3; avail=$4; usePct=$5; mountedOn=$6; $2=fsTypes[$1]; $3=size; $4=used; $5=avail; $6=usePct; $7=mountedOn}'
 fi
 
-$CMD | tee $TEE_DEST | $AWK "$HEADERIZE $FILTER_PRE $MAP_FS_TO_TYPE $FORMAT $FILTER_POST $NORMALIZE $PRINTF"  header="$HEADER"
-echo "Cmd = [$CMD];  | $AWK '$HEADERIZE $FILTER_PRE $MAP_FS_TO_TYPE $FORMAT $FILTER_POST $NORMALIZE $PRINTF' header=\"$HEADER\"" >> $TEE_DEST
+$CMD | tee $TEE_DEST | $AWK "$BEGIN $HEADERIZE $FILTER_PRE $MAP_FS_TO_TYPE $FORMAT $FILTER_POST $NORMALIZE $PRINTF"  header="$HEADER"
+echo "Cmd = [$CMD];  | $AWK '$BEGIN $HEADERIZE $FILTER_PRE $MAP_FS_TO_TYPE $FORMAT $FILTER_POST $NORMALIZE $PRINTF' header=\"$HEADER\"" >> $TEE_DEST
