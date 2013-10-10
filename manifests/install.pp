@@ -5,7 +5,7 @@ class splunk::install (
   $localusers  = $::splunk::splunkadmin,
   $SPLUNKHOME  = $::splunk::SPLUNKHOME,
   $type        = $::splunk::type,
-  $version     = $::splunk::version
+  $version     = $::splunk::version,
   ) {
 
   package { "$pkgname":
@@ -17,7 +17,7 @@ class splunk::install (
     mode    => '0700',
     owner   => 'root',
     group   => 'root',
-    source  => "puppet:///modules/splunk/etc/init.d/$pkgname",
+    source  => "puppet:///modules/splunk/${osfamily}/etc/init.d/$pkgname"
   } ->
 
   # inifile
