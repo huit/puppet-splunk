@@ -2,7 +2,7 @@
 
 This is the HUIT Splunk module.  It requires these Puppet Modules:
 
-'cprice404/inifile'
+'puppetlabs/inifile'
 
 'puppetlabs/stdlib'
 
@@ -29,8 +29,19 @@ Most of the below examples come out of the tests dir in the module but it seemed
 
 ### Splunk Universal Forwarder
 
+To Configure a Universal Forwarder that send data to server 1.2.3.4 on port 50514
+and used the Unix TA defaults (as specified in this module) as inputs.
+
+```Puppet
+class { 'splunk':
+  port         => '50514',
+  target_group => { 'name' => '1.2.3.4' },
+}
+splunk::ta::files { 'Splunk_TA_nix': }
+```
+
 The Below example configures a Universal Forwarder to send data to
-an index server at IP 1.2.3.4 and port 50514, but does not specify any inputs.
+an index server at IP 1.2.3.4 and port 50514, but **does not specify any inputs.**
 
 ```Puppet
 class { 'splunk':
