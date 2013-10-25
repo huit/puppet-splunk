@@ -9,5 +9,5 @@ project_page 'https://github.com/huit/puppet-splunk'
 
 ## Add dependencies, if any:
 # dependency 'username/name', '>= 1.2.0'
-dependency 'cprice404/inifile', '>=0.10.0'
+dependency 'puppetlabs/inifile', '>=1.0.0'
 dependency 'puppetlabs/stdlib', '>=3.2.0'
