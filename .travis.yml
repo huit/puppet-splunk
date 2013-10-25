@@ -1,8 +1,9 @@
 rvm: 1.8.7
+bundler_args: ''
 notifications:
   email:
     - tfhartmann@gmail.com
 env:
+  - PUPPET_VERSION=2.7.11 
   - PUPPET_VERSION=3.3.1 
 
-bundler_args: ''
