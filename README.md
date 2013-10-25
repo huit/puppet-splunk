@@ -1,4 +1,4 @@
-splunk
+[![Build Status](https://travis-ci.org/huit/puppet-splunk.png?branch=master)](https://travis-ci.org/huit/puppet-splunk)
 
 This is the HUIT Splunk module.  It requires these Puppet Modules:
 
