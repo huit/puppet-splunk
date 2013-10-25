@@ -1,7 +1,7 @@
 class { 'splunk':
   type => 'indexer',
   indexandforward => 'True',
-  output_hash => { 'syslog:qradar_group' => 
+  output_hash => { 'syslog:qradar_group' =>
                      { 'server' => 'q6.itsec.harvard.edu:514' },
                    'tcpout:qradar_tcp' =>
                      { 'server'         => 'q6.itsec.harvard.edu:12468',
@@ -13,9 +13,9 @@ class { 'splunk::inputs':
 }
 class { 'splunk::props':
   input_hash => {
-                  'lsof' => 
+                  'lsof' =>
                     { 'TRANSFORMS-null' => 'setnull' },
-                  'ps' => 
+                  'ps' =>
                     { 'TRANSFORMS-null' => 'setnull' },
                   'linux_secure' =>
                     { 'TRANSFORMS-nyc'  => 'send_to_qradar' },
@@ -25,7 +25,7 @@ class { 'splunk::props':
 }
 class { 'splunk::transforms':
   input_hash => {
-                  'setnull' => 
+                  'setnull' =>
                     { 'REGEX'    => '.',
                       'DEST_KEY' => 'queue',
                       'FORMAT'   => 'nullQueue' },

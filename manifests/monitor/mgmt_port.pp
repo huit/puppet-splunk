@@ -14,4 +14,4 @@ class splunk::monitor::mgmt_port (
       tag                 => $::environment,
     }
   }
-}   
+}

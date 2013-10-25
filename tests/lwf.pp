@@ -3,7 +3,7 @@ class { 'splunk':
 }
 splunk::ta::files { 'Splunk_TA_nix': }
 class { 'splunk::inputs': }
-#class { 'splunk::inputs': 
+#class { 'splunk::inputs':
 #  input_hash   => { 'script://./bin/sshdChecker.sh' => {
 #                       disabled   => 'true',
 #                       index      => 'os',

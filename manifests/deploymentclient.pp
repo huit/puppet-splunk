@@ -1,4 +1,4 @@
-# splunk::deploymentclient 
+# splunk::deploymentclient
 # Configure an agent as a deployment client.
 # === Parameters
 #

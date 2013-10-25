@@ -8,7 +8,7 @@
 #   The format is:
 #   { 'input title' => { 'setting' => 'value' } }
 #
-# class { 'splunk::indexes': 
+# class { 'splunk::indexes':
 #   input_hash   => { 'dns' => {
 #                       'homePath'               => '$SPLUNK_DB/dns/db',
 #                       'coldPath'               => '/mnt/splunk/dns/colddb',

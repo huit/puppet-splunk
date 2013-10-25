@@ -5,19 +5,19 @@
 # === Parameters
 #
 # Document parameters here.
-#      
+#
 # [configfile]
 #   Path to extracted Splunk TA on the Puppet Master.
-#      
+#
 # [status]
 #   App Status. Defaults to enabled
-#      
+#
 # [inputfile]
 #   Location of the inputfile template to use for the install TA/APP
 #   the format of the input should be <modulename>/<path/to/template.erb
-#      
+#
 # === Examples
-# 
+#
 # splunk::ta::files { 'Splunk_TA_nix': }
 define splunk::ta::files (
   $configfile = "puppet:///modules/splunk/ta/${title}",
@@ -40,7 +40,7 @@ define splunk::ta::files (
   } ->
   file { "${SPLUNKHOME}/etc/apps/${title}/local":
     ensure => directory,
-  } -> 
+  } ->
   file { "${SPLUNKHOME}/etc/apps/${title}/local/app.conf":
     ensure => file,
     owner  => 'splunk',

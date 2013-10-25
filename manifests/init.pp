@@ -1,8 +1,8 @@
 # == Class: splunk
 #
-# The splunk module will install Splunk agents in the form of a Light Weight 
+# The splunk module will install Splunk agents in the form of a Light Weight
 # Fowarder, Heavy Forwarder, Universal Forwarder. It will also install servers
-# for index, job and search configurations. 
+# for index, job and search configurations.
 #
 # Please Note: This Module assumes you have the Splunk Packages in some sort of
 # package repo.
@@ -17,14 +17,14 @@
 # [localusers]
 #
 # [nagios_contacts]
-#   Accepts a comma seperated list of contacts. Then enables and exports 
-#   Nagios Service checks for monitoring. 
+#   Accepts a comma seperated list of contacts. Then enables and exports
+#   Nagios Service checks for monitoring.
 #
 # [output_hash]
 #   Optional hash of outputs that can be used instead of, or in addition to the
 #   default group (tcpout) Useful for forwarding data to third party tools from
 #   indexers.
-#   
+#
 #   output_hash   => { 'syslog:example_group' => {
 #                        'server' => 'server.example.com:514' }
 #                    }
@@ -39,7 +39,7 @@
 # [purge]
 #   purge => true
 #   purge defaults to false, and only accepts a boolean as an argument.
-#   purge purges all traces of splunk *without* a backup. 
+#   purge purges all traces of splunk *without* a backup.
 #
 # [splunkadmin]
 #
@@ -115,7 +115,7 @@ class splunk (
       $pkgname    = 'splunk'
       $license    = 'puppet:///modules/splunk/noarch/opt/splunk/etc/splunk-forwarder.license'
     }
-    default: { 
+    default: {
       $SPLUNKHOME = '/opt/splunk'
       $pkgname    = 'splunk'
       $license    = undef
@@ -136,18 +136,18 @@ class splunk (
 
     case $type {
       'uf': {
-        class { 'splunk::outputs': } 
+        class { 'splunk::outputs': }
         class { 'splunk::config::mgmt_port': }
     }
       'lwf': {
-        class { 'splunk::outputs': } 
+        class { 'splunk::outputs': }
         class { 'splunk::config::lwf': }
         class { 'splunk::config::mgmt_port': }
-        class { 'splunk::config::remove_uf': } 
+        class { 'splunk::config::remove_uf': }
       }
       'hwf': {
         fail("Server type: $type is a feature that has not yet been implemented")
-        #class { 'splunk::outputs': } 
+        #class { 'splunk::outputs': }
         #class { 'splunk::config::lwf': status => 'disabled' }
         #class { 'splunk::config::mgmt_port': }
         #class { 'splunk::config::hwf': }
@@ -181,12 +181,12 @@ class splunk (
         #package { 'python-redis': }
       }
       'indexer': {
-        class { 'splunk::outputs': tcpout_disabled => 'True' } 
+        class { 'splunk::outputs': tcpout_disabled => 'True' }
         class { 'splunk::indexes': }
 
         class { 'splunk::config::lwf': status => 'disabled' }
         class { 'splunk::config::mgmt_port': disableDefaultPort => 'False' }
-        class { 'splunk::config::remove_uf': } 
+        class { 'splunk::config::remove_uf': }
 
         class { 'splunk::monitor::mgmt_port': }
         class { 'splunk::monitor::input_port': }
