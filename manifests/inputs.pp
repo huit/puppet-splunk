@@ -8,7 +8,7 @@
 #   The format is:
 #   { 'input title' => { 'setting' => 'value' } }
 #
-# class { 'splunk::inputs': 
+# class { 'splunk::inputs':
 #   input_hash   => { 'script://./bin/sshdChecker.sh' => {
 #                       disabled   => 'true',
 #                       index      => 'os',

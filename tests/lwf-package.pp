@@ -5,7 +5,7 @@ splunk::ta::package { 'unix':
   inputfile => 'splunk/Splunk_TA_nix/inputs.conf.erb',
 }
 class { 'splunk::inputs': }
-#class { 'splunk::inputs': 
+#class { 'splunk::inputs':
 #  input_hash   => { 'script://./bin/sshdChecker.sh' => {
 #                       disabled   => 'true',
 #                       index      => 'os',

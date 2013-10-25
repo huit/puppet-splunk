@@ -5,7 +5,7 @@ class splunk::install (
   $localusers  = $::splunk::splunkadmin,
   $SPLUNKHOME  = $::splunk::SPLUNKHOME,
   $type        = $::splunk::type,
-  $version     = $::splunk::version
+  $version     = $::splunk::version,
   ) {
 
   package { "$pkgname":
@@ -17,7 +17,7 @@ class splunk::install (
     mode    => '0700',
     owner   => 'root',
     group   => 'root',
-    source  => "puppet:///modules/splunk/etc/init.d/$pkgname",
+    source  => "puppet:///modules/splunk/${osfamily}/etc/init.d/$pkgname"
   } ->
 
   # inifile
@@ -43,8 +43,8 @@ class splunk::install (
     group   => 'splunk',
     backup  => true,
     source  => $license,
-  } -> 
-    
+  } ->
+
   file { "${SPLUNKHOME}/etc/passwd":
     ensure   => present,
     mode     => '0600',
@@ -55,7 +55,7 @@ class splunk::install (
   } ->
 
   # recursively copy the contents of the auth dir
-  # This is causing a restart on the second run. - TODO 
+  # This is causing a restart on the second run. - TODO
   file { "${SPLUNKHOME}/etc/auth":
       mode    => '0600',
       owner   => 'splunk',

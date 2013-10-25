@@ -6,7 +6,7 @@
 #   Optional hash of outputs that can be used instead of, or in addition to the
 #   default group (tcpout) Useful for forwarding data to third party tools from
 #   indexers.
-#   
+#
 #   output_hash   => { 'syslog:example_group' => {
 #                        'server' => 'server.example.com:514' }
 #                    }
@@ -50,7 +50,7 @@ class splunk::outputs (
     }
   }
   $output_title = keys($output_hash)
- 
+
 
 
   file { "${path}/outputs.conf":
