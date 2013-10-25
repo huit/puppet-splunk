@@ -1,12 +1,12 @@
 class { 'splunk':
-  type => 'indexer',
+  type            => 'indexer',
   indexandforward => 'True',
-  output_hash => { 'syslog:qradar_group' =>
-                     { 'server' => 'q6.itsec.harvard.edu:514' },
-                   'tcpout:qradar_tcp' =>
-                     { 'server'         => 'q6.itsec.harvard.edu:12468',
-                       'sendCookedData' => 'False' }
-                 }
+  output_hash     => { 'syslog:qradar_group' =>
+    { 'server' => 'q6.itsec.harvard.edu:514' },
+      'tcpout:qradar_tcp' =>
+    { 'server'         => 'q6.itsec.harvard.edu:12468',
+      'sendCookedData' => 'False' }
+    }
 }
 class { 'splunk::inputs':
   input_hash =>  { 'splunktcp://50514' => {} }
