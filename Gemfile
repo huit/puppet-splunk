@@ -1,7 +1,4 @@
-source :rubygems
-
-before_install:
-  - gem install bundler
+source 'https://rubygems.org'
 
 if ENV.key?('PUPPET_VERSION')
   puppetversion = "= #{ENV['PUPPET_VERSION']}"
