@@ -5,4 +5,5 @@ notifications:
     - tfhartmann@gmail.com
 env:
   - PUPPET_VERSION=3.3.1 
+  - PUPPET_VERSION=3.2.3 
 
