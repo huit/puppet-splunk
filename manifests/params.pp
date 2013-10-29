@@ -9,7 +9,7 @@ class splunk::params {
   $localusers       = undef
   $output_hash      = { }
   $port             = '9997'
-  $proxyserver      = hiera('proxyserver', undef )
+  $proxyserver      = undef
   $purge            = undef
   $version          = 'installed'
 
