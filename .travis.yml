@@ -2,9 +2,10 @@ rvm: 1.8.7
 bundler_args: ''
 notifications:
   email:
-    - tfhartmann@gmail.com
+  - tfhartmann@gmail.com
+  hipchat:
+    rooms:
+      secure: QVClenjIzkDVcKX26c08MN1/0TXFTfC1Ke8psg/J/lqtuWH80cnViHwRe6IcRJQFQO/ls9eHToLxcYPs6BH+gqeWgeZJI2EkCN3/oqXQSguDLdouExKDXY85QLZZFzbHaPcrKRkZBc+EABgFi6qlW4xupN9IQGlFfrFyikkzn7Y=
 env:
-  - PUPPET_VERSION=3.3.1 
-  - PUPPET_VERSION=3.2.3 
-#  - PUPPET_VERSION=2.7.21
-
+- PUPPET_VERSION=3.3.1
+- PUPPET_VERSION=3.2.3
