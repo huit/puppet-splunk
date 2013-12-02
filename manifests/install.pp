@@ -2,7 +2,7 @@ class splunk::install (
   $license     = $::splunk::license,
   $pkgname     = $::splunk::pkgname,
   $splunkadmin = $::splunk::splunkadmin,
-  $localusers  = $::splunk::splunkadmin,
+  $localusers  = $::splunk::localusers,
   $SPLUNKHOME  = $::splunk::SPLUNKHOME,
   $type        = $::splunk::type,
   $version     = $::splunk::version,
