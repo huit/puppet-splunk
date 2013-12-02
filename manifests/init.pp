@@ -171,6 +171,7 @@ class splunk (
         class { 'splunk::config::remove_uf': }
 
         class { 'splunk::monitor::mgmt_port': }
+        class { 'splunk::monitor::input_port': }
 
         #class { 'splunk::app::config'  : }
       }
