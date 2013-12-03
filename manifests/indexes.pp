@@ -24,7 +24,7 @@ class splunk::indexes (
   ) {
   # Validate hash
   if ( $input_hash ) {
-    unless is_hash($input_hash){
+    if !is_hash($input_hash){
       fail("$input_hash is not a valid hash")
     }
   }
