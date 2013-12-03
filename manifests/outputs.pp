@@ -36,7 +36,7 @@ class splunk::outputs (
   ) {
 
   # Validate target group hash
-  unless is_hash($target_group){
+  if !is_hash($target_group){
     fail("target_group is not a valid hash")
   }
   $groupkeys    = keys($target_group)
@@ -45,7 +45,7 @@ class splunk::outputs (
 
   # Validate outputs hash
   if ( $output_hash ) {
-    unless is_hash($output_hash){
+    if !is_hash($output_hash){
       fail("$ouput_hash is not a valid hash")
     }
   }
