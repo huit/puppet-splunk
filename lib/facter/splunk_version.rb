@@ -15,7 +15,7 @@ Facter.add(:splunk_version) do
       version = Facter::Util::Resolution.exec('splunk version')
     end
     if version
-      version.match(/\d+\.\d+\.\d+/).to_s
+      version.match(/[\d+\.]+\s/).to_s
     else
       nil
     end
