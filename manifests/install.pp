@@ -8,7 +8,7 @@ class splunk::install (
   $version     = $::splunk::version,
   ) {
 
-  package { "$pkgname":
+  package { "${pkgname}":
     ensure   => $version,
   } ->
 
@@ -17,7 +17,7 @@ class splunk::install (
     mode    => '0700',
     owner   => 'root',
     group   => 'root',
-    source  => "puppet:///modules/splunk/${osfamily}/etc/init.d/$pkgname"
+    source  => "puppet:///modules/splunk/${::osfamily}/etc/init.d/${pkgname}"
   } ->
 
   # inifile
@@ -30,7 +30,7 @@ class splunk::install (
   } ->
   ini_setting { 'SSL v3 only':
     ensure  => present,
-    path    => "$SPLUNKHOME/etc/system/local/server.conf",
+    path    => "${SPLUNKHOME}/etc/system/local/server.conf",
     section => 'sslConfig',
     setting => 'supportSSLV3Only',
     value   => 'True',

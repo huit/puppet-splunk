@@ -31,7 +31,7 @@ class splunk::inputs (
   # Validate hash
   if ( $input_hash ) {
     if !is_hash($input_hash){
-      fail("$input_hash is not a valid hash")
+      fail("${input_hash} is not a valid hash")
     }
   }
   $input_title = keys($input_hash)

@@ -15,9 +15,9 @@ class splunk::params {
 
   if $::mode == maintenance {
     $service_ensure = 'stopped'
-    $service_enable = 'false'
+    $service_enable = false
   } else {
     $service_ensure = 'running'
-    $service_enable = 'true'
+    $service_enable = true
   }
 }

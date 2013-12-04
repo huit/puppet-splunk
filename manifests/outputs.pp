@@ -31,13 +31,13 @@ class splunk::outputs (
   $output_hash     = $::splunk::output_hash,
   $port            = $::splunk::port,
   $path            = "${::splunk::SPLUNKHOME}/etc/system/local",
-  $tcpout_disabled = 'false',
+  $tcpout_disabled = false,
   $target_group    = $::splunk::target_group
   ) {
 
   # Validate target group hash
   if !is_hash($target_group){
-    fail("target_group is not a valid hash")
+    fail('target_group is not a valid hash')
   }
   $groupkeys    = keys($target_group)
   $sorted       = sort($groupkeys)
@@ -46,7 +46,7 @@ class splunk::outputs (
   # Validate outputs hash
   if ( $output_hash ) {
     if !is_hash($output_hash){
-      fail("$ouput_hash is not a valid hash")
+      fail("${output_hash} is not a valid hash")
     }
   }
   $output_title = keys($output_hash)

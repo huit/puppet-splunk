@@ -4,7 +4,7 @@ class splunk::monitor::mgmt_port (
 ) {
   # Nagios Service Check
   if ( $nagios_contacts ) {
-    @@nagios_service { "check_tcp8089_$::hostname":
+    @@nagios_service { "check_tcp8089_${::hostname}":
       use                 => 'default-service',
       check_command       => 'check_tcp!8089',
       host_name           => $::fqdn,

@@ -49,10 +49,10 @@ define splunk::ta::package (
     ensure => directory,
   } ->
   file { "${SPLUNKHOME}/etc/apps/${title}/local/app.conf":
-    ensure => file,
-    owner  => 'splunk',
-    group  => 'splunk',
-    mode   => '0644',
+    ensure  => file,
+    owner   => 'splunk',
+    group   => 'splunk',
+    mode    => '0644',
     require => Class['splunk::install'],
     notify  => Class['splunk::service'],
   } ->
@@ -65,11 +65,11 @@ define splunk::ta::package (
     notify  => Class['splunk::service'],
   } ->
   ini_setting { "Enable Splunk ${title} TA":
+    ensure  => present,
     path    => "${SPLUNKHOME}/etc/apps/${title}/local/app.conf",
     section => 'install',
     setting => 'state',
     value   => $status,
-    ensure  => present,
     require => Class['splunk::install'],
     notify  => Class['splunk::service'],
   }
