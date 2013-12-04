@@ -27,6 +27,7 @@ class splunk::deploymentclient (
     group   => 'splunk',
     mode    => '0644',
     content => template('splunk/opt/splunk/etc/system/local/deploymentclient.conf.erb'),
+    require => Class['splunk::install'],
     notify  => Class['splunk::service']
   }
 }
