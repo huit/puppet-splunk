@@ -146,7 +146,7 @@ class splunk (
         class { 'splunk::config::remove_uf': }
       }
       'hwf': {
-        fail("Server type: $type is a feature that has not yet been implemented")
+        fail("Server type: ${type} feature has not yet been implemented")
         #class { 'splunk::outputs': }
         #class { 'splunk::config::lwf': status => 'disabled' }
         #class { 'splunk::config::mgmt_port': }
@@ -193,7 +193,7 @@ class splunk (
         #class { 'splunk::app::config': }
         #class { 'splunk::app::ta-sos': }
       }
-      default: { fail("Server type: $type is not a supported Splunk type.") }
+      default: { fail("Server type: ${type} is not a supported Splunk type.") }
     }
   }
 }
