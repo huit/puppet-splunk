@@ -1,9 +1,9 @@
 require 'find'
-Facter.add(:splunk_version) do
+Facter.add(:splunk_version, :timeout => 10) do
   confine :kernel => :linux
   setcode do
     command = ''
-    path = ['/opt/splunk','/opt/splunkforwarder']
+    path = ['/opt/splunk/bin','/opt/splunkforwarder/bin']
     path.each do |directory|
       Find.find(directory) do |file|
         command << file if !File::directory?(file) and File.executable?(file) and file =~ /.*\/splunk$/
