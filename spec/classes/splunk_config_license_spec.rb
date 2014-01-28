@@ -12,14 +12,18 @@ describe 'splunk::config::license', :type => :class do
 
         describe "With server Param set to 'self'" do
           let(:params) { { :server => 'self' } }
-          it { should create_class('splunk::config::license') }
-          it { should contain_ini_setting('Configure Splunk License') }
+          it {
+            should create_class('splunk::config::license')
+            should contain_ini_setting('Configure Splunk License')
+          }
         end
 
         describe "With server Param set to 'splunklicense.example.com" do
           let(:params) { { :server => 'splunklicense.example.com' } }
-          it { should create_class('splunk::config::license') }
-          it { should contain_ini_setting('Configure Splunk License') }
+          it {
+            should create_class('splunk::config::license')
+            should contain_ini_setting('Configure Splunk License')
+          }
         end
     end
   end
