@@ -7,6 +7,7 @@ describe 'splunk', :type => :class do
     describe "Splunk class with no parameters, basic test" do
       let(:params) { { } }
         it {
+          should compile
           should create_class('splunk')
           should contain_class('splunk::outputs')
           should contain_class('splunk::config::mgmt_port')
@@ -20,6 +21,7 @@ describe 'splunk', :type => :class do
     describe "With type param set to 'lwf'" do
       let(:params) { { :type => 'lwf' } }
         it {
+          should compile
           should create_class('splunk')
           should contain_class('splunk::outputs')
           should contain_class('splunk::config::mgmt_port')
