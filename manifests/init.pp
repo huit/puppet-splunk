@@ -19,6 +19,7 @@
 # [licenseserver]
 #   fqdn of License host, passing this param will turn the node into a license
 #   slave of a configured license server.
+#   For a license master set licenseserver => 'self'
 #
 # [nagios_contacts]
 #   Accepts a comma seperated list of contacts. Then enables and exports
