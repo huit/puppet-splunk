@@ -3,3 +3,5 @@ pkg/
 metadata.json
 *.swp
 .ruby-version
+Gemfile.lock
+spec/fixtures/
