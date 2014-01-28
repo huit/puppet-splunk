@@ -12,6 +12,9 @@ class splunk::params {
   $proxyserver      = undef
   $purge            = undef
   $version          = 'installed'
+  $rbenv_plugins    = [ 'sstephenson/rbenv-vars', 'sstephenson/ruby-build' ]
+  $ruby_version     = '1.9.3-p448'
+  $ruby_gems        = [ 'splunk-sdk-ruby' ]
 
   if $::mode == maintenance {
     $service_ensure = 'stopped'
