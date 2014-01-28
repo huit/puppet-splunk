@@ -16,6 +16,11 @@
 #
 # [localusers]
 #
+# [licenseserver]
+#   fqdn of License host, passing this param will turn the node into a license
+#   slave of a configured license server.
+#   For a license master set licenseserver => 'self'
+#
 # [nagios_contacts]
 #   Accepts a comma seperated list of contacts. Then enables and exports
 #   Nagios Service checks for monitoring.
@@ -88,6 +93,7 @@ class splunk (
   $index_hash      = $::splunk::params::index_hash,
   $indexandforward = 'False',
   $localusers      = $::splunk::params::localusers,
+  $licenseserver   = undef,
   $nagios_contacts = $::splunk::params::nagios_contacts,
   $nagiosserver    = $::splunk::nagiosserver,
   $output_hash     = $::splunk::params::output_hash,
@@ -182,6 +188,7 @@ class splunk (
         class { 'splunk::config::lwf': status => 'disabled' }
         class { 'splunk::config::mgmt_port': disableDefaultPort => 'False' }
         class { 'splunk::config::remove_uf': }
+        class { 'splunk::config::license': server => $licenseserver }
 
         class { 'splunk::monitor::mgmt_port': }
         class { 'splunk::monitor::input_port': }
