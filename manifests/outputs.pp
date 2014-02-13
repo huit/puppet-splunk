@@ -31,7 +31,7 @@ class splunk::outputs (
   $output_hash     = $::splunk::output_hash,
   $port            = $::splunk::port,
   $path            = "${::splunk::SPLUNKHOME}/etc/system/local",
-  $tcpout_disabled = false,
+  $tcpout_disabled = 'false',
   $target_group    = $::splunk::target_group
   ) {
 
