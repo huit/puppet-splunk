@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'splunk::inputs', :type => :class do
   describe "Splunk inputs sub class" do
+    let(:node) { 'testhost.example.com' }
     describe "on RedHat platform" do
       let(:facts) { { :osfamily => 'RedHat' } }
       let(:params) { {
@@ -18,11 +19,14 @@ describe 'splunk::inputs', :type => :class do
           'ensure'  => 'file',
           'owner'   => 'splunk',
           'group'   => 'splunk',
-          'mode'    => '0644',
-          'backup'  => 'true'
+          'mode'    => '0644'
         )
       }
+      it { should contain_file('/opt/splunk/etc/system/local/inputs.conf').with_content(/host = testhost.example.com/) }
       it { should contain_file('/opt/splunk/etc/system/local/inputs.conf').with_content(/[monitor:\/\/\/var\/log\/nagios\/service-perfdata]/) }
+      it { should contain_file('/opt/splunk/etc/system/local/inputs.conf').with_content(/disabled = False/) }
+      it { should contain_file('/opt/splunk/etc/system/local/inputs.conf').with_content(/index = nagios/) }
+      it { should contain_file('/opt/splunk/etc/system/local/inputs.conf').with_content(/sourcetype = nagiosserviceperf/) }
     end
   end
 end
