@@ -22,6 +22,11 @@ describe 'splunk::outputs', :type => :class do
           'backup'  => 'true'
         )
       }
+      it { should contain_file('/opt/splunk/etc/system/local/outputs.conf').with_content(/[tcpout]/) }
+      it { should contain_file('/opt/splunk/etc/system/local/outputs.conf').with_content(/defaultGroup = example1/) }
+      it { should contain_file('/opt/splunk/etc/system/local/outputs.conf').with_content(/disabled = false/) }
+      it { should contain_file('/opt/splunk/etc/system/local/outputs.conf').with_content(/tcpout:example1/) }
+      it { should contain_file('/opt/splunk/etc/system/local/outputs.conf').with_content(/server = server1.example.com:50514/) }
     end
   end
 end
