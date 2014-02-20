@@ -13,19 +13,16 @@ This Module also makes a number of assumptions.
 
 Disabled inputs for  sourcetype "lsof" "ps" as they are chatty and create a lot of events
 
-## Pre-Commit Hook
-To use the pre-commit hook supplied (taken from another github repo, url to be supplied, link the hook to .git/hooks with this command
-ln -s pre-commit.puppet-lint .git/hooks/pre-commit
-
 ## Example Usage
-
 Most of the below examples come out of the tests dir in the module but it seemed useful to put them in the README as well.
 
-* [Splunk Universal Forwarder](#splunk-universal-forwarder)
-* [Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)
-* [Splunk Indexer](#splunk-indexer)
-* [Deployment Client](#configure-deployment-client)
-* [Configure Inputs](#splunkinputs)
+[Splunk Universal Forwarder](#splunk-universal-forwarder)
+[Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)
+[Splunk Indexer](#splunk-indexer)
+[Deployment Client](#configure-deployment-client)
+[Configure Inputs](#splunkinputs)
+[props.conf](#splunk::props)
+[Pre-Commit Hook](#pre-commit-hook)
 
 ### Splunk Universal Forwarder
 
@@ -185,3 +182,8 @@ class { 'splunk::inputs':
     value => 16384,
   }
 ```
+
+## Pre-Commit Hook
+To use the pre-commit hook supplied (taken from another github repo, url to be supplied, link the hook to .git/hooks with this command
+ln -s pre-commit.puppet-lint .git/hooks/pre-commit
+
