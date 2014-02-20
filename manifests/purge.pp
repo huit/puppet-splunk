@@ -25,6 +25,6 @@ class splunk::purge () {
     force   => true,
     recurse => true,
   }
-  notice("*** NOTICE Purge running on node: $::fqdn ***")
-  notify {"*** NOTICE Purge running on node: $::fqdn ***":}
+  notice("*** NOTICE Purge running on node: ${::fqdn} ***")
+  notify {"*** NOTICE Purge running on node: ${::fqdn} ***":}
 }

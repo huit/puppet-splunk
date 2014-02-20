@@ -16,6 +16,11 @@
 #
 # [localusers]
 #
+# [licenseserver]
+#   fqdn of License host, passing this param will turn the node into a license
+#   slave of a configured license server.
+#   For a license master set licenseserver => 'self'
+#
 # [nagios_contacts]
 #   Accepts a comma seperated list of contacts. Then enables and exports
 #   Nagios Service checks for monitoring.
@@ -88,6 +93,7 @@ class splunk (
   $index_hash      = $::splunk::params::index_hash,
   $indexandforward = 'False',
   $localusers      = $::splunk::params::localusers,
+  $licenseserver   = undef,
   $nagios_contacts = $::splunk::params::nagios_contacts,
   $nagiosserver    = $::splunk::nagiosserver,
   $output_hash     = $::splunk::params::output_hash,
@@ -146,7 +152,7 @@ class splunk (
         class { 'splunk::config::remove_uf': }
       }
       'hwf': {
-        fail("Server type: $type is a feature that has not yet been implemented")
+        fail("Server type: ${type} feature has not yet been implemented")
         #class { 'splunk::outputs': }
         #class { 'splunk::config::lwf': status => 'disabled' }
         #class { 'splunk::config::mgmt_port': }
@@ -163,22 +169,17 @@ class splunk (
         #package { 'expect': }
       }
       'search': {
-        fail("Server type: $type is a feature that has not yet been implemented")
-        #class { 'splunk::config::lwf': status => 'disabled' }
-        #class { 'splunk::config::mgmt_port': }
-        #class { 'splunk::monitor::mgmt_port': }
+        class { 'splunk::outputs': tcpout_disabled => 'True' }
+        class { 'splunk::indexes': }
 
-        #class { 'splunk::server': }
-        #class { 'splunk::app'          : }
-        #class { 'splunk::app::unix'    : }
+        class { 'splunk::config::lwf': status => 'disabled' }
+        class { 'splunk::config::mgmt_port': disableDefaultPort => 'False' }
+        class { 'splunk::config::remove_uf': }
+
+        class { 'splunk::monitor::mgmt_port': }
+        class { 'splunk::monitor::input_port': }
+
         #class { 'splunk::app::config'  : }
-        #class { 'splunk::app::search'  : }
-        #class { 'splunk::app::mom'     : }
-        #class { 'splunk::app::maps'    : }
-        #class { 'splunk::app::execview': }
-        #class { 'splunk::app::nagios'  : }
-
-        #package { 'python-redis': }
       }
       'indexer': {
         class { 'splunk::outputs': tcpout_disabled => 'True' }
@@ -187,6 +188,7 @@ class splunk (
         class { 'splunk::config::lwf': status => 'disabled' }
         class { 'splunk::config::mgmt_port': disableDefaultPort => 'False' }
         class { 'splunk::config::remove_uf': }
+        class { 'splunk::config::license': server => $licenseserver }
 
         class { 'splunk::monitor::mgmt_port': }
         class { 'splunk::monitor::input_port': }
@@ -198,7 +200,7 @@ class splunk (
         #class { 'splunk::app::config': }
         #class { 'splunk::app::ta-sos': }
       }
-      default: { fail("Server type: $type is not a supported Splunk type.") }
+      default: { fail("Server type: ${type} is not a supported Splunk type.") }
     }
   }
 }

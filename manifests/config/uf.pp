@@ -4,11 +4,11 @@ class splunk::config::uf (
   $status  = 'enabled'
   ) {
   ini_setting { 'Disable Management Port':
+    ensure  => present,
     path    => "${SPLUNKHOME}/etc/system/local/server.conf",
     section => 'httpServer',
     setting => 'disableDefaultPort',
     value   => 'True',
-    ensure  => present,
     require => Class['splunk::install'],
   }
 }

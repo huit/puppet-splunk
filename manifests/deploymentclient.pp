@@ -17,7 +17,7 @@ class splunk::deploymentclient (
   Class{ require => Class['splunk::install'] }
 
   # Validate string
-  unless $targeturi {
+  if !$targeturi {
     fail('"targeturi" has not been set, should be in the form of "deploymentserver.splunk.mycompany.com:8089"')
   }
 
@@ -27,6 +27,7 @@ class splunk::deploymentclient (
     group   => 'splunk',
     mode    => '0644',
     content => template('splunk/opt/splunk/etc/system/local/deploymentclient.conf.erb'),
+    require => Class['splunk::install'],
     notify  => Class['splunk::service']
   }
 }

@@ -4,16 +4,16 @@ class splunk::config::hwf (
   $status  = 'enabled'
   ) {
   file { "${SPLUNKHOME}/etc/apps/SplunkForwarder/local":
-    ensure => 'directory',
-    owner  => 'splunk',
-    group  => 'splunk',
+    ensure  => 'directory',
+    owner   => 'splunk',
+    group   => 'splunk',
     require => Class['splunk::install'],
   }
   file { "${SPLUNKHOME}/etc/apps/SplunkForwarder/local/app.conf":
-    ensure => file,
-    owner  => 'splunk',
-    group  => 'splunk',
-    mode   => '0644',
+    ensure  => file,
+    owner   => 'splunk',
+    group   => 'splunk',
+    mode    => '0644',
     require => Class['splunk::install'],
   } ->
   ini_setting { 'Enable Splunk HWF':
