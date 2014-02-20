@@ -20,8 +20,13 @@ Most of the below examples come out of the tests dir in the module but it seemed
 [Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)  
 [Splunk Indexer](#splunk-indexer)  
 [Deployment Client](#configure-deployment-client)  
-[Configure Inputs](#splunkinputs)  
-[props.conf](#splunk::props)  
+[Inputs.conf](#splunkinputs)  
+[Outputs.conf](#splunkoutputs)
+[Props.conf](#splunkprops)  
+[Transforms.conf](#splunktransforms)
+[Server Ulimit](#splunkulimit)
+
+
 [Pre-Commit Hook](#pre-commit-hook)  
 
 ### Splunk Universal Forwarder
