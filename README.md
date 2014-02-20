@@ -16,13 +16,13 @@ Disabled inputs for  sourcetype "lsof" "ps" as they are chatty and create a lot 
 ## Example Usage
 Most of the below examples come out of the tests dir in the module but it seemed useful to put them in the README as well.
 
-[Splunk Universal Forwarder](#splunk-universal-forwarder)
-[Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)
-[Splunk Indexer](#splunk-indexer)
-[Deployment Client](#configure-deployment-client)
-[Configure Inputs](#splunkinputs)
-[props.conf](#splunk::props)
-[Pre-Commit Hook](#pre-commit-hook)
+[Splunk Universal Forwarder](#splunk-universal-forwarder)  
+[Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)  
+[Splunk Indexer](#splunk-indexer)  
+[Deployment Client](#configure-deployment-client)  
+[Configure Inputs](#splunkinputs)  
+[props.conf](#splunk::props)  
+[Pre-Commit Hook](#pre-commit-hook)  
 
 ### Splunk Universal Forwarder
 
