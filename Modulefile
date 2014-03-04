@@ -1,5 +1,5 @@
 name    'huit-splunk'
-version '1.4.1'
+version '1.4.2'
 source 'UNKNOWN'
 author 'Tim Hartmann'
 license 'The MIT License (MIT)'
