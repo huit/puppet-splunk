@@ -1,7 +1,7 @@
 #### THIS FILE MANAGED BY PUPPET ####
 [tcpout]
 <% if @tcpout_disabled == 'false' || @tcpout_disabled == 'False' -%>
-defaultGroup = <%= @defaultgroup.sort %>
+defaultGroup = <%= @defaultgroup %>
 disabled = <%= @tcpout_disabled %>
 
 <% @groupkeys.sort.each do |group| -%>
