@@ -1,16 +1,20 @@
 class splunk::install (
-  $license     = $::splunk::license,
-  $pkgname     = $::splunk::pkgname,
-  $splunkadmin = $::splunk::splunkadmin,
-  $localusers  = $::splunk::localusers,
-  $SPLUNKHOME  = $::splunk::SPLUNKHOME,
-  $type        = $::splunk::type,
-  $version     = $::splunk::version,
+  $license          = $::splunk::license,
+  $pkgname          = $::splunk::pkgname,
+  $splunkadmin      = $::splunk::splunkadmin,
+  $localusers       = $::splunk::localusers,
+  $SPLUNKHOME       = $::splunk::SPLUNKHOME,
+  $type             = $::splunk::type,
+  $version          = $::splunk::version,
+  $package_source   = $::splunk::package_source,
+  $package_provider = $::splunk::package_provider,
   ) {
 
   package { "${pkgname}":
     ensure   => $version,
-  } ->
+    provider => $package_provider,
+    source   => $package_source,
+  }->
 
   file { '/etc/init.d/splunk':
     ensure  => present,
