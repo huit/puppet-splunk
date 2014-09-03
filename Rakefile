@@ -3,7 +3,9 @@ require 'rake'
 require 'rspec/core/rake_task'
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint'
+require 'puppet-syntax'
 
+PuppetSyntax.exclude_paths = ["files/**/*"]
 PuppetLint.configuration.ignore_paths = ["pkg/**/*.pp", "tests/*.pp", "files/**/*.html"]
 PuppetLint.configuration.send('disable_80chars')
 PuppetLint.configuration.send('disable_documentation')
