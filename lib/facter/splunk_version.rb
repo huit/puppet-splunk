@@ -5,8 +5,10 @@ Facter.add(:splunk_version, :timeout => 10) do
     command = ''
     path = ['/opt/splunk/bin','/opt/splunkforwarder/bin']
     path.each do |directory|
-      Find.find(directory) do |file|
-        command << file if !File::directory?(file) and File.executable?(file) and file =~ /.*\/splunk$/
+      if File.directory?(directory)
+        Find.find(directory) do |file|
+          command << file if !File::directory?(file) and File.executable?(file) and file =~ /.*\/splunk$/
+        end
       end
     end
     if command != ''
