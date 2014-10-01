@@ -1,0 +1,56 @@
+1.5.2 - Rob Ruma 
+  * Updated Custom fact to support Ruby 1.9
+1.5.1 - Andrew Johnson
+  * Added Syntax checking to Rakefile
+  * Ingore bin
+  * Ignore html files when checking syntax
+1.5.0 - Amos Wood
+  * Added adding package source and provider parameter
+1.4.3 - Tim Hartmann <tfhartmann@gmail.com>
+  * Fixed sort issue in template issue #41
+1.4.2 - Rob Ruma 
+  * Added --accept-license to version fact
+  * Removed invalid facter directory 
+1.4.1 - Tim Hartmann <tfhartmann@gmail.com>
+  * Fixed bug that caused outputs.conf to be empty 
+  * Fixed typo in .fixtures.yml
+1.4.0 - Tim Hartmann <tfhartmann@gmail.com>
+  * Added tests for splunk::service class
+  * Added support to connect servers to license server
+1.3.2 - Tim Hartmann <tfhartmann@gmail.com>
+  * Cleaned up Rakefile, linting and tests
+1.3.2 - Rob Ruma 
+  * Added timeout and set find search path to bin directory only
+1.3.1 - Rob Ruma 
+  * Updated version string to allow 2 and 3 digits
+1.3.1 - Tim Hartmann <tfhartmann@gmail.com>
+  * Fixed Dependency to file resource
+1.3.0 - Tim Hartmann <tfhartmann@gmail.com>
+  * Puppet 2.7 Support
+  * fixed bug with localusers hash 
+1.3.0 - Rob Ruma 
+  * Replaced "unless" statements for Puppet 2.7 Compatability
+1.2.2 - Rob Ruma 
+  * Added splunk_version test
+1.2.2 - Steve Huff 
+  * Moved custom fact dir to lib/facter
+1.2.2 - Tim Hartmann <tfhartmann@gmail.com>
+  * Added "input ports" to search head
+  * Enable search head type
+1.2.1 - Ventz Petkov <ventz@vpetkov.net>
+  * Adding OS awareness for RHEL and Ubuntu
+1.2.1 - Tim Hartmann <tfhartmann@gmail.com>
+  * Fixed Puppet 2.7 Tests in Travis
+  * Cleanup
+  * Added MIT License 
+1.2.0 - Tim Hartmann <tfhartmann@gmail.com>
+  * Added Index and Forward Param
+  * Docs, Docs and More Docs
+1.1.0 - Tim Hartmann <tfhartmann@gmail.com>
+  * Added Deployment Client 
+  * Docs
+  * Tests
+1.0.0 - Tim Hartmann <tfhartmann@gmail.com>
+  * Initial Release
+0.0.1 - Tim Hartmann <tfhartmann@gmail.com> - 0.0.1
+  * Initial Commit, lots of ugly and cleanup needed
