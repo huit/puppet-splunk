@@ -22,4 +22,4 @@ env:
   - PUPPET_VERSION=2.7.21
   global:
   - PUBLISHER_LOGIN=huit
-    - secure: Ijc9NOKcofDC+i0afauvFj7P6vqtThbeMnjuOYxaqcMPfM4f+IrxpzyoIjOzDbD83b0vMYCSItPW/RExVINkwhjghfzPhMsbjfA2XfcvWYMxCOsvXR3TMHSNyPGD7ITbitUDofJ0TTIfZQwE10SeI8MhfL61a4eiR2QNQhDyraI=
+  - secure: Ijc9NOKcofDC+i0afauvFj7P6vqtThbeMnjuOYxaqcMPfM4f+IrxpzyoIjOzDbD83b0vMYCSItPW/RExVINkwhjghfzPhMsbjfA2XfcvWYMxCOsvXR3TMHSNyPGD7ITbitUDofJ0TTIfZQwE10SeI8MhfL61a4eiR2QNQhDyraI=
