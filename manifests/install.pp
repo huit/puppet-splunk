@@ -10,7 +10,7 @@ class splunk::install (
   $package_provider = $::splunk::package_provider,
   ) {
 
-  package { "${pkgname}":
+  package { $pkgname:
     ensure   => $version,
     provider => $package_provider,
     source   => $package_source,
