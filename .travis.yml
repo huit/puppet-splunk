@@ -23,3 +23,4 @@ env:
   global:
   - PUBLISHER_LOGIN=huit
   - secure: Ijc9NOKcofDC+i0afauvFj7P6vqtThbeMnjuOYxaqcMPfM4f+IrxpzyoIjOzDbD83b0vMYCSItPW/RExVINkwhjghfzPhMsbjfA2XfcvWYMxCOsvXR3TMHSNyPGD7ITbitUDofJ0TTIfZQwE10SeI8MhfL61a4eiR2QNQhDyraI=
+  - secure: GZ6bDkhjFnEsyazZJQfDtWYhNyXxqLok6YH8fRgWU6Y3tIfJ9bYqne/s/aUOI06pfafeRHQTK7CkJwn+H5GPZtPdw9HU6rTkqjQKPjNN34y4Gdkgw8ptY6t5LPqZZT4xD51J1JOOrCjEyKor1XDYrQBftLE1jJnquzDzaFwhPOc=
