@@ -41,7 +41,7 @@ class splunk::outputs (
   }
   $groupkeys    = keys($target_group)
   $sorted       = sort($groupkeys)
-  $defaultgroup = join($sorted, ",")
+  $defaultgroup = join($sorted, ',')
 
   # Validate outputs hash
   if ( $output_hash ) {

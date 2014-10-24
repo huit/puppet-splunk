@@ -21,7 +21,7 @@
 #
 define splunk::ulimit ( $value = '40960' ) {
   augeas { "set splunk ${name} ulimit":
-    context => "/files/etc/security/limits.conf/",
+    context => '/files/etc/security/limits.conf/',
     changes => [
       "set \"domain[last()]\" root",
       "set \"domain[.='root']/type\" -",
