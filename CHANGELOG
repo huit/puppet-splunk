@@ -1,3 +1,6 @@
+1.5.3 - Tim Hartmann <tfhartmann@gmail.com>
+  * Updated metadat.json
+  * removed lint hook, as Rakefile does all this now
 1.5.2 - Rob Ruma 
   * Updated Custom fact to support Ruby 1.9
 1.5.1 - Andrew Johnson
