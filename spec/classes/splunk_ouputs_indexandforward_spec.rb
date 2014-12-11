@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe 'splunk::outputs', :type => :class do
-  describe "Splunk outputs private sub class" do
+  describe "outputs with indexandforward true" do
     describe "on RedHat platform" do
       let(:facts) { { :osfamily => 'RedHat' } }
       let(:params) { {
-        :indexandforward => false,
+        :indexandforward => true,
         :port            => '50514',
         :path            => '/opt/splunk/etc/system/local',
         :output_hash     => { },
@@ -27,6 +27,7 @@ describe 'splunk::outputs', :type => :class do
       it { should contain_file('/opt/splunk/etc/system/local/outputs.conf').with_content(/disabled = false/) }
       it { should contain_file('/opt/splunk/etc/system/local/outputs.conf').with_content(/tcpout:example1/) }
       it { should contain_file('/opt/splunk/etc/system/local/outputs.conf').with_content(/server = server1.example.com:50514/) }
+      it { should contain_file('/opt/splunk/etc/system/local/outputs.conf').with_content(/indexAndForward = True/) }
     end
   end
 end

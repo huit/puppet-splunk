@@ -1,6 +1,6 @@
 {
   "name": "huit-splunk",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "author": "Tim Hartmann",
   "summary": "Manage Splunk Agents and Servers",
   "license": "MIT",
@@ -11,7 +11,7 @@
   "dependencies": [
     {"name":"puppetlabs/inifile","version_requirement":">=1.0.0"},
     {"name":"puppetlabs/stdlib","version_requirement":">=3.2.0"}
-  ]
+  ],
   "operatingsystem_support": [
   {
   "operatingsystem":"RedHat",
