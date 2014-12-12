@@ -34,6 +34,12 @@
 #                        'server' => 'server.example.com:514' }
 #                    }
 #
+# [package_provider]
+#   Defaults to undef
+#
+# [package_source]
+#   Defaults to undef
+#
 # [port]
 #   Splunk Default Input Port for indexers. Defaults to 9997. This sets both
 #   The ports Monitored and the ports set in outputs.conf
@@ -61,6 +67,9 @@
 #   search  : Splunk Search Head
 #   indexer : Splunk Distribuited Index Server
 #
+# [version]
+#   Install package version, defaults to 'latest'
+#
 # === Variables
 #
 # Here you should define a list of variables that this module would require.
@@ -80,7 +89,7 @@
 #
 # === Authors
 #
-# Tim Hartmann <tim_hartmann@harvard.edu>
+# Tim Hartmann <tfhartmann@gmail.com>
 #
 # === Copyright
 #
@@ -91,7 +100,7 @@ class splunk (
   $service_enable   = $::splunk::params::service_enable,
   $index            = $::splunk::params::index,
   $index_hash       = $::splunk::params::index_hash,
-  $indexandforward  = 'False',
+  $indexandforward  = false,
   $localusers       = $::splunk::params::localusers,
   $licenseserver    = undef,
   $nagios_contacts  = $::splunk::params::nagios_contacts,
@@ -105,6 +114,7 @@ class splunk (
   $type             = $::splunk::params::type,
   $package_source   = undef,
   $package_provider = undef,
+  $version          = $::splunk::params::version,
 ) inherits splunk::params {
 
 # Added the preseed hack after getting the idea from very cool
@@ -171,7 +181,7 @@ class splunk (
         #package { 'expect': }
       }
       'search': {
-        class { 'splunk::outputs': tcpout_disabled => 'True' }
+        class { 'splunk::outputs': tcpout_disabled => true }
         class { 'splunk::indexes': }
 
         class { 'splunk::config::lwf': status => 'disabled' }
@@ -184,7 +194,7 @@ class splunk (
         #class { 'splunk::app::config'  : }
       }
       'indexer': {
-        class { 'splunk::outputs': tcpout_disabled => 'True' }
+        class { 'splunk::outputs': tcpout_disabled => true }
         class { 'splunk::indexes': }
 
         class { 'splunk::config::lwf': status => 'disabled' }

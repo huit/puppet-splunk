@@ -1,20 +1,105 @@
+# splunk
 [![Build Status](https://travis-ci.org/huit/puppet-splunk.png?branch=master)](https://travis-ci.org/huit/puppet-splunk)
 
-This is the HUIT Splunk module.  It requires these Puppet Modules:
+#### Table of Contents
 
-'puppetlabs/inifile'
+1. [Overview](#overview)
+2. [Module Description - What the module does and why it is useful](#module-description)
+3. [Setup - The basics of getting started with splunk](#setup)
+    * [What splunk affects](#what-splunk-affects)
+    * [Setup requirements](#setup-requirements)
+    * [Beginning with splunk](#beginning-with-splunk)
+4. [Usage - Configuration options and additional functionality](#usage)
+5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
+5. [Limitations - OS compatibility, etc.](#limitations)
+6. [Development - Guide for contributing to the module](#development)
 
-'puppetlabs/stdlib'
-
-This Module also makes a number of assumptions. 
-
-- The Splunk Package is hosted in the package managment repository of your choice and is availible for puppet to install using the package type. 
+## Overview
 
 
-Disabled inputs for  sourcetype "lsof" "ps" as they are chatty and create a lot of events
+The Splunk module manages both Splunk servers and forwarders on RedHat, Debian, and Ubuntu. 
 
-## Example Usage
-Most of the below examples come out of the tests dir in the module but it seemed useful to put them in the README as well.
+## Module Description
+
+The Splunk module manages both Splunk servers and forwarders. It attempts to make
+educated and sane guesses at defaults, but requires some explicit configuration via hiera or
+passed parameters. Supported OS's include RedHat, Debian, and Ubuntu. Puppet versions
+include Puppet 2.7 and 3.x. The module attempts to make installation and management of
+a Splunk cluster manageable through Puppet rather then a deployment server. In addition
+to managing Splunk Installation and running configuration, it also provides means to
+manage Splunk Apps/TA's. The module also allows you to define inputs, outputs, forwarding
+and configuration of deployment clients should you decide to use this module to install
+Splunk agents, and have a Splunk deployment server to manage the configurations.
+
+## Setup
+
+### What splunk affects
+
+* A list of files, packages, services, or operations that the module will alter,
+  impact, or execute on the system it's installed on.
+* This is a great place to stick any warnings.
+* Can be in list or paragraph form.
+* Installation of Splunk Packages
+* Managment of the service init script (/etc/init.d/splunk) 
+* Managment of configuration files under /opt/splunk
+  * inputs.conf and outputs.conf
+  * indexes.conf on indexers and search heads
+* listened-to ports for Heavy forwarders and indexers
+
+
+### Setup Requirements 
+
+If your running a version of Puppet that does not have pluginsync enabled, it should
+be enabled. 
+
+Use of Hiera for passing parameters is *highly* encouraged!
+
+### Beginning with splunk
+
+
+Disabled inputs for  sourcetype "lsof" "ps" as they are verbose and create a lot of events.
+
+By default behavior is to install a Universal Forwarder and configure the agent to
+forward events to one or many indexers. The below example will install and configure
+a universal forwarder to send events via port to an indexer at IP 1.2.3.4 listening on
+port 9997. target_group takes the form of a hash, with name as the name keyword for your
+indexer, and the IP as the value.  So a more real world example might be 
+{ 'datacenter1' => 'IP/DNS Enter' }
+
+```Puppet
+class { 'splunk':
+  target_group => { 'name' => '1.2.3.4' },
+}
+```
+
+To Change the "type" of installation, for example from a Universal forward to a
+Light Weight Forwarder, you can pass the "type" paramter to the Splunk Class. It is
+worth noting that the module will attempt to cleanup after itself. So for example if 
+your default node definition installs the universal forwarder, and you place the node
+into a role that inludes the light weight forwarder type, the Splunk module will attempt
+to uninstall and clean up the universal forwarder from /opt/splunkforwarder before
+installing into /opt/splunk. This typically has little effect, but does cause the newly
+installed agent to reindex any inputs that were assigned to both types. 
+
+```Puppet
+class { 'splunk':
+  type         => 'lwf',
+  target_group => { 'name' => '1.2.3.4' },
+}
+```
+
+To install Splunk and configure Splunk TA's  you can use the splunk::ta::<type>
+defined types. In this example the Splunk Unix TA is installed from the 
+Puppet master and deployed from the ta files directory within the Splunk module. 
+
+```Puppet
+class { 'splunk':
+  target_group => { 'name' => '1.2.3.4' },
+}
+splunk::ta::files { 'Splunk_TA_nix': }
+```
+
+## Usage
 
 [Splunk Universal Forwarder](#splunk-universal-forwarder)  
 [Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)  
@@ -26,8 +111,8 @@ Most of the below examples come out of the tests dir in the module but it seemed
 [Transforms.conf](#splunktransforms)
 [Server Ulimit](#splunkulimit)
 
-
-[Pre-Commit Hook](#pre-commit-hook)  
+Put the classes, types, and resources for customizing, configuring, and doing
+the fancy stuff with your module here.
 
 ### Splunk Universal Forwarder
 
@@ -68,6 +153,7 @@ class { 'splunk':
 }
 splunk::ta::files { 'Splunk_TA_nix': }
 ```
+
 ### Splunk Indexer
 
 This example creates a Splunk Index Server that forwards data to a third party system over both syslog(udp) and raw tcp. This example configured inputs, props, transforms and outputs as well as installing the UNIX TA. Leaving other options as defaults, or picked up by hiera.
@@ -188,7 +274,34 @@ class { 'splunk::inputs':
   }
 ```
 
-## Pre-Commit Hook
-To use the pre-commit hook supplied (taken from another github repo, url to be supplied, link the hook to .git/hooks with this command
-ln -s pre-commit.puppet-lint .git/hooks/pre-commit
+## Reference
 
+Here, list the classes, types, providers, facts, etc contained in your module.
+This section should include all of the under-the-hood workings of your module so
+people know what the module is touching on their system but don't need to mess
+with things. (We are working on automating this section!)
+
+## Limitations
+
+###RHEL/CentOS 5
+
+RHEL/CentOS 5 is fully supported and functional 
+
+###RHEL/CentOS 6
+
+RHEL/CentOS 6 is fully supported and functional 
+
+###RHEL/CentOS 7
+
+RHEL/CentOS 7 Support has not been added and pull requests are welcome
+
+## Development
+
+Quickstart:
+
+    gem install bundler
+    bundle install
+    bundle exec rake spec
+
+To run beaker tests:
+    bundle exec rake beaker

@@ -31,9 +31,22 @@ class splunk::outputs (
   $output_hash     = $::splunk::output_hash,
   $port            = $::splunk::port,
   $path            = "${::splunk::SPLUNKHOME}/etc/system/local",
-  $tcpout_disabled = 'false',
+  $tcpout_disabled = false,
   $target_group    = $::splunk::target_group
   ) {
+
+  # Check if tcpout_disabled is a string
+  if is_string($tcpout_disabled){
+    warning( 'WARNING: $tcpout_disabled is a string and should be a boolean!' )
+    notify{ 'WARNING: $tcpout_disabled is a string and should be a boolean!': }
+    notify{ '$tcpout_disabled will break in the next version of the module': }
+  }
+  # Check if indexandforward is a string
+  if is_string($indexandforward){
+    warning( 'WARNING: $indexandforward is a string and should be a boolean!' )
+    notify{ 'WARNING: $indexandforward is a string and should be a boolean!': }
+    notify{ '$indexandforward will break in the next version of the module': }
+  }
 
   # Validate target group hash
   if !is_hash($target_group){

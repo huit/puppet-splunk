@@ -1,8 +1,8 @@
 bin/
 pkg/
 .DS_Store
-metadata.json
 *.swp
 .ruby-version
 Gemfile.lock
 spec/fixtures/
+.vagrant/

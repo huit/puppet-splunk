@@ -1,0 +1,28 @@
+{
+  "name": "huit-splunk",
+  "version": "1.6.0",
+  "author": "Tim Hartmann",
+  "summary": "Manage Splunk Agents and Servers",
+  "license": "MIT",
+  "source": "git://github.com/huit/puppet-splunk.git",
+  "project_page": "https://forge.puppetlabs.com/huit/splunk",
+  "issues_url": "https://github.com/huit/puppet-splunk/issues",
+  "description": "This Module manages Splunk Indexer, Search Heads, SLF and Heavy Forwarders as well as a number of apps",
+  "dependencies": [
+    {"name":"puppetlabs/inifile","version_requirement":">=1.0.0"},
+    {"name":"puppetlabs/stdlib","version_requirement":">=3.2.0"}
+  ],
+  "operatingsystem_support": [
+  {
+  "operatingsystem":"RedHat",
+  "operatingsystemrelease":[ "5.0", "6.0" ]
+  },
+  {
+  "operatingsystem": "Ubuntu",
+  "operatingsystemrelease": [
+    "12.04",
+    "10.04"
+    ]
+  }
+]
+}

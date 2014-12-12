@@ -1,3 +1,15 @@
+1.6.0 - Tim Hartmann <tfhartmann@gmail.com>
+  * Exposed the version parameter for use in init.pp issue #49
+  * Formated docs closer to Puppet Labs Standards
+  * Cleaned up travis / Gemfile to run vs Ruby 1.8.7
+  * Fixed some string that should have been booleans 
+    * Added warnings for users that are using a string so we
+      don't break stuff
+  * Removed HipChat from .travis.yml as no one uses that room anymore
+  * Removed Modulefile in favor of metadata.json
+1.5.3 - Tim Hartmann <tfhartmann@gmail.com>
+  * Updated metadat.json
+  * removed lint hook, as Rakefile does all this now
 1.5.2 - Rob Ruma 
   * Updated Custom fact to support Ruby 1.9
 1.5.1 - Andrew Johnson

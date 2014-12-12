@@ -1,6 +1,6 @@
 #### THIS FILE MANAGED BY PUPPET ####
 [tcpout]
-<% if @tcpout_disabled == 'false' || @tcpout_disabled == 'False' -%>
+<% if @tcpout_disabled == false || @tcpout_disabled == 'false' || @tcpout_disabled == 'False' -%>
 defaultGroup = <%= @defaultgroup %>
 disabled = <%= @tcpout_disabled %>
 
@@ -10,8 +10,8 @@ server = <%= @target_group[group] -%>:<%= @port %>
 
 <% end -%>
 <% end -%>
-<% if @indexandforward == 'true' || @indexandforward == 'True' -%>
-indexAndForward = <%= @indexandforward %>
+<% if @indexandforward == true || @indexandforward == 'true' || @indexandforward == 'True' -%>
+indexAndForward = True
 <% end -%>
 
 <% @output_title.sort.each do |outputname| -%>
