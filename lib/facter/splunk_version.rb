@@ -1,5 +1,5 @@
 require 'find'
-Facter.add(:splunk_version, :timeout => 10) do
+Facter.add(:splunk_version, :timeout => 30) do
   confine :kernel => :linux
   setcode do
     command = ''
