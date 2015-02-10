@@ -1,3 +1,6 @@
+1.6.1 - Rob Ruma 
+  * Fixed https://github.com/huit/puppet-splunk/issues/51
+    * Splunk upgrade prompts during Puppet run
 1.6.0 - Tim Hartmann <tfhartmann@gmail.com>
   * Exposed the version parameter for use in init.pp issue #49
   * Formated docs closer to Puppet Labs Standards
