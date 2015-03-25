@@ -39,16 +39,16 @@ define splunk::ta::package (
   $index      = $::splunk::index,
   $inputfile  = "splunk/${title}/inputs.conf.erb",
   $status     = 'enabled',
-  $SPLUNKHOME = $::splunk::SPLUNKHOME
+  $splunkhome = $::splunk::splunkhome
 ) {
   package { "splunk-${title}":
     require => Class['splunk::install'],
     notify  => Class['splunk::service'],
   } ->
-  file { "${SPLUNKHOME}/etc/apps/${title}/local":
+  file { "${splunkhome}/etc/apps/${title}/local":
     ensure => directory,
   } ->
-  file { "${SPLUNKHOME}/etc/apps/${title}/local/app.conf":
+  file { "${splunkhome}/etc/apps/${title}/local/app.conf":
     ensure  => file,
     owner   => 'splunk',
     group   => 'splunk',
@@ -56,7 +56,7 @@ define splunk::ta::package (
     require => Class['splunk::install'],
     notify  => Class['splunk::service'],
   } ->
-  file { "${SPLUNKHOME}/etc/apps/${title}/local/inputs.conf":
+  file { "${splunkhome}/etc/apps/${title}/local/inputs.conf":
     ensure  => present,
     owner   => 'splunk',
     group   => 'splunk',
@@ -66,7 +66,7 @@ define splunk::ta::package (
   } ->
   ini_setting { "Enable Splunk ${title} TA":
     ensure  => present,
-    path    => "${SPLUNKHOME}/etc/apps/${title}/local/app.conf",
+    path    => "${splunkhome}/etc/apps/${title}/local/app.conf",
     section => 'install',
     setting => 'state',
     value   => $status,

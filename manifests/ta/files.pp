@@ -24,11 +24,11 @@ define splunk::ta::files (
   $index      = $::splunk::index,
   $inputfile  = "splunk/${title}/inputs.conf.erb",
   $status     = 'enabled',
-  $SPLUNKHOME = $::splunk::SPLUNKHOME
+  $splunkhome = $::splunk::splunkhome
 ) {
   File { ignore => '*.py[oc]' }
 
-  file { "${SPLUNKHOME}/etc/apps/${title}":
+  file { "${splunkhome}/etc/apps/${title}":
     ensure  => present,
     owner   => 'splunk',
     group   => 'splunk',
@@ -38,10 +38,10 @@ define splunk::ta::files (
     require => Class['splunk::install'],
     notify  => Class['splunk::service'],
   } ->
-  file { "${SPLUNKHOME}/etc/apps/${title}/local":
+  file { "${splunkhome}/etc/apps/${title}/local":
     ensure => directory,
   } ->
-  file { "${SPLUNKHOME}/etc/apps/${title}/local/app.conf":
+  file { "${splunkhome}/etc/apps/${title}/local/app.conf":
     ensure  => file,
     owner   => 'splunk',
     group   => 'splunk',
@@ -49,7 +49,7 @@ define splunk::ta::files (
     require => Class['splunk::install'],
     notify  => Class['splunk::service'],
   } ->
-  file { "${SPLUNKHOME}/etc/apps/${title}/local/inputs.conf":
+  file { "${splunkhome}/etc/apps/${title}/local/inputs.conf":
     ensure  => present,
     owner   => 'splunk',
     group   => 'splunk',
@@ -59,7 +59,7 @@ define splunk::ta::files (
   } ->
   ini_setting { "Enable Splunk ${title} TA":
     ensure  => present,
-    path    => "${SPLUNKHOME}/etc/apps/${title}/local/app.conf",
+    path    => "${splunkhome}/etc/apps/${title}/local/app.conf",
     section => 'install',
     setting => 'state',
     value   => $status,

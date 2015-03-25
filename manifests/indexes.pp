@@ -19,7 +19,7 @@
 #  }
 #
 class splunk::indexes (
-  $path         = "${::splunk::SPLUNKHOME}/etc/system/local",
+  $path         = "${::splunk::splunkhome}/etc/system/local",
   $input_hash   = $::splunk::index_hash
   ) {
   # Validate hash

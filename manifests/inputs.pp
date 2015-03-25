@@ -25,7 +25,7 @@
 #  }
 #
 class splunk::inputs (
-  $path         = "${::splunk::SPLUNKHOME}/etc/system/local",
+  $path         = "${::splunk::splunkhome}/etc/system/local",
   $input_hash   = { }
   ) {
   # Validate hash
