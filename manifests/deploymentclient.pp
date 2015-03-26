@@ -11,7 +11,7 @@
 #   targeturi => 'deploymentserver.splunk.mycompany.com:8089'
 #
 class splunk::deploymentclient (
-  $path              = "${::splunk::SPLUNKHOME}/etc/system/local",
+  $path              = "${::splunk::splunkhome}/etc/system/local",
   $targeturi         = undef
   ) {
   Class{ require => Class['splunk::install'] }

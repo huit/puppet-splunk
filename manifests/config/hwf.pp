@@ -1,15 +1,15 @@
 #Private Class to enable/disable HWF
 class splunk::config::hwf (
-  $SPLUNKHOME = $::splunk::SPLUNKHOME,
+  $splunkhome = $::splunk::splunkhome,
   $status  = 'enabled'
   ) {
-  file { "${SPLUNKHOME}/etc/apps/SplunkForwarder/local":
+  file { "${splunkhome}/etc/apps/SplunkForwarder/local":
     ensure  => 'directory',
     owner   => 'splunk',
     group   => 'splunk',
     require => Class['splunk::install'],
   }
-  file { "${SPLUNKHOME}/etc/apps/SplunkForwarder/local/app.conf":
+  file { "${splunkhome}/etc/apps/SplunkForwarder/local/app.conf":
     ensure  => file,
     owner   => 'splunk',
     group   => 'splunk',
@@ -18,7 +18,7 @@ class splunk::config::hwf (
   } ->
   ini_setting { 'Enable Splunk HWF':
     ensure  => present,
-    path    => "${SPLUNKHOME}/etc/apps/SplunkForwarder/local/app.conf",
+    path    => "${splunkhome}/etc/apps/SplunkForwarder/local/app.conf",
     section => 'install',
     setting => 'state',
     value   => $status,

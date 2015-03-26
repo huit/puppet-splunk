@@ -25,7 +25,7 @@
 #  }
 #
 class splunk::transforms (
-  $path         = "${::splunk::SPLUNKHOME}/etc/system/local",
+  $path         = "${::splunk::splunkhome}/etc/system/local",
   $input_hash   = { }
   ) {
   # Validate hash

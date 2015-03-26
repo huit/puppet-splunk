@@ -1,15 +1,15 @@
 #Private Class to enable/disable LWF
 class splunk::config::lwf (
-  $SPLUNKHOME = $::splunk::SPLUNKHOME,
+  $splunkhome = $::splunk::splunkhome,
   $status  = 'enabled'
   ) {
-  file { "${SPLUNKHOME}/etc/apps/SplunkLightForwarder/local":
+  file { "${splunkhome}/etc/apps/SplunkLightForwarder/local":
     ensure  => 'directory',
     owner   => 'splunk',
     group   => 'splunk',
     require => Class['splunk::install'],
   }
-  file { "${SPLUNKHOME}/etc/apps/SplunkLightForwarder/local/app.conf":
+  file { "${splunkhome}/etc/apps/SplunkLightForwarder/local/app.conf":
     ensure  => file,
     owner   => 'splunk',
     group   => 'splunk',
@@ -18,7 +18,7 @@ class splunk::config::lwf (
   } ->
   ini_setting { 'Enable Splunk LWF':
     ensure  => present,
-    path    => "${SPLUNKHOME}/etc/apps/SplunkLightForwarder/local/app.conf",
+    path    => "${splunkhome}/etc/apps/SplunkLightForwarder/local/app.conf",
     section => 'install',
     setting => 'state',
     value   => $status,

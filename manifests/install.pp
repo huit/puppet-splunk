@@ -3,7 +3,7 @@ class splunk::install (
   $pkgname          = $::splunk::pkgname,
   $splunkadmin      = $::splunk::splunkadmin,
   $localusers       = $::splunk::localusers,
-  $SPLUNKHOME       = $::splunk::SPLUNKHOME,
+  $splunkhome       = $::splunk::splunkhome,
   $type             = $::splunk::type,
   $version          = $::splunk::version,
   $package_source   = $::splunk::package_source,
@@ -27,20 +27,20 @@ class splunk::install (
   # inifile
   ini_setting { 'Server Name':
     ensure  => present,
-    path    => "${SPLUNKHOME}/etc/system/local/server.conf",
+    path    => "${splunkhome}/etc/system/local/server.conf",
     section => 'general',
     setting => 'serverName',
     value   => $::fqdn,
   } ->
   ini_setting { 'SSL v3 only':
     ensure  => present,
-    path    => "${SPLUNKHOME}/etc/system/local/server.conf",
+    path    => "${splunkhome}/etc/system/local/server.conf",
     section => 'sslConfig',
     setting => 'supportSSLV3Only',
     value   => 'True',
   } ->
 
-  file { "${SPLUNKHOME}/etc/splunk.license":
+  file { "${splunkhome}/etc/splunk.license":
     ensure => present,
     mode   => '0644',
     owner  => 'splunk',
@@ -49,7 +49,7 @@ class splunk::install (
     source => $license,
   } ->
 
-  file { "${SPLUNKHOME}/etc/passwd":
+  file { "${splunkhome}/etc/passwd":
     ensure  => present,
     mode    => '0600',
     owner   => 'root',
@@ -60,7 +60,7 @@ class splunk::install (
 
   # recursively copy the contents of the auth dir
   # This is causing a restart on the second run. - TODO
-  file { "${SPLUNKHOME}/etc/auth":
+  file { "${splunkhome}/etc/auth":
       mode    => '0600',
       owner   => 'splunk',
       group   => 'splunk',

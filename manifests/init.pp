@@ -125,16 +125,16 @@ class splunk (
   case $type {
     'uf': {
       $pkgname    = 'splunkforwarder'
-      $SPLUNKHOME = '/opt/splunkforwarder'
+      $splunkhome = '/opt/splunkforwarder'
       $license    = undef
     }
     'hfw','lwf': {
-      $SPLUNKHOME = '/opt/splunk'
+      $splunkhome = '/opt/splunk'
       $pkgname    = 'splunk'
       $license    = 'puppet:///modules/splunk/noarch/opt/splunk/etc/splunk-forwarder.license'
     }
     default: {
-      $SPLUNKHOME = '/opt/splunk'
+      $splunkhome = '/opt/splunk'
       $pkgname    = 'splunk'
       $license    = undef
     }

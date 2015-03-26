@@ -17,7 +17,7 @@
 ## Overview
 
 
-The Splunk module manages both Splunk servers and forwarders on RedHat, Debian, and Ubuntu. 
+The Splunk module manages both Splunk servers and forwarders on RedHat, Debian, and Ubuntu.
 
 ## Module Description
 
@@ -40,17 +40,17 @@ Splunk agents, and have a Splunk deployment server to manage the configurations.
 * This is a great place to stick any warnings.
 * Can be in list or paragraph form.
 * Installation of Splunk Packages
-* Managment of the service init script (/etc/init.d/splunk) 
+* Managment of the service init script (/etc/init.d/splunk)
 * Managment of configuration files under /opt/splunk
   * inputs.conf and outputs.conf
   * indexes.conf on indexers and search heads
 * listened-to ports for Heavy forwarders and indexers
 
 
-### Setup Requirements 
+### Setup Requirements
 
 If your running a version of Puppet that does not have pluginsync enabled, it should
-be enabled. 
+be enabled.
 
 Use of Hiera for passing parameters is *highly* encouraged!
 
@@ -63,7 +63,7 @@ By default behavior is to install a Universal Forwarder and configure the agent 
 forward events to one or many indexers. The below example will install and configure
 a universal forwarder to send events via port to an indexer at IP 1.2.3.4 listening on
 port 9997. target_group takes the form of a hash, with name as the name keyword for your
-indexer, and the IP as the value.  So a more real world example might be 
+indexer, and the IP as the value.  So a more real world example might be
 { 'datacenter1' => 'IP/DNS Enter' }
 
 ```Puppet
@@ -74,12 +74,12 @@ class { 'splunk':
 
 To Change the "type" of installation, for example from a Universal forward to a
 Light Weight Forwarder, you can pass the "type" paramter to the Splunk Class. It is
-worth noting that the module will attempt to cleanup after itself. So for example if 
+worth noting that the module will attempt to cleanup after itself. So for example if
 your default node definition installs the universal forwarder, and you place the node
 into a role that inludes the light weight forwarder type, the Splunk module will attempt
 to uninstall and clean up the universal forwarder from /opt/splunkforwarder before
 installing into /opt/splunk. This typically has little effect, but does cause the newly
-installed agent to reindex any inputs that were assigned to both types. 
+installed agent to reindex any inputs that were assigned to both types.
 
 ```Puppet
 class { 'splunk':
@@ -89,8 +89,8 @@ class { 'splunk':
 ```
 
 To install Splunk and configure Splunk TA's  you can use the splunk::ta::<type>
-defined types. In this example the Splunk Unix TA is installed from the 
-Puppet master and deployed from the ta files directory within the Splunk module. 
+defined types. In this example the Splunk Unix TA is installed from the
+Puppet master and deployed from the ta files directory within the Splunk module.
 
 ```Puppet
 class { 'splunk':
@@ -101,13 +101,13 @@ splunk::ta::files { 'Splunk_TA_nix': }
 
 ## Usage
 
-[Splunk Universal Forwarder](#splunk-universal-forwarder)  
-[Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)  
-[Splunk Indexer](#splunk-indexer)  
-[Deployment Client](#configure-deployment-client)  
-[Inputs.conf](#splunkinputs)  
+[Splunk Universal Forwarder](#splunk-universal-forwarder)
+[Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)
+[Splunk Indexer](#splunk-indexer)
+[Deployment Client](#configure-deployment-client)
+[Inputs.conf](#splunkinputs)
 [Outputs.conf](#splunkoutputs)
-[Props.conf](#splunkprops)  
+[Props.conf](#splunkprops)
 [Transforms.conf](#splunktransforms)
 [Server Ulimit](#splunkulimit)
 
@@ -208,7 +208,7 @@ If you have a Splunk Deployment Server set up, you can bind the Splunk instance
 running on your node to a deployment server with the deploymentclient sub class.
 Add this to your node.pp or site/<node type module>. In the below example we are managing
 A Light Weight Forwarder with foo.com on port 8089.  Please NOTE - Some basic aspects of
-the client are still under Puppet Control. 
+the client are still under Puppet Control.
 - Version
 - Admin PW
 - Type
@@ -226,10 +226,10 @@ class { 'splunk::deploymentclient':
   This is an optional sub-class which you can pass a nested hash into to create
   custom inputs for Heavy Fowarders, agents or indexers
 
-  By Default the file is created in $SPLUNKHOME/etc/system/local
+  By Default the file is created in $splunkhome/etc/system/local
 
 ```Puppet
-class { 'splunk::inputs': 
+class { 'splunk::inputs':
   input_hash   => { 'script://./bin/sshdChecker.sh' => {
                        disabled   => 'true',
                        index      => 'os',
@@ -250,13 +250,13 @@ class { 'splunk::inputs':
   This is an optional sub-class which you can pass a nested hash into to create
   custom props.conf
 
-  By Default the file is created in $SPLUNKHOME/etc/system/local
+  By Default the file is created in $splunkhome/etc/system/local
 
 ### splunk::transforms
   This is an optional sub-class which you can pass a nested hash into to create
   custom transforms
 
-  By Default the file is created in $SPLUNKHOME/etc/system/local
+  By Default the file is created in $splunkhome/etc/system/local
 
 ### splunk::ulimit
   splunk::ulimit takes two parameters, the name of the limit to change
@@ -285,11 +285,11 @@ with things. (We are working on automating this section!)
 
 ###RHEL/CentOS 5
 
-RHEL/CentOS 5 is fully supported and functional 
+RHEL/CentOS 5 is fully supported and functional
 
 ###RHEL/CentOS 6
 
-RHEL/CentOS 6 is fully supported and functional 
+RHEL/CentOS 6 is fully supported and functional
 
 ###RHEL/CentOS 7
 

@@ -1,7 +1,7 @@
 #Private Class to Configure Splunk License Slave
 class splunk::config::license (
   $server     = undef,
-  $SPLUNKHOME = $::splunk::SPLUNKHOME
+  $splunkhome = $::splunk::splunkhome
   ) {
   if ( $server == 'self' ) {
     $uri = $server
@@ -11,7 +11,7 @@ class splunk::config::license (
   if ( $server ) {
     ini_setting { 'Configure Splunk License':
       ensure  => present,
-      path    => "${SPLUNKHOME}/etc/system/local/server.conf",
+      path    => "${splunkhome}/etc/system/local/server.conf",
       section => 'license',
       setting => 'master_uri',
       value   => $uri,
