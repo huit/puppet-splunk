@@ -2,6 +2,11 @@
 # by default outputs.conf will be placed in $splunkhome/etc/system/local/
 # === Parameters
 #
+# [configure_outputs]
+#    Toggle to enable/disable managment of the outputs.conf file. You may want
+#    to disable the module managment of outputs.conf if you use a deployment server
+#    to manage that file.  Defaults to true
+#
 # [output_hash]
 #   Optional hash of outputs that can be used instead of, or in addition to the
 #   default group (tcpout) Useful for forwarding data to third party tools from
@@ -27,13 +32,16 @@
 # For more info on outputs.conf
 # http://docs.splunk.com/Documentation/Splunk/latest/admin/Outputsconf
 class splunk::outputs (
-  $indexandforward = $::splunk::indexandforward,
-  $output_hash     = $::splunk::output_hash,
-  $port            = $::splunk::port,
-  $path            = "${::splunk::splunkhome}/etc/system/local",
-  $tcpout_disabled = false,
+  $configure_outputs = $::splunk::configure_outputs,
+  $indexandforward   = $::splunk::indexandforward,
+  $output_hash       = $::splunk::output_hash,
+  $port              = $::splunk::port,
+  $path              = "${::splunk::splunkhome}/etc/system/local",
+  $tcpout_disabled   = false,
   $target_group    = $::splunk::target_group
   ) {
+
+  validate_bool($configure_outputs)
 
   # Check if tcpout_disabled is a string
   if is_string($tcpout_disabled){
@@ -66,13 +74,15 @@ class splunk::outputs (
 
 
 
-  file { "${path}/outputs.conf":
-    ensure  => file,
-    owner   => 'splunk',
-    group   => 'splunk',
-    mode    => '0644',
-    backup  => true,
-    content => template('splunk/opt/splunk/etc/system/local/outputs.conf.erb'),
-    notify  => Class['splunk::service']
+  if ( $configure_outputs == true ) {
+    file { "${path}/outputs.conf":
+      ensure  => file,
+      owner   => 'splunk',
+      group   => 'splunk',
+      mode    => '0644',
+      backup  => true,
+      content => template('splunk/opt/splunk/etc/system/local/outputs.conf.erb'),
+      notify  => Class['splunk::service']
+    }
   }
 }

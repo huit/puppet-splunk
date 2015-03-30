@@ -9,7 +9,10 @@
 #
 # === Parameters
 #
-# Document parameters here.
+# [configure_outputs]
+#    Toggle to enable/disable managment of the outputs.conf file. You may want
+#    to disable the module managment of outputs.conf if you use a deployment server
+#    to manage that file.  Defaults to true
 #
 # [index]
 #   Default index to sent inputs to. Defaults to 'os'
@@ -96,25 +99,26 @@
 # Copyright 2013 Network Systems Team - Harvard University
 #
 class splunk (
-  $service_ensure   = $::splunk::params::service_ensure,
-  $service_enable   = $::splunk::params::service_enable,
-  $index            = $::splunk::params::index,
-  $index_hash       = $::splunk::params::index_hash,
-  $indexandforward  = false,
-  $localusers       = $::splunk::params::localusers,
-  $licenseserver    = undef,
-  $nagios_contacts  = $::splunk::params::nagios_contacts,
-  $nagiosserver     = $::splunk::nagiosserver,
-  $output_hash      = $::splunk::params::output_hash,
-  $port             = $::splunk::params::port,
-  $proxyserver      = $::splunk::params::proxyserver,
-  $purge            = $::splunk::params::purge,
-  $splunkadmin      = $::splunk::params::splunkadmin,
-  $target_group     = $::splunk::params::target_group,
-  $type             = $::splunk::params::type,
-  $package_source   = undef,
-  $package_provider = undef,
-  $version          = $::splunk::params::version,
+  $configure_outputs = $::splunk::params::configure_outputs,
+  $service_ensure    = $::splunk::params::service_ensure,
+  $service_enable    = $::splunk::params::service_enable,
+  $index             = $::splunk::params::index,
+  $index_hash        = $::splunk::params::index_hash,
+  $indexandforward   = false,
+  $localusers        = $::splunk::params::localusers,
+  $licenseserver     = undef,
+  $nagios_contacts   = $::splunk::params::nagios_contacts,
+  $nagiosserver      = $::splunk::nagiosserver,
+  $output_hash       = $::splunk::params::output_hash,
+  $port              = $::splunk::params::port,
+  $proxyserver       = $::splunk::params::proxyserver,
+  $purge             = $::splunk::params::purge,
+  $splunkadmin       = $::splunk::params::splunkadmin,
+  $target_group      = $::splunk::params::target_group,
+  $type              = $::splunk::params::type,
+  $package_source    = undef,
+  $package_provider  = undef,
+  $version           = $::splunk::params::version,
 ) inherits splunk::params {
 
 # Added the preseed hack after getting the idea from very cool
