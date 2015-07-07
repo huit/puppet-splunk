@@ -1,0 +1,9 @@
+<panel>
+  <title>Unix - Logs ingestion over 24 hours</title>
+
+  <table>
+    <searchString>index=os source="*var*log*" | eval temp=1/300.0 | timechart per_second(temp) as EPS | eval event_size=len(_raw)/300.0 | stats sparkline(sum(temp), 5m) as "Events per second", sparkline(sum(event_size), 5m) as "Event throughput (kbps)", avg(EPS) as APS, sum(len(_raw)) as TotalMB by source,sourcetype | eval "Total MB"=TotalMB/1024.0/1024.0 | eval "Average events per second"=APS*300.0</searchString>
+    <earliestTime>-24h@h</earliestTime>
+    <latestTime>now</latestTime>
+  </table>
+</panel>

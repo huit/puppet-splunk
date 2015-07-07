@@ -17,6 +17,15 @@
 
 PRINTF='END {printf "%s SystemUpTime=%s\n", DATE, UPTIME}'
 
+# On HP-UX the `ps` command will only recognize the `-o` option if
+# the `UNIX95` environment variable is set. So do it.
+# 
+# Careful: The `UNIX95` environment variable affects other common
+#          commands like `cp`.
+if [ "x$KERNEL" = "xHP-UX" ]; then
+        export UNIX95=1
+fi
+
 # This should work for any POSIX-compliant system, but in case it doesn't
 # we have left the individual OS names here to be broken out later on.
 if [ "x$KERNEL" = "xLinux" -o "x$KERNEL" = "xSunOS" -o "x$KERNEL" = "xAIX" -o "x$KERNEL" = "xHP-UX" -o "x$KERNEL" = "xDarwin" -o "x$KERNEL" = "xFreeBSD" ] ; then

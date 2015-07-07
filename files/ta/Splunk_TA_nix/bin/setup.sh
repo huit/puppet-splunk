@@ -1087,7 +1087,7 @@ function execute_queue
         echo ""
         usage
     else
-        if [ ! -n "$AUTH_STRING" ]; then
+        if [ -n "$AUTH_STRING" ]; then
             if [ "$remote_server_uri" != "false" ]; then
                 $SPLUNK_HOME/bin/splunk login -uri $remote_server_uri -auth $AUTH_STRING 
                 if [ "$?" != 0 ]; then

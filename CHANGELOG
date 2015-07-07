@@ -1,3 +1,7 @@
+1.7.0 - Joe Eaves <jinux@alluha.net>, Tim Hartmann <tfhartmann@gmail.com> 
+  * Fixes issue #54 by adding configure_outputs parameter
+  * Fixed invalid puppet variable $SPLUNKHOME
+  * Fixes issus #57 by upgrading Splunk TA to version 5.1.2
 1.6.1 - Rob Ruma 
   * Fixed https://github.com/huit/puppet-splunk/issues/51
     * Splunk upgrade prompts during Puppet run

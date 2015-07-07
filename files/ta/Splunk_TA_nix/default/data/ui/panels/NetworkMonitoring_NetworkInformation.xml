@@ -1,0 +1,53 @@
+<panel>
+  <title>Unix - Network Information Browser</title>
+
+  <input type="time" token="time_token" searchWhenChanged="true">
+    <label>Time</label>
+    <default>
+      <earliestTime>-24h@h</earliestTime>
+      <latestTime>now</latestTime>
+    </default>
+  </input>
+
+  <!-- Proto Recv-Q Send-Q LocalAddress ForeignAddress State -->
+  <input type="dropdown" token="NetworkHost" searchWhenChanged="true">
+    <label>Local Host</label>
+    <choice value="*">All</choice>
+    <populatingSearch earliest="$time_token.earliest$" latest="$time_token.latest$" fieldForLabel="host" fieldForValue="host">`nix-netmon-hosts-search`</populatingSearch>
+    <default>*</default>
+  </input>
+
+  <input type="dropdown" token="Proto" searchWhenChanged="true">
+    <label>Protocol</label>
+    <choice value="*">All</choice>
+    <populatingSearch earliest="$time_token.earliest$" latest="$time_token.latest$" fieldForLabel="Proto" fieldForValue="Proto">eventtype=netstat host="$NetworkHost$" | head 1 | multikv fields Proto | stats count by Proto | sort +Proto</populatingSearch>
+    <default>*</default>
+  </input>
+
+  <input type="dropdown" token="RemoteHostName" searchWhenChanged="true">
+    <label>Remote Host</label>
+    <choice value="*">All</choice>
+    <populatingSearch earliest="$time_token.earliest$" latest="$time_token.latest$" fieldForLabel="RemoteHostName" fieldForValue="RemoteHostName">eventtype=netstat host="$NetworkHost$" | head 1 | multikv fields ForeignAddress | rex field=ForeignAddress "(?&lt;RemoteHostName&gt;^.*)[:\.].+$" | where RemoteHostName != "*" | stats count by RemoteHostName | sort +RemoteHostName</populatingSearch>
+    <default>*</default>
+  </input>
+
+  <input type="dropdown" token="RemotePort" searchWhenChanged="true">
+    <label>Remote Port</label>
+    <choice value="*">All</choice>
+    <populatingSearch earliest="$time_token.earliest$" latest="$time_token.latest$" fieldForLabel="RemotePort" fieldForValue="RemotePort">eventtype=netstat host="$NetworkHost$" | head 1 | multikv fields ForeignAddress | rex field=ForeignAddress "^.*[:\.](?&lt;RemotePort&gt;.+)$" | stats count by RemotePort | sort +RemotePort</populatingSearch>
+    <default>*</default>
+  </input>
+
+  <input type="dropdown" token="LocalPort" searchWhenChanged="true">
+    <label>Local Port</label>
+    <choice value="*">All</choice>
+    <populatingSearch earliest="$time_token.earliest$" latest="$time_token.latest$" fieldForLabel="LocalPort" fieldForValue="LocalPort">eventtype=netstat host="$NetworkHost$" | head 1 | multikv fields LocalAddress | rex field=LocalAddress "^.*[:\.](?&lt;LocalPort&gt;.+)$" | stats count by LocalPort | sort +LocalPort</populatingSearch>
+    <default>*</default>
+  </input>
+
+  <table>
+    <searchString>eventtype=netstat host="$NetworkHost$" | head 1 | multikv fields Proto, LocalAddress, ForeignAddress | rex field=ForeignAddress "(?&lt;RemoteHostName&gt;^.*)[:\.](?&lt;RemotePort&gt;.+)$" | rex field=LocalAddress "^.*[:\.](?&lt;LocalPort&gt;.+)$" | search Proto="$Proto$" RemoteHostName="$RemoteHostName$" RemotePort="$RemotePort$" LocalPort="$LocalPort$" | table host, Proto, RemoteHostName, LocalPort, RemotePort | rename Proto as Protocol</searchString>
+    <earliestTime>$time_token.earliest$</earliestTime>
+    <latestTime>$time_token.latest$</latestTime>
+  </table>
+</panel>

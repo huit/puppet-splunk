@@ -1,0 +1,43 @@
+/* Hide Simple XML dashboard controls: Edit, Export PDF, Print */
+.dashboard-view-controls {
+    display: none !important;
+}
+
+#overview {
+    max-width: 500px;
+    text-align: justify;
+}
+
+.error-box {
+    display: none;
+    color: white;
+    background-color: #d85d3c; /* red */
+    padding: 0.5em;
+    margin-bottom: 1em;
+}
+
+.input-table th {
+    text-align: left;
+}
+
+.input-table th,
+.input-table td {
+    padding: 0px 10px 0px 10px;
+}
+
+.input-table input[type="radio"] {
+    margin: 4px;        /* override with symmetric margins */
+}
+
+.input-table .interval-field {
+    width: 4em;         /* narrower than default */
+    text-align: right;  /* make the numbers line up */
+    padding: 2px;       /* reduce from default of 4 */
+}
+
+#btn-bar {
+    margin-top: 1em;    /* separate from table */
+}
+#btn-bar #save-btn {
+    padding-left: 3em; padding-right: 3em; /* made it wider */
+}

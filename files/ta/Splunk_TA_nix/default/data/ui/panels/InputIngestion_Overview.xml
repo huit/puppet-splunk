@@ -1,0 +1,21 @@
+<panel>
+  <title>Unix - Input ingestion over 24 hours</title>
+
+  <table>
+    <searchString>
+  index=os 
+| eval eventcount=1
+| eval eventsize=len(_raw)
+| eval eps=eventcount/(5*60.0)
+| eval thruput=eventsize/(1024.0*5*60.0)
+| stats sparkline(sum(eps), 5m) as "Events per second", 
+        sparkline(sum(thruput), 5m) as "Event throughput (kbps)",  
+        sum(eventsize) as total_event_size,
+        avg(eps) as "Average Events per second"
+| eval "Total MB"=total_event_size/(1024.0*1024.0)
+| fields "Events per second", "Event throughput (kbps)", "Average Events per second", "Total MB"
+    </searchString>
+    <earliestTime>-24h@h</earliestTime>
+    <latestTime>now</latestTime>
+  </table>
+</panel>

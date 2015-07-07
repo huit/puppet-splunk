@@ -41,12 +41,16 @@ elif [ "x$KERNEL" = "xAIX" ] ; then
         # Substitute ? for temporary [field 7] &
         # Substitute R(running) for A(Active) on field 8 in AIX by Jacky Ho, Systex 
 elif [ "x$KERNEL" = "xDarwin" ] ; then
-	if $OSX_GE_SNOW_LEOPARD; then
+	if [ "$OSX_MAJOR_VERSION" -ge 9 ]; then
+		# OS X 10.9 does not report rshrd statistic (Resident Shared Address Space Size)
+		CMD="eval top -F -l 2 -ocpu -Otime -stats pid,username,vsize,rsize,cpu,time,command"
+		FORMAT='{gsub("[+-] ", " "); virt=$3; res=$4; shr="?"; pctCPU=$5; cpuTIME=$6; command=$7; $3="?"; $4="?"; $5=virt; $6=res; $7=shr; $8="?"; $9=pctCPU; $10="?"; $11=cpuTIME; $12=command}'
+	elif $OSX_GE_SNOW_LEOPARD; then
 		CMD="eval top -F -l 2 -ocpu -Otime -stats pid,username,vsize,rsize,rshrd,cpu,time,command"
-		FORMAT='{gsub("[+-] ", " "); virt=$3; res=$4; shr=$5; pctCPU=$6; cpuTIME=$7; command=$8; $3="?"; $4="?"; $5=virt; $6=res; $7=shr; $8="?"; $9=pctCPU; $10="?"; $11=cpuTIME; $12=command}'
+		FORMAT='{gsub("[+-] ", " "); virt=$3; res=$4; shr=$5;  pctCPU=$6; cpuTIME=$7; command=$8; $3="?"; $4="?"; $5=virt; $6=res; $7=shr; $8="?"; $9=pctCPU; $10="?"; $11=cpuTIME; $12=command}'
 	else
 		CMD="eval top -F -l 2 -ocpu -Otime -t -R -p '^aaaaa ^nnnnnnnnnnnnnnnnnn ^lllll ^jjjjj ^ccccc ^ddddd ^bbbbbbbbbbbbbbbbbbbbbbbbbbbbb'"
-		FORMAT='{                    virt=$3; res=$4;         pctCPU=$5; cpuTIME=$6; command=$7; $3="?"; $4="?"; $5=virt; $6=res; $7="?"; $8="?"; $9=pctCPU; $10="?"; $11=cpuTIME; $12=command}'
+		FORMAT='{                    virt=$3; res=$4;          pctCPU=$5; cpuTIME=$6; command=$7; $3="?"; $4="?"; $5=virt; $6=res; $7="?"; $8="?"; $9=pctCPU; $10="?"; $11=cpuTIME; $12=command}'
 	fi
 	HEADERIZE="BEGIN {print \"$HEADER\"}"
 	FILTER='/ %CPU / {reportOrd++; next} {if ((reportOrd < 2) || !length) next}'

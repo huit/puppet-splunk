@@ -2,7 +2,7 @@ Unix Add-on
 ----------------------------------------
 	Author: Splunk
 	Author: Splunk
-	Version/Date: 5.0.0/09-30-2013
+	Version/Date: 5.1.2/2015-04-01
 	Has index-time operations: true, this TA must be deployed on indexers
 	Supported product(s): 
 		 * DHCPD (DHCP server)
@@ -22,4 +22,4 @@ Using this Add-on:
 	http://docs.splunk.com/Documentation/UnixApp/latest/User/AbouttheSplunkTechnicalAdd-on(TA)forUnixandLinux
 	
 	
-Copyright (C) 2005-2013 Splunk Inc. All Rights Reserved.
+Copyright (C) 2005-2015 Splunk Inc. All Rights Reserved.

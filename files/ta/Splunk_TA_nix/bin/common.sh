@@ -52,8 +52,17 @@ case "x$KERNEL" in
         # # # eschew the antedeluvial awk
         AWK=nawk
         ;;
-    "xDarwin")   
-        if [ "`sw_vers | sed -En '/ProductVersion/ s/^[^.]+\.([0-9]+)(\.[^.])?$/\1/p'`" -ge 6 ]; then OSX_GE_SNOW_LEOPARD=true; else OSX_GE_SNOW_LEOPARD=false; fi
+    "xDarwin")
+        OSX_MAJOR_VERSION=`sw_vers | sed -En '/ProductVersion/ s/^[^.]+\.([0-9]+)(\.[^.])?$/\1/p'`
+        
+        # OSX_GE_SNOW_LEOPARD is for backward compatiblity.
+        # Recommend that new code just use $OSX_MAJOR_VERSION directly.
+        if [ "$OSX_MAJOR_VERSION" -ge 6 ]; then
+            OSX_GE_SNOW_LEOPARD=true;
+        else
+            OSX_GE_SNOW_LEOPARD=false;
+        fi
+        
         ;;
     "xFreeBSD")
         ;;

@@ -22,7 +22,7 @@ if [ "x$KERNEL" = "xLinux" -o "x$KERNEL" = "xSunOS" -o "x$KERNEL" = "xAIX" -o "x
 	assertHaveCommand date
 	assertHaveCommand uname
 	CMD='eval date ; eval uname -m ; eval uname -r ; eval uname -s ; eval uname -v ; eval uname -p'
-elif [ "x$KERNEL" != "xHP-UX" ] ; then
+elif [ "x$KERNEL" = "xHP-UX" ] ; then
 	# HP-UX lacks -p switch.
 	assertHaveCommand date
 	assertHaveCommand uname

@@ -64,13 +64,13 @@ elif [ "x$KERNEL" = "xAIX" ] ; then
 elif [ "x$KERNEL" = "xHP-UX" ] ; then
     assertHaveCommand uptime
     assertHaveCommand ps
-    assertHaveCommand swapinfo
+    assertHaveCommand /usr/sbin/swapinfo
     assertHaveCommand vmstat
-    CMD='eval uptime ; ps -e | wc -l ; swapinfo -m; vmstat -f; vmstat -s'
+    CMD='eval uptime ; ps -e | wc -l ; /usr/sbin/swapinfo -m; vmstat -f; vmstat -s'
     PARSE_0='NR==1 {loadAvg1mi=0+$(NF-2)} NR==2 {processes=$1} {threads="?"}'
     PARSE_1='NR==5 {swapUsed=$3; swapFree=$4}'
-    PARSE_2='NR==7 {memTotalMB=$2; memUsedMB=$3; memFreeMB=$4}'
-    PARSE_3='NR==8 {forks=$1}'
+    PARSE_2='/^memory / {memTotalMB=$2; memUsedMB=$3; memFreeMB=$4}'
+    PARSE_3='(NR>=8 && $2=="forks,") {forks=$1}'
     PARSE_4='/pages paged out$/ {pgPageOut=$1} /pages swapped out$/ {pgSwapOut=$1}'
     PARSE_5='/interrupts$/ {interrupts=$1} /cpu context switches$/ {cSwitches=$1} /forks$/ {forks=$1}'
     MASSAGE="$PARSE_0 $PARSE_1 $PARSE_2 $PARSE_3 $PARSE_4 $PARSE_5 $DERIVE"
