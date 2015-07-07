@@ -1,3 +1,5 @@
+1.7.1 - Tim Hartmann <tfhartmann@gmail.com> 
+  * Fixes issue #54 by adding configure_outputs parameter
 1.7.0 - Joe Eaves <jinux@alluha.net>, Tim Hartmann <tfhartmann@gmail.com> 
   * Fixes issue #54 by adding configure_outputs parameter
   * Fixed invalid puppet variable $SPLUNKHOME
