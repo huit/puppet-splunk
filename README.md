@@ -101,6 +101,8 @@ splunk::ta::files { 'Splunk_TA_nix': }
 
 ## Usage
 
+[Classes and Defined Types](#classes-and-defined-types)
+  * [Class: Splunk](#class-splunk)
 [Splunk Universal Forwarder](#splunk-universal-forwarder)
 [Splunk Light Weight Forwarder](#splunk-light-weight-forwarder)
 [Splunk Indexer](#splunk-indexer)
@@ -111,8 +113,79 @@ splunk::ta::files { 'Splunk_TA_nix': }
 [Transforms.conf](#splunktransforms)
 [Server Ulimit](#splunkulimit)
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+### Classes and defined types
+####Class: `splunk`
+##### `configure_outputs`
+Toggle to enable/disable managment of the outputs.conf file. You may want
+to disable the module managment of outputs.conf if you use a deployment server
+to manage that file.  Defaults to true
+
+##### `index`
+Default index to sent inputs to. Defaults to 'os'
+
+
+##### `licenseserver`
+fqdn of License host, passing this param will turn the node into a license
+slave of a configured license server.
+For a license master set licenseserver => 'self'
+
+##### `nagios_contacts`
+Accepts a comma seperated list of contacts. Then enables and exports
+Nagios Service checks for monitoring.
+
+##### `output_hash`
+Optional hash of outputs that can be used instead of, or in addition to the
+default group (tcpout) Useful for forwarding data to third party tools from
+indexers.
+
+```Puppet
+   output_hash   => { 'syslog:example_group' => {
+                        'server' => 'server.example.com:514' }
+                    }
+```
+
+##### `package_provider`
+Defaults to undef
+
+##### `package_source`
+Defaults to undef
+
+##### `port`
+Splunk Default Input Port for indexers. Defaults to 9997. This sets both
+The ports Monitored and the ports set in outputs.conf
+
+##### `proxyserver`
+Define a proxy server for Splunk to use. Defaults to false.
+
+##### `purge`
+```Puppet
+purge => true
+```
+
+purge defaults to false, and only accepts a boolean as an argument.
+purge purges all traces of splunk *without* a backup.
+
+##### `splunkadmin`
+
+##### `target_group`
+Hash used to define splunk default groups and servers, valid configs are
+
+```Puppet
+{ 'target group name' => 'server/ip' }
+```
+
+##### `type`
+Install type. Defaults to Universal Forwarder valid inputs are:
+ * uf      : Splunk Universal Forwarder
+ * lwf     : Splunk Light Weight Forwarder
+ * hwf     : Splunk Heavy Weight Forwarder
+ * jobs    : Splunk Jobs Server - Search + Forwarding
+ * search  : Splunk Search Head
+ * indexer : Splunk Distribuited Index Server
+
+##### `version`
+Install package version, defaults to 'latest'
+
 
 ### Splunk Universal Forwarder
 

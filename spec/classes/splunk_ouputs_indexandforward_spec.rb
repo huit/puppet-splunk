@@ -5,11 +5,12 @@ describe 'splunk::outputs', :type => :class do
     describe "on RedHat platform" do
       let(:facts) { { :osfamily => 'RedHat' } }
       let(:params) { {
-        :indexandforward => true,
-        :port            => '50514',
-        :path            => '/opt/splunk/etc/system/local',
-        :output_hash     => { },
-        :target_group    => { "example1" => "server1.example.com" }
+        :configure_outputs => true,
+        :indexandforward   => true,
+        :port              => '50514',
+        :path              => '/opt/splunk/etc/system/local',
+        :output_hash       => { },
+        :target_group      => { "example1" => "server1.example.com" }
       } }
 
       it { should create_class('splunk::outputs') }
