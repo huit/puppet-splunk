@@ -13,6 +13,7 @@ class splunk::params {
   $proxyserver       = undef
   $purge             = undef
   $version           = 'installed'
+  $replace_passwd    = 'no'
 
   if $::mode == maintenance {
     $service_ensure = 'stopped'
