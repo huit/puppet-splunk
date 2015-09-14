@@ -8,6 +8,7 @@ class splunk::install (
   $version          = $::splunk::version,
   $package_source   = $::splunk::package_source,
   $package_provider = $::splunk::package_provider,
+  $replace_passwd   = $::splunk::replace_passwd
   ) {
 
   package { $pkgname:
@@ -51,6 +52,7 @@ class splunk::install (
 
   file { "${splunkhome}/etc/passwd":
     ensure  => present,
+    replace => $replace_passwd,
     mode    => '0600',
     owner   => 'root',
     group   => 'root',
