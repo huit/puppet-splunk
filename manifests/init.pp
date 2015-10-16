@@ -119,7 +119,7 @@ class splunk (
   $package_source    = undef,
   $package_provider  = undef,
   $version           = $::splunk::params::version,
-  $replace_passwd    = $::splunk::params::replace_passwd, 
+  $replace_passwd    = $::splunk::params::replace_passwd,
 ) inherits splunk::params {
 
 # Added the preseed hack after getting the idea from very cool
