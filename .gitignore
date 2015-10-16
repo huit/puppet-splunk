@@ -6,3 +6,4 @@ pkg/
 Gemfile.lock
 spec/fixtures/
 .vagrant/
+.gems/
