@@ -1,0 +1,9 @@
+# Default limits.conf file
+# Managed through Puppet
+# Copyright (C) 2009-2012 Splunk Inc. All Rights Reserved.
+<% @limit_title.sort.each do |limitname| -%>
+[<%= limitname -%>]
+  <% @limit_hash[limitname].sort.each do |key,value| -%>
+  <%= key -%> = <%= value %>
+  <% end %>
+<% end %>
