@@ -112,6 +112,7 @@ splunk::ta::files { 'Splunk_TA_nix': }
 [Props.conf](#splunkprops)
 [Transforms.conf](#splunktransforms)
 [Server Ulimit](#splunkulimit)
+[limits.conf](#splunklimits)
 
 ### Classes and defined types
 ####Class: `splunk`
@@ -346,6 +347,21 @@ class { 'splunk::inputs':
     value => 16384,
   }
 ```
+### splunk::limits
+  This is an optional sub-class which you can pass a nested hash into to create
+  custom limits for Heavy Fowarders, agents or indexers
+
+  By Default the file is created in $splunkhome/etc/system/local
+
+```Puppet
+class { 'splunk::limits':
+  limit_hash   => { 'search' => {
+                      max_searches_per_cpu => '1'},
+                    'thruput' => {
+                      maxKBps   => '10240',}
+ }
+
+```
 
 ## Reference
 
@@ -377,4 +393,5 @@ Quickstart:
     bundle exec rake spec
 
 To run beaker tests:
+
     bundle exec rake beaker
