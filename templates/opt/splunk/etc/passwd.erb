@@ -1,6 +1,6 @@
 <%= @splunkadmin %>
-<% if @type  == 'search' and @localusers != :undef then -%>
-<%     localusers.each do |user| -%>
+<% if @type  == 'search' and @localusers then -%>
+<%     @localusers.each do |user| -%>
 <%= user %>
 <%     end -%>
 <% end -%>
