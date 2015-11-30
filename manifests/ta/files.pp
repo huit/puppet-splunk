@@ -26,37 +26,29 @@ define splunk::ta::files (
   $status     = 'enabled',
   $splunkhome = $::splunk::splunkhome
 ) {
-  File { ignore => '*.py[oc]' }
 
-  file { "${splunkhome}/etc/apps/${title}":
-    ensure  => present,
-    owner   => 'splunk',
-    group   => 'splunk',
-    recurse => true,
-    purge   => false,
-    source  => $configfile,
-    require => Class['splunk::install'],
-    notify  => Class['splunk::service'],
-  } ->
-  file { "${splunkhome}/etc/apps/${title}/local":
-    ensure => directory,
-  } ->
-  file { "${splunkhome}/etc/apps/${title}/local/app.conf":
-    ensure  => file,
+  File { 
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0644',
+    ignore  => '*.py[oc]',
     require => Class['splunk::install'],
     notify  => Class['splunk::service'],
-  } ->
-  file { "${splunkhome}/etc/apps/${title}/local/inputs.conf":
+    before  => Ini_setting["Enable Splunk ${title} TA"],
+  }
+
+  file { "${splunkhome}/etc/apps/${title}":
     ensure  => present,
-    owner   => 'splunk',
-    group   => 'splunk',
+    recurse => true,
+    purge   => false,
+    source  => $configfile,
+  } 
+
+  file { "${splunkhome}/etc/apps/${title}/local/inputs.conf":
+    ensure  => file,
     content => template($inputfile),
-    require => Class['splunk::install'],
-    notify  => Class['splunk::service'],
-  } ->
+  }
+
   ini_setting { "Enable Splunk ${title} TA":
     ensure  => present,
     path    => "${splunkhome}/etc/apps/${title}/local/app.conf",
