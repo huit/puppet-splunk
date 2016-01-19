@@ -1,0 +1,47 @@
+<?xml version='1.0'?>
+<!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
+<service_bundle type='manifest' name='export'>
+  <service name='site/splunk' type='service' version='0'>
+    <create_default_instance enabled='false'/>
+    <single_instance/>
+    <dependency name='fs-local' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/system/filesystem/local'/>
+    </dependency>
+    <dependency name='splunk_multi-user' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/milestone/multi-user'/>
+    </dependency>
+    <dependency name='splunk_network' grouping='require_all' restart_on='none' type='service'>
+      <service_fmri value='svc:/milestone/network'/>
+    </dependency>
+    <dependency name='splunk-binary' grouping='require_all' restart_on='refresh' type='path'>
+        <service_fmri value='file://localhost<%= @splunkhome %>/bin/splunk'/>
+    </dependency>
+    <dependency name='splunk-license' grouping='require_all' restart_on='refresh' type='path'>
+      <service_fmri value='file://localhost<%= @splunkhome %>/etc/splunk.license'/>
+    </dependency>
+    <dependent name='splunk_multi-user-server' restart_on='none' grouping='optional_all'>
+      <service_fmri value='svc:/milestone/multi-user-server'/>
+    </dependent>
+    <method_context project=':default' resource_pool=':default' working_directory=':default'>
+      <method_credential group='splunk' limit_privileges=':default' privileges='basic,file_dac_read,net_privaddr' supp_groups=':default' user='<%= @user %>'/>
+      <method_environment>
+        <envvar name='SPLUNK_HOME' value='<%= @splunkhome %>'/>
+      </method_environment>
+    </method_context>
+    <exec_method name='start' type='method' exec='<%= @splunkhome %>/bin/splunk %m --accept-license' timeout_seconds='300'>
+      <method_context/>
+    </exec_method>
+    <exec_method name='stop' type='method' exec='<%= @splunkhome %>/bin/splunk %m' timeout_seconds='300'>
+      <method_context/>
+    </exec_method>
+    <exec_method name='refresh' type='method' exec='<%= @splunkhome %>/bin/splunk restart' timeout_seconds='600'>
+      <method_context/>
+    </exec_method>
+    <stability value='Unstable'/>
+    <template>
+      <common_name>
+        <loctext xml:lang='C'>splunk log server</loctext>
+      </common_name>
+    </template>
+  </service>
+</service_bundle>

@@ -1,19 +1,33 @@
 #### THIS FILE MANAGED BY PUPPET ####
-# Copyright (C) 2005-2010 Splunk Inc.  All Rights Reserved.  Version 4.1.5
-#
+
 # Modify the following line to suit the location of your Splunk install.
 # If unset, Splunk will use the parent of the directory this configuration
 # file was found in
 #
-SPLUNK_HOME=/opt/splunk
+SPLUNK_HOME="<%= @splunkhome %>"
 
-# 
 # By default, Splunk stores its indexes under SPLUNK_HOME in the
 # var/lib/splunk subdirectory.  This can be overridden
 # here:
 #
-# SPLUNK_DB=/opt/splunk/var/lib/splunk
-http_proxy = <%= proxyserver -%>:3128
+# SPLUNK_DB=/home/build/build-home/ember/var/lib/splunk
 
+# Splunkd daemon name
+SPLUNK_SERVER_NAME=Splunkd
+
+# Splunkweb daemon name
+SPLUNK_WEB_NAME=splunkweb
+
+# If SPLUNK_OS_USER is set, then Splunk service will only start
+# if the 'splunk [re]start [splunkd]' command is invoked by a user who
+# is, or can effectively become via setuid(2), $SPLUNK_OS_USER.
+# (This setting can be specified as username or as UID.)
+#
+# SPLUNK_OS_USER
+SPLUNK_OS_USER="<%= @user %>"
+
+<% if @proxyserver -%>
+http_proxy="<%= @proxyserver %>"
+<% end -%>
 
 #### THIS FILE MANAGED BY PUPPET ####

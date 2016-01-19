@@ -18,9 +18,14 @@ class splunk::params {
   $group             = 'root'
 
   if $::osfamily == 'RedHat' {
+    $init_system = 'sysv_compat'
     $init_confdir = '/etc/sysconfig'
-  } else {
+  } elsif $::osfamily == 'Debian' {
+    $init_system = 'sysv_compat'
     $init_confdir = '/etc/default'
+  } elsif $::osfamily == 'Solaris' {
+    $init_system = 'smf'
+    $init_confdir = undef
   }
 
   if $::mode == maintenance {
