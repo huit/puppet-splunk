@@ -6,8 +6,11 @@ disabled = <%= @tcpout_disabled %>
 
 <% @groupkeys.sort.each do |group| -%>
 [tcpout:<%= group -%>]
+<% if @target_group[group].is_a?(Array) -%>
+server = <%= @target_group[group].map { |server| "#{server}:#{@port}"}.join(',') %>
+<% else -%>
 server = <%= @target_group[group] -%>:<%= @port %>
-
+<% end -%>
 <% end -%>
 <% end -%>
 <% if @indexandforward == true || @indexandforward == 'true' || @indexandforward == 'True' -%>
