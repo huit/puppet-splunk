@@ -9,14 +9,17 @@ rvm:
   - 2.0.0
 bundler_args: --without system_tests
 env:
-  matrix:
+  - PUPPET_VERSION=4.4.1
   - PUPPET_VERSION=3.7.3
   - PUPPET_VERSION=3.6.0
-  - PUPPET_VERSION=3.5.0
+  - PUPPET_VERSION=3.5.1
   - PUPPET_VERSION=3.4.2
   - PUPPET_VERSION=3.3.1
   - PUPPET_VERSION=3.2.3
   - PUPPET_VERSION=2.7.21
-  global:
-  - PUBLISHER_LOGIN=huit
-  - secure: Ijc9NOKcofDC+i0afauvFj7P6vqtThbeMnjuOYxaqcMPfM4f+IrxpzyoIjOzDbD83b0vMYCSItPW/RExVINkwhjghfzPhMsbjfA2XfcvWYMxCOsvXR3TMHSNyPGD7ITbitUDofJ0TTIfZQwE10SeI8MhfL61a4eiR2QNQhDyraI=
+matrix:
+  exclude:
+   - rvm: 1.8.7
+     env: PUPPET_VERSION=4.4.1
+   - rvm: 2.0.0
+     env: PUPPET_VERSION=2.7.21
