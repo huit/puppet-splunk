@@ -108,7 +108,7 @@ class splunk (
   $localusers        = $::splunk::params::localusers,
   $licenseserver     = undef,
   $nagios_contacts   = $::splunk::params::nagios_contacts,
-  $nagiosserver      = $::splunk::nagiosserver,
+  $nagiosserver      = undef,
   $output_hash       = $::splunk::params::output_hash,
   $port              = $::splunk::params::port,
   $proxyserver       = $::splunk::params::proxyserver,

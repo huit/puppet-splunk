@@ -1,3 +1,5 @@
+1.7.2 - Ben Roberts <me@benroberts.net> 
+  * Fix comparison of @localusers to undef for puppet3.7/ruby1.8
 1.7.1 - Tim Hartmann <tfhartmann@gmail.com> 
   * Fixes issue #54 by adding configure_outputs parameter
 1.7.0 - Joe Eaves <jinux@alluha.net>, Tim Hartmann <tfhartmann@gmail.com> 
