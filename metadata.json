@@ -1,6 +1,6 @@
 {
   "name": "huit-splunk",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "author": "Tim Hartmann",
   "summary": "Manage Splunk Agents and Servers",
   "license": "MIT",
