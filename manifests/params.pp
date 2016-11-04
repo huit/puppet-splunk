@@ -14,6 +14,7 @@ class splunk::params {
   $purge             = undef
   $version           = 'installed'
   $replace_passwd    = 'no'
+  $manage_certs      = true
 
   if $::mode == maintenance {
     $service_ensure = 'stopped'
