@@ -19,15 +19,15 @@
 #    value => '16384',
 #  }
 #
-define splunk::ulimit ( $value = '40960' ) {
+define splunk::ulimit ( $user = 'root', $value = '40960' ) {
   augeas { "set splunk ${name} ulimit":
     context => '/files/etc/security/limits.conf/',
     changes => [
-      "set \"domain[last()]\" root",
-      "set \"domain[.='root']/type\" -",
-      "set \"domain[.='root']/item\" ${name}",
-      "set \"domain[.='root']/value\" ${value}",
+      "set \"domain[last()]\" ${user}",
+      "set \"domain[.='${user}']/type\" -",
+      "set \"domain[.='${user}']/item\" ${name}",
+      "set \"domain[.='${user}']/value\" ${value}",
       ],
-    onlyif  => "match domain[.='root'][type='-'][item='${name}'][value='${value}'] size == 0",
+    onlyif  => "match domain[.='${user}'][type='-'][item='${name}'][value='${value}'] size == 0",
   }
 }

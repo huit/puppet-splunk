@@ -12,27 +12,47 @@ RETVAL=0
 
 . /etc/init.d/functions
 
+test -f /etc/sysconfig/splunk && . /etc/sysconfig/splunk
+
+CMD=${CMD-/opt/splunk/bin/splunk}
+USER="${USER-root}"
+
+CURRENT_USER=`id -nu`
+
+run_splunk() {
+    if [[ $CURRENT_USER == $USER ]]; then
+        $CMD "$@"
+    else
+        if [[ "${CURRENT_USER}" != "root" ]]; then
+            echo "Script must be run from $USER or root. You are '${CURRENT_USER}'"
+            exit 1
+        fi
+
+        su ${USER} --command="$CMD $*"
+    fi
+}
+
 splunk_start() {
   echo Starting Splunk...
-  "/opt/splunk/bin/splunk" start --accept-license --no-prompt --answer-yes
+  run_splunk start --accept-license --no-prompt --answer-yes
   RETVAL=$?
   [ $RETVAL -eq 0 ] && touch /var/lock/subsys/splunk
 }
 splunk_stop() {
   echo Stopping Splunk...
-  "/opt/splunk/bin/splunk" stop 
+  run_splunk stop 
   RETVAL=$?
   [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/splunk
 }
 splunk_restart() {
   echo Restarting Splunk...
-  "/opt/splunk/bin/splunk" restart --accept-license --no-prompt --answer-yes
+  run_splunk restart --accept-license --no-prompt --answer-yes
   RETVAL=$?
   [ $RETVAL -eq 0 ] && touch /var/lock/subsys/splunk
 }
 splunk_status() {
   echo Splunk status:
-  "/opt/splunk/bin/splunk" status 
+  run_splunk status 
   RETVAL=$?
 }
 case "$1" in
