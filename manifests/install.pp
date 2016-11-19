@@ -8,7 +8,11 @@ class splunk::install (
   $version          = $::splunk::version,
   $package_source   = $::splunk::package_source,
   $package_provider = $::splunk::package_provider,
-  $replace_passwd   = $::splunk::replace_passwd
+  $replace_passwd   = $::splunk::replace_passwd,
+  $user             = $::splunk::user,
+  $group            = $::splunk::group,
+  $init_system      = $::splunk::init_system,
+  $init_confdir     = $::splunk::init_confdir,
   ) {
 
   package { $pkgname:
@@ -17,12 +21,13 @@ class splunk::install (
     source   => $package_source,
   }->
 
-  file { '/etc/init.d/splunk':
-    ensure => present,
-    mode   => '0700',
-    owner  => 'root',
-    group  => 'root',
-    source => "puppet:///modules/splunk/${::osfamily}/etc/init.d/${pkgname}"
+  file { "${splunkhome}/etc/splunk-launch.conf":
+    ensure  => present,
+    mode    => '0444',
+    owner   => $user,
+    group   => $group,
+    backup  => true,
+    content => template('splunk/opt/splunk/etc/splunk-launch.conf.erb'),
   } ->
 
   # inifile
@@ -54,8 +59,8 @@ class splunk::install (
     ensure  => present,
     replace => $replace_passwd,
     mode    => '0600',
-    owner   => 'root',
-    group   => 'root',
+    owner   => $user,
+    group   => $group,
     backup  => true,
     content => template('splunk/opt/splunk/etc/passwd.erb'),
   } ->
@@ -70,4 +75,42 @@ class splunk::install (
       purge   => false,
       source  => 'puppet:///modules/splunk/noarch/opt/splunk/etc/auth',
   }
+
+  # On operatingsystems that use init scripts, include the configuration file
+  # Separate from the above dependency chain because it might not exist
+  if $init_system == 'sysv_compat' {
+    file { "${init_confdir}/${pkgname}":
+      ensure  => present,
+      mode    => '0700',
+      owner   => 'root',
+      group   => 'root',
+      content => template('splunk/init_conf.erb'),
+      require => Package[$pkgname],
+    } ->
+
+    file { '/etc/init.d/splunk':
+      ensure => present,
+      mode   => '0700',
+      owner  => 'root',
+      group  => 'root',
+      source => "puppet:///modules/splunk/${::osfamily}/etc/init.d/${pkgname}"
+    }
+  }
+  elsif $init_system == 'smf' {
+    file { '/var/svc/manifest/site/splunk.smf.xml':
+      content => template('splunk/Solaris/splunk.smf.xml.erb'),
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0444',
+      require => Package[$pkgname],
+      notify  => Exec['splunk-smf-importer'];
+    }
+
+    exec { 'splunk-smf-importer':
+      refreshonly => true,
+      command     => '/usr/sbin/svcadm restart manifest-import';
+
+    }
+  }
+
 }
