@@ -153,17 +153,14 @@ class splunk (
   } else {
     class { 'splunk::install':
       notify => Class['splunk::service'],
-      before => Class['splunk::outputs'],
     }
     class { 'splunk::service': }
 
     case $type {
       'uf': {
-        class { 'splunk::outputs': }
         class { 'splunk::config::mgmt_port': }
     }
       'lwf': {
-        class { 'splunk::outputs': }
         class { 'splunk::config::lwf': }
         class { 'splunk::config::mgmt_port': }
         class { 'splunk::config::remove_uf': }
