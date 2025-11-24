@@ -8,7 +8,10 @@ class splunk::install (
   $version          = $::splunk::version,
   $package_source   = $::splunk::package_source,
   $package_provider = $::splunk::package_provider,
-  $replace_passwd   = $::splunk::replace_passwd
+  $replace_passwd   = $::splunk::replace_passwd,
+  $user             = $::splunk::user,
+  $group            = $::splunk::group,
+  $init_confdir     = $::splunk::init_confdir,
   ) {
 
   package { $pkgname:
@@ -16,6 +19,14 @@ class splunk::install (
     provider => $package_provider,
     source   => $package_source,
   }->
+
+  file { "${init_confdir}/${pkgname}":
+    ensure  => present,
+    mode    => '0700',
+    owner   => 'root',
+    group   => 'root',
+    content => template('splunk/init_conf.erb'),
+  } ->
 
   file { '/etc/init.d/splunk':
     ensure => present,
@@ -54,8 +65,8 @@ class splunk::install (
     ensure  => present,
     replace => $replace_passwd,
     mode    => '0600',
-    owner   => 'root',
-    group   => 'root',
+    owner   => $user,
+    group   => $group,
     backup  => true,
     content => template('splunk/opt/splunk/etc/passwd.erb'),
   } ->

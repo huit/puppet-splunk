@@ -14,6 +14,14 @@ class splunk::params {
   $purge             = undef
   $version           = 'installed'
   $replace_passwd    = 'no'
+  $user              = 'root'
+  $group             = 'root'
+
+  if $::osfamily == 'RedHat' {
+    $init_confdir = '/etc/sysconfig'
+  } else {
+    $init_confdir = '/etc/default'
+  }
 
   if $::mode == maintenance {
     $service_ensure = 'stopped'
