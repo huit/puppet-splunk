@@ -14,7 +14,6 @@ class splunk::deploymentclient (
   $path              = "${::splunk::splunkhome}/etc/system/local",
   $targeturi         = undef
   ) {
-  Class{ require => Class['splunk::install'] }
 
   # Validate string
   if !$targeturi {
